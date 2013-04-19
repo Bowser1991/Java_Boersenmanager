@@ -1,3 +1,5 @@
+package asset;
+
 public class CashAccount extends Asset {
     
     private long accountStatus;

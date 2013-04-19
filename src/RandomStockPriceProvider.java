@@ -1,5 +1,7 @@
 import java.util.Random;
 
+import asset.Share;
+
 public class RandomStockPriceProvider extends StockPriceProvider {
      public RandomStockPriceProvider(Share[] availableShare) {
             super(availableShare);

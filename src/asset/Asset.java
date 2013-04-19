@@ -1,5 +1,7 @@
+package asset;
+
 public abstract class Asset {
-    protected final String name;
+    public final String name;
     
     public Asset(String name){
         this.name = name;

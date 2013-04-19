@@ -1,3 +1,4 @@
+package asset;
 
 public class Share {
     public final String name;

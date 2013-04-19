@@ -1,3 +1,5 @@
+import asset.Asset;
+import asset.Share;
 import Exception.NotAddablePlayerException;
 import Exception.ShareException;
 import Exception.WrongNameException;

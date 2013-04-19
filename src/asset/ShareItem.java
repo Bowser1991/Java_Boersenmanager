@@ -1,3 +1,4 @@
+package asset;
 import Exception.ShareException;
 public class ShareItem extends Asset {
     

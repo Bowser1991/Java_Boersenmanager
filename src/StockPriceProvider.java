@@ -1,3 +1,4 @@
+import asset.Share;
 import Exception.WrongNameException;
 
 

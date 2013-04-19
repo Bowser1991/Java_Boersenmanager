@@ -6,6 +6,8 @@ import java.util.TimerTask;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import asset.Share;
+
 
 public class StockPriceViewer extends JFrame {
     private StockPriceInfo sharepriceinfo = null;

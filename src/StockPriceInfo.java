@@ -1,3 +1,5 @@
+import asset.Share;
+
 
 public interface StockPriceInfo {
     

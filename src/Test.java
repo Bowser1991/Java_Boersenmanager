@@ -1,4 +1,6 @@
 
+import asset.Share;
+import asset.ShareDeposit;
 import Exception.ShareException;
 
 
