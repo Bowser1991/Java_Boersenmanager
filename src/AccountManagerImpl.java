@@ -118,8 +118,8 @@ public class AccountManagerImpl implements AccountManager {
         String s = "";
         for (int i = 0; i < allplayers.length; i++){
             if (allplayers[i] != null){
-                s += "Player name: " + allplayers[i].name + "\n\r" + allplayers[i].getCashAccount().toString() + "\n\r";
-                s += allplayers[i].getShareDeposit().toString() + "\n\r" + "\n\r";
+                s += "Player name: " + allplayers[i].name +  allplayers[i].getCashAccount().toString() + "\n\r";
+                s += allplayers[i].getShareDeposit().toString() +  "\n\r";
                 
             }
         }

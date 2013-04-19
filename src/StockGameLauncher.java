@@ -60,9 +60,9 @@ public class StockGameLauncher {
         String eingabe = "";
         AccountManagerImpl manager = new AccountManagerImpl(shareArray());
         AccountManagerImpl newmanager = new AccountManagerImpl(shareArray());
-        StockPriceInfo info = new RandomStockPriceProvider(shareArray());
-        StockPriceViewer newviewer = new StockPriceViewer(info, newmanager);
-        newviewer.start();
+//        StockPriceInfo info = new RandomStockPriceProvider(shareArray());
+//        StockPriceViewer newviewer = new StockPriceViewer(info, newmanager);
+//        newviewer.start();
         char eingabeChar;      
         while(true){    
             eingabeChar = (char)System.in.read();
@@ -106,6 +106,7 @@ public class StockGameLauncher {
                 break;
             case "out":
                 System.out.println(manager.getPlayer());
+                eingabe = "";
                 break;
             case "q":
                 System.out.println("Stop");
