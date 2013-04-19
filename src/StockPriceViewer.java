@@ -15,7 +15,6 @@ public class StockPriceViewer extends JFrame {
     private static final int TICK_PERIOD = 1000;
     private Timer ticker;
     private JLabel clockLabel;
-    private int counter = 0;
     
     public StockPriceViewer(StockPriceInfo newinfo, AccountManager manager) {
         sharepriceinfo = newinfo;
