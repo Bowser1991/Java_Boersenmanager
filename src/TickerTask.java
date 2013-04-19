@@ -35,8 +35,5 @@ public class TickerTask {
             }
         }, 2000, UPDATETIME);
     }
-//hallo
-   
-   
-   
+
 }

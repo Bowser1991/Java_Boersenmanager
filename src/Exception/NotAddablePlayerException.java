@@ -10,5 +10,5 @@ public class NotAddablePlayerException extends RuntimeException{
 		super(s);
 	}
 
-//hallo
+
 }
