@@ -1,0 +1,13 @@
+import Exception.ShareException;
+public interface AccountManager {
+    
+     void addPlayer(String name, long accountworth);
+     void buyShare(String playername, String sharename, int amount) throws ShareException;
+     void sellShare(String playername, String sharename, int amount) throws ShareException;
+     long getAssetworth(Asset asset);
+     long getAllAssetworth(String playername);
+     Player[] getAllPlayer ();
+//   long getShareprice(String name);
+//   String getAvailableShares();
+}
+
