@@ -10,5 +10,6 @@ public interface AccountManager {
      Player[] getAllPlayer ();
 //   long getShareprice(String name);
 //   String getAvailableShares();
+// ahaha
 }
 
