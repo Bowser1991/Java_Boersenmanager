@@ -28,12 +28,12 @@ public class Player {
     
     public void buyShare(Share share, int amount){
         deposit.buyShare(share, amount);
-        account.setAccountStatus((share.getActualSharePrice()*amount));
+        account.setAccountStatus((account.getAccountStatus()-(share.getActualSharePrice()*amount)));
     }
     
     public void sellShare(Share share, int amount) throws ShareException{
         deposit.sellShare(share, amount);
-        account.setAccountStatus((share.getActualSharePrice()*amount));
+        account.setAccountStatus((account.getAccountStatus()-(share.getActualSharePrice()*amount)));
     }
     
     public ShareDeposit getShareDeposit(){
