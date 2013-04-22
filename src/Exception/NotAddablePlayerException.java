@@ -9,6 +9,4 @@ public class NotAddablePlayerException extends RuntimeException{
 	public NotAddablePlayerException(String s) {
 		super(s);
 	}
-
-
 }
