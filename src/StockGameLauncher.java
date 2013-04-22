@@ -103,7 +103,8 @@ public class StockGameLauncher {
                 playername = readInString();
                 System.out.print("Account worth: ");
                 accountworth = readInLong();
-                manager.addPlayer(playername, accountworth);
+                manager.addPlayer(playername);
+                manager.setPlayerAccount(accountworth, playername);
                 eingabe = "";
                 break;
             case "out":

@@ -15,10 +15,13 @@ public class AccountManagerImpl implements AccountManager {
 		provider = new RandomStockPriceProvider(shares);
 	}
 
+	public void setPlayerAccount(long accountworth, String playername){
+		Player player = searchInPlayer(playername);
+		player.setAccountWorth(accountworth);
+	}
 
-
-	public void addPlayer(String name, long accountworth) throws NotAddablePlayerException {
-		Player newplayer = new Player(name, accountworth);
+	public void addPlayer(String name) throws NotAddablePlayerException {
+		Player newplayer = new Player(name);
 		// saves the player in an free space
 		for (int i = 0; i < allplayers.length; i++) {
 			if (allplayers[i] == null) {
@@ -116,7 +119,6 @@ public class AccountManagerImpl implements AccountManager {
 	}
 	
 	public String getPlayer() {
-        
         String s = "";
         for (int i = 0; i < allplayers.length; i++){
             if (allplayers[i] != null){

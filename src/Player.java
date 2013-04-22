@@ -36,6 +36,10 @@ public class Player {
         account.setAccountStatus((account.getAccountStatus()-(share.getActualSharePrice()*amount)));
     }
     
+    public void setAccountWorth(long newworth){
+    	this.account.setAccountStatus(newworth);
+    }
+    
     public ShareDeposit getShareDeposit(){
         return deposit;
     }
