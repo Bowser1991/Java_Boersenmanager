@@ -1,6 +1,4 @@
-import asset.CashAccount;
-import asset.Share;
-import asset.ShareDeposit;
+package asset;
 import Exception.ShareException;
 
 

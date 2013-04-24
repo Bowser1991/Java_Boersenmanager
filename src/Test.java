@@ -1,4 +1,8 @@
 
+import priceprovider.RandomStockPriceProvider;
+import innerimpl.AccountManagerImpl;
+import innerimpl.StockPriceInfo;
+import innerimpl.StockPriceViewer;
 import asset.Share;
 import asset.ShareDeposit;
 import Exception.ShareException;
@@ -28,8 +32,8 @@ public class Test {
         deposit1.buyShare(share2, 3);
         
 //        System.out.println(deposit1.toString());
-        newmanager.addPlayer("Daniel",1000000l);
-        newmanager.addPlayer("Manuel",1000000l);            
+        newmanager.addPlayer("Daniel");
+        newmanager.addPlayer("Manuel");            
 
        newmanager.buyShare("Daniel", "Opel", 5);
        

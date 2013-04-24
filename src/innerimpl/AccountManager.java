@@ -1,5 +1,7 @@
+package innerimpl;
 
 import asset.Asset;
+import asset.Player;
 import Exception.ShareException;
 public interface AccountManager {
     

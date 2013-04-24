@@ -1,3 +1,5 @@
+package priceprovider;
+import innerimpl.StockPriceProvider;
 import asset.Share;
 
 

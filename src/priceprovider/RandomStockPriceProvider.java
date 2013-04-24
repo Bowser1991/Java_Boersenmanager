@@ -1,3 +1,6 @@
+package priceprovider;
+import innerimpl.StockPriceProvider;
+
 import java.util.Random;
 
 import asset.Share;

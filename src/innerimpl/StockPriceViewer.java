@@ -1,3 +1,5 @@
+package innerimpl;
+
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -6,6 +8,7 @@ import java.util.TimerTask;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import asset.Player;
 import asset.Share;
 
 

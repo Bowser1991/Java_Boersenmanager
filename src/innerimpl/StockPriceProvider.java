@@ -1,3 +1,5 @@
+package innerimpl;
+import priceprovider.TickerTask;
 import asset.Share;
 import Exception.WrongNameException;
 

@@ -1,5 +1,9 @@
+package priceprovider;
+import innerimpl.StockPriceProvider;
+
 import java.util.Timer;
 import java.util.TimerTask;
+
 
 public class TickerTask {
     private final static int UPDATETIME = 5000;

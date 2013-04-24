@@ -1,5 +1,7 @@
-
+package innerimpl;
+import priceprovider.*;
 import asset.Asset;
+import asset.Player;
 import asset.Share;
 import Exception.NotAddablePlayerException;
 import Exception.ShareException;
