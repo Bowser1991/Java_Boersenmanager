@@ -1,4 +1,3 @@
-
 import asset.Asset;
 import asset.Share;
 import Exception.NotAddablePlayerException;
