@@ -1,3 +1,4 @@
+
 import asset.Asset;
 import Exception.ShareException;
 public interface AccountManager {
