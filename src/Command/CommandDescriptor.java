@@ -9,6 +9,9 @@ public class CommandDescriptor {
 		commandoinfo = (CommandTypeInfo[]) commandenum.getTypeParameters();
 	}
 	
+	
+	
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
