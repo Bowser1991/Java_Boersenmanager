@@ -6,33 +6,45 @@ public class CommandScanner {
 	private CommandTypeInfo[] validcommandos;
 	private static final String REGEXPSEARCHPATTERN = " ";
 	private CommandDescriptor descriptor;
-	private String[] usercommand;
 	
-	public CommandScanner(CommandTypeInfo newcommandoenum[], BufferedReader newreader)throws WrongCommandException{
-		validcommandos = newcommandoenum;
-		String s = newreader.toString();
-		usercommand = s.split(REGEXPSEARCHPATTERN);
-		checkCommandSyntax(usercommand[0]);
+	public CommandScanner(CommandTypeInfo commandinfo[], CommandDescriptor newdescriptor)throws WrongCommandException{
+		validcommandos = commandinfo;
+		descriptor = newdescriptor;
 	}
 	
-	private void checkCommandSyntax(String command) throws WrongCommandException{
+	public void checkCommandSyntax(BufferedReader command) throws WrongCommandException{
+		String buffer = command.toString();
+		String[] userinsert = buffer.split(REGEXPSEARCHPATTERN);
 		for (int i = 0; i < validcommandos.length; i++) {
-			if(command.equals(validcommandos[i].getName())){
-				return;
-			}
-		}
-		throw new WrongCommandException("The Command is nod"+command+" valid");
-	}
-	
-	private void writDescriptorInfo(){
-		for (int i = 0; i < validcommandos.length; i++) {
-			if(usercommand[0].equals(validcommandos[i].getName())){
+			if(userinsert[0].equals(validcommandos[i].getName())){
 				descriptor.setCommandTypeInfo(validcommandos[i]);
+				Object[] paramobject = new Object[validcommandos[i].getParamTypes().length];
+				for (int j = 1; j < userinsert.length; j++) {
+					paramobject[j] = checkparamType(userinsert[j], validcommandos[i], j);
+				}
+				return;
+			}else if(i == validcommandos.length){
+				throw new WrongCommandException("The Command "+command+" is not valid");
 			}
 		}
+	}
+	
+//	private void writDescriptorInfo(){
+//		for (int i = 0; i < validcommandos.length; i++) {
+//			if(usercommand[0].equals(validcommandos[i].getName())){
+//				descriptor.setCommandTypeInfo(validcommandos[i]);
+//			}
+//		}
+//	}
+	
+	private Object checkparamType(String parameter, CommandTypeInfo info, int paramnumber){	
+		
+		
 	}
 	
 	public void fillInCommandDesc(CommandDescriptor newdescriptor){
 		descriptor = newdescriptor;
 	}
+	
+	
 }

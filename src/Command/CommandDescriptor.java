@@ -9,15 +9,15 @@ public class CommandDescriptor {
 		commandoinfo =  command;
 	}
 	
-	public void setParams(Object[] params){
+	protected void setParams(Object[] params){
 		parameters = params;
 	}
 	
-	public CommandTypeInfo commandType(){
+	public CommandTypeInfo getcommandType(){
 		return commandoinfo;
 	}
 	
-	public void setCommandTypeInfo(CommandTypeInfo newinfo){
+	protected void setCommandTypeInfo(CommandTypeInfo newinfo){
 		commandoinfo = newinfo;
 	}
 	
