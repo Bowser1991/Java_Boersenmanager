@@ -22,6 +22,8 @@ public enum StockGameCommandType  implements  CommandTypeInfo{
 			counter++;
 		}
 	}
+	
+	
 
 	@Override
 	public String getName() {
