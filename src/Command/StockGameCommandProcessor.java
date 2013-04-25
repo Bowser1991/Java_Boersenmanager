@@ -1,27 +1,37 @@
 package Command;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import Exception.WrongCommandException;
 import enums.*;
 
 public class StockGameCommandProcessor {
-	private BufferedReader shellReader = new BufferedReader(new InputStreamReader(System.in));
-	private PrintWriter shellWriter = new PrintWriter(System.out);
+	private static BufferedReader shellreader = new BufferedReader(new InputStreamReader(System.in));
+	private static BufferedWriter shellwirter = new BufferedWriter(cons);
+	private static CommandDescriptor descriptor = new CommandDescriptor();
 	
-	public void process() {
-	    CommandScanner commandScanner = new CommandScanner(StockGameCommandType.values(), shellReader);
+	public static void process() throws WrongCommandException, IOException {
+	    CommandScanner commandScanner;
+		try {
+			commandScanner = new CommandScanner(StockGameCommandType.values(), descriptor);
+		} catch (WrongCommandException e) {
+			commandScanner = new CommandScanner(StockGameCommandType.values(), descriptor);
+			System.out.println("hallo");
+		}
         
 	    while (true) { // die Schleife über alle Kommandos, jeweils ein Durchlauf pro Eingabezeile
-	        CommandDescriptor command = new CommandDescriptor();
-	        commandScanner.fillInCommandDesc(command);       
-
-	        Object[] params = command.getParams();
-
-	        StockGameCommandType commandType = (StockGameCommandType)command.getCommandType();
+	        String s = shellreader.readLine();
+	    	commandScanner.checkCommandSyntax(s);
+	        Object[] params = descriptor.getParams();
+	        StockGameCommandType commandType = (StockGameCommandType)descriptor.getCommandType();
+	        
+	        
 	        switch (commandType) {
 	           case EXIT: {
-	               
+	               System.exit(0);
 	           }
 	           case HELP: {
 	               
@@ -29,12 +39,24 @@ public class StockGameCommandProcessor {
 	           case CREATEPLAYER: {
 	               
 	           }
+			case ACCOUNTWORTH:
+				break;
+			case BUYSHARE:
+				break;
+			case SELLSHARE:
+				break;
+			default:
+				break;
 	        }
 	    }
 	}
 	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+	try {
+		process();
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
 
 	}
 

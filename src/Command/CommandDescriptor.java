@@ -1,5 +1,4 @@
 package Command;
-
 import enums.*;
 
 public class CommandDescriptor {
@@ -12,7 +11,7 @@ public class CommandDescriptor {
 	}
 	
 	public CommandDescriptor() {
-	    commandoinfo = StockGameCommandType;
+	    
 	}
 	
 	protected void setParams(Object[] params){

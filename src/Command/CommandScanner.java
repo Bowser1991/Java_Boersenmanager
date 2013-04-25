@@ -12,16 +12,15 @@ public class CommandScanner {
 		descriptor = newdescriptor;
 	}
 	
-	public void checkCommandSyntax(BufferedReader command) throws WrongCommandException{
-		String buffer = command.toString();
-		String[] userinsert = buffer.split(REGEXPSEARCHPATTERN);
+	public void checkCommandSyntax(String command) throws WrongCommandException{
+		String[] userinsert = command.split(REGEXPSEARCHPATTERN);
 		for (int i = 0; i < validcommandos.length; i++) {
+			//if name of the insert command is ok then
 			if(userinsert[0].equals(validcommandos[i].getName())){
+				//set to descriptor CommandTypeInfo
 				descriptor.setCommandTypeInfo(validcommandos[i]);
-				Object[] paramobject = new Object[validcommandos[i].getParamTypes().length];
-				for (int j = 1; j < userinsert.length; j++) {
-					paramobject[j] = checkparamType(userinsert[j], validcommandos[i], j);
-				}
+				//set params in descriptor
+				descriptor.setParams(checkparamType(userinsert, validcommandos[i]));
 				return;
 			}else if(i == validcommandos.length){
 				throw new WrongCommandException("The Command "+command+" is not valid");
@@ -29,17 +28,30 @@ public class CommandScanner {
 		}
 	}
 	
-//	private void writDescriptorInfo(){
-//		for (int i = 0; i < validcommandos.length; i++) {
-//			if(usercommand[0].equals(validcommandos[i].getName())){
-//				descriptor.setCommandTypeInfo(validcommandos[i]);
-//			}
-//		}
-//	}
-	
-	private Object checkparamType(String parameter, CommandTypeInfo info, int paramnumber){	
-		
-		
+	private Object[] checkparamType(String[] parameter, CommandTypeInfo info) throws NumberFormatException{	
+		Class<?> parameterclass = null;
+		Object[] objectbuffer = new Object[parameter.length];
+		for (int i = 0; i < info.getParamTypes().length; i++) {
+			parameterclass = info.getParamTypes()[i];
+			switch (parameterclass.getName()) {
+			case "int":
+				objectbuffer[i] = Integer.parseInt(parameter[i]);
+				break;
+			case "long":
+				objectbuffer[i] = Long.parseLong(parameter[i]);
+				break;
+			case "short":
+				objectbuffer[i] = Short.parseShort(parameter[i]);
+				break;
+			case "double":
+				objectbuffer[i] = Double.parseDouble(parameter[i]);
+				break;
+			case "float":
+				objectbuffer[i] = Float.parseFloat(parameter[i]);
+				break;
+			}
+		}
+		return objectbuffer;
 	}
 	
 	public void fillInCommandDesc(CommandDescriptor newdescriptor){
