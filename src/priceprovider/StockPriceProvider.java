@@ -1,5 +1,4 @@
-package innerimpl;
-import priceprovider.TickerTask;
+package priceprovider;
 import asset.Share;
 import Exception.WrongNameException;
 
@@ -46,7 +45,7 @@ private Share[] availableShare;
         return s;
     }
     
-    protected Share getShare(String searchstring)
+    public Share getShare(String searchstring)
             throws WrongNameException {
         int i;
         for (i = 0; i < availableShare.length; i++) {

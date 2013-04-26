@@ -1,4 +1,6 @@
-package innerimpl;
+package priceprovider;
+
+import innerimpl.AccountManager;
 
 import java.text.DateFormat;
 import java.util.Calendar;

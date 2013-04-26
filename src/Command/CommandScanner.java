@@ -7,7 +7,7 @@ public class CommandScanner {
 	private static final String REGEXPSEARCHPATTERN = " ";
 	private CommandDescriptor descriptor;
 	
-	public CommandScanner(CommandTypeInfo commandinfo[], CommandDescriptor newdescriptor)throws WrongCommandException{
+	public CommandScanner(CommandTypeInfo commandinfo[], CommandDescriptor newdescriptor){
 		validcommandos = commandinfo;
 		descriptor = newdescriptor;
 	}
@@ -34,20 +34,23 @@ public class CommandScanner {
 		for (int i = 0; i < info.getParamTypes().length; i++) {
 			parameterclass = info.getParamTypes()[i];
 			switch (parameterclass.getName()) {
+			case "java.lang.String":
+				objectbuffer[i] = parameter[i+1];
+				break;
 			case "int":
-				objectbuffer[i] = Integer.parseInt(parameter[i]);
+				objectbuffer[i] = Integer.parseInt(parameter[i+1]);
 				break;
 			case "long":
-				objectbuffer[i] = Long.parseLong(parameter[i]);
+				objectbuffer[i] = Long.parseLong(parameter[i+1]);
 				break;
 			case "short":
-				objectbuffer[i] = Short.parseShort(parameter[i]);
+				objectbuffer[i] = Short.parseShort(parameter[i+1]);
 				break;
 			case "double":
-				objectbuffer[i] = Double.parseDouble(parameter[i]);
+				objectbuffer[i] = Double.parseDouble(parameter[i+1]);
 				break;
 			case "float":
-				objectbuffer[i] = Float.parseFloat(parameter[i]);
+				objectbuffer[i] = Float.parseFloat(parameter[i+1]);
 				break;
 			}
 		}

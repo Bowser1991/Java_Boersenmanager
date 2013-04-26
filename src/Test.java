@@ -1,8 +1,8 @@
 
 import priceprovider.RandomStockPriceProvider;
+import priceprovider.StockPriceInfo;
+import priceprovider.StockPriceViewer;
 import innerimpl.AccountManagerImpl;
-import innerimpl.StockPriceInfo;
-import innerimpl.StockPriceViewer;
 import asset.Share;
 import asset.ShareDeposit;
 import Exception.ShareException;
