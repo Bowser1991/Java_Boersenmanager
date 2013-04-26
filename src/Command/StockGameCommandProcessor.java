@@ -10,7 +10,7 @@ import enums.*;
 
 public class StockGameCommandProcessor {
 	private static BufferedReader shellreader = new BufferedReader(new InputStreamReader(System.in));
-	private static BufferedWriter shellwirter = new BufferedWriter(cons);
+	private static PrintWriter shellwirter = new PrintWriter(System.out);
 	private static CommandDescriptor descriptor = new CommandDescriptor();
 	
 	public static void process() throws WrongCommandException, IOException {

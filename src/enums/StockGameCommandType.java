@@ -17,6 +17,7 @@ public enum StockGameCommandType  implements  CommandTypeInfo{
 		commandname = command;
 		this.helptext = helptext;
 		int counter = 0;
+		classparameter = new Class<?>[T.length];
 		for(Class<?> A : T){
 			this.classparameter[counter] = A;
 			counter++;
