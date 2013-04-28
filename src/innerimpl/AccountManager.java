@@ -11,6 +11,7 @@ public interface AccountManager {
      long getAssetworth(Asset asset);
      long getAllAssetworth(String playername);
      Player[] getAllPlayer ();
+     public void setPlayerAccount(long accountworth, String playername);
 //   long getShareprice(String name);
 //   String getAvailableShares();
 }

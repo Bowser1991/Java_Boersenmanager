@@ -1,5 +1,7 @@
 package Command;
 import java.io.BufferedReader;
+import java.io.IOException;
+
 import Exception.*;
 
 public class CommandScanner {
@@ -12,25 +14,48 @@ public class CommandScanner {
 		descriptor = newdescriptor;
 	}
 	
-	public void checkCommandSyntax(String command) throws WrongCommandException{
+	/**
+	 * checkCommandSyntax(BufferedReader commandinput)
+	 * Bekommt einen Buffered Reader übergeben liest von diesem aus eine Zeile aus der Kommandozeile
+	 * und überprüft diese dann auf die im ENUM festgelegte Syntax.
+	 * @param commandinput
+	 * @throws WrongCommandException
+	 * @throws IOException
+	 */
+	
+	public void checkCommandSyntax(BufferedReader commandinput) throws WrongCommandException, IOException{
+		String command = commandinput.readLine();
 		String[] userinsert = command.split(REGEXPSEARCHPATTERN);
 		for (int i = 0; i < validcommandos.length; i++) {
 			//if name of the insert command is ok then
 			if(userinsert[0].equals(validcommandos[i].getName())){
+				if(userinsert.length - 1 != validcommandos[i].getParamTypes().length){
+					throw new WrongCommandException("invalid number of parameters");
+				}
 				//set to descriptor CommandTypeInfo
 				descriptor.setCommandTypeInfo(validcommandos[i]);
 				//set params in descriptor
 				descriptor.setParams(checkparamType(userinsert, validcommandos[i]));
 				return;
-			}else if(i == validcommandos.length){
+			}else if(i == validcommandos.length - 1){
 				throw new WrongCommandException("The Command "+command+" is not valid");
 			}
 		}
 	}
 	
+	/**
+	 * Object[] checkparamType(String[] parameter, CommandTypeInfo info)
+	 * Die Methode bekommt ein array in dem alle Parameter enthalten. Im array an der stelle 0 steht also 
+	 * auch der Befehl welcher hier dann eben nicht beachtet werden soll
+	 * @param parameter
+	 * @param info
+	 * @return
+	 * @throws NumberFormatException
+	 */
+	
 	private Object[] checkparamType(String[] parameter, CommandTypeInfo info) throws NumberFormatException{	
 		Class<?> parameterclass = null;
-		Object[] objectbuffer = new Object[parameter.length];
+		Object[] objectbuffer = new Object[parameter.length - 1];
 		for (int i = 0; i < info.getParamTypes().length; i++) {
 			parameterclass = info.getParamTypes()[i];
 			switch (parameterclass.getName()) {

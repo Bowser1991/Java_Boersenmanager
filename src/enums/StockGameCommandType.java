@@ -2,12 +2,13 @@ package enums;
 import Command.*;
 
 public enum StockGameCommandType  implements  CommandTypeInfo{
-	HELP("help","* help, exit, crp, bus, ses, acw"), 
+	HELP("help","* help, exit, crp, bus, ses, acw, setacw"), 
 	EXIT("exit","* exit Programm"), 
 	CREATEPLAYER("crp","<name> * adds a new Player by name", String.class), 
 	BUYSHARE("bus","<Playername><Sharename><amount>* buys a Share",String.class, String.class, long.class), 
 	SELLSHARE("ses","<Playername><Sharename><amount>* sells a Share",String.class, String.class, long.class), 
-	ACCOUNTWORTH("acw","<name>* gets the account worth by playername",String.class);
+	ACCOUNTWORTH("acw","<name>* gets the account worth by playername",String.class),
+	SETACCOUNTWORTH("setacw"," <accountworth><name>* sets the account worth by playername",long.class, String.class);
 	
 	private String commandname;
 	private String helptext;
