@@ -5,7 +5,7 @@ import java.util.TimerTask;
 
 
 public class TickerTask {
-    private final static int UPDATETIME = 5000;
+    private final static int UPDATETIME = 500;
     private static TickerTask task = null;
     private StockPriceProvider provider = null;
    

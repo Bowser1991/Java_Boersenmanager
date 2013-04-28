@@ -20,7 +20,6 @@ public class StockPriceViewer extends JFrame {
     private static final int TICK_PERIOD = 1000;
     private Timer ticker;
     private JLabel clockLabel;
-    private int counter = 0;
     
     public StockPriceViewer(StockPriceInfo newinfo, AccountManager manager) {
         sharepriceinfo = newinfo;
@@ -74,6 +73,6 @@ public class StockPriceViewer extends JFrame {
     }
     public void start() {
         ticker = new Timer(true); //as daemon
-        ticker.scheduleAtFixedRate(new TickerTask(), 1000, TICK_PERIOD);
+        ticker.scheduleAtFixedRate(new TickerTask(), 500, TICK_PERIOD);
     }
 }
