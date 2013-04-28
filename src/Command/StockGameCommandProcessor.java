@@ -48,10 +48,7 @@ public class StockGameCommandProcessor {
 						shellwriter.println("IO Exception failure !");
 						shellwriter.flush();
 					}
-				
 			}
-			
-			
 			Object[] parameter = descriptor.getParams();
 			StockGameCommandType commandType = (StockGameCommandType) descriptor.getCommandType();
 			Method[] actuallmethods = accountmanager.getClass().getDeclaredMethods();
@@ -67,55 +64,6 @@ public class StockGameCommandProcessor {
 					shellwriter.println(commandType.HELP.getHelpText());
 					shellwriter.flush();
 					break;
-//				case CREATEPLAYER:
-//					accountmanager.addPlayer((String) parameter[0]);
-//					String out = "";
-//					for (int i = 0; i < accountmanager.getAllPlayer().length; i++) {
-//						out += accountmanager.getAllPlayer()[i].name + ", ";
-//					}
-//					shellwriter.println(out);
-//					shellwriter.flush();
-//					break;
-//				case ACCOUNTWORTH:
-//					shellwriter.println("Spieler:"
-//							+ (String) parameter[0]
-//							+ " AccountWorth: "
-//							+ accountmanager
-//									.getAllAssetworth((String) parameter[0]));
-//					shellwriter.flush();
-//					break;
-//				case BUYSHARE:
-//					try {
-//						accountmanager.buyShare((String) parameter[0],
-//								(String) parameter[1], (int) parameter[2]);
-//					} catch (ShareException e) {
-//						shellwriter
-//								.println("buy could not be done, amount is too high or not enough money");
-//						shellwriter.flush();
-//						break;
-//					}
-//					break;
-//				case SELLSHARE:
-//					try {
-//						accountmanager.sellShare((String) parameter[0],
-//								(String) parameter[1], (int) parameter[2]);
-//					} catch (ShareException e) {
-//						shellwriter
-//								.println("buy could not be done, amount is too low");
-//						shellwriter.flush();
-//						break;
-//					}
-//					break;
-//				case SETACCOUNTWORTH:
-//					accountmanager.setPlayerAccount((long) parameter[0],
-//							(String) parameter[1]);
-//					shellwriter.println("Spieler:"
-//							+ (String) parameter[1]
-//							+ " AccountWorth: "
-//							+ accountmanager
-//									.getAllAssetworth((String) parameter[1]));
-//					shellwriter.flush();
-//					break;
 				default:
 					try{
 						Method executemethod = accountmanager.getClass().getMethod(commandType.getImplMethods(), commandType.getParamTypes());
