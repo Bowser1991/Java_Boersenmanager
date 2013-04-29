@@ -3,6 +3,7 @@ package innerimpl;
 import asset.Asset;
 import asset.Player;
 import Exception.ShareException;
+import Exception.WrongNameException;
 public interface AccountManager {
     
 	/**
@@ -50,6 +51,17 @@ public interface AccountManager {
       * @param playername
       */
      public void setPlayerAccount(long accountworth, String playername);
-
+     /**
+ 	 * diverShareSell(String sharename , String playername)
+ 	 * Nimmt den Gesamtwert eines Share Items und teilt diesen durch die
+ 	 * anzahl der im ShareItem liegenden Shares. Dieser Wert wird dann mit
+ 	 * dem aktuellen wert der Firma verglichen und als long zurück gegeben.
+ 	 * @param sharename
+ 	 * @param playername
+ 	 * @return long
+ 	 * @throws WrongNameException
+ 	 */
+ 	 public boolean diverShareSell(String sharename , String playername) throws WrongNameException;
+ 	 public boolean getDiverStatus();
 }
 

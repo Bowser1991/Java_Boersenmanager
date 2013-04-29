@@ -3,6 +3,7 @@ import priceprovider.*;
 import asset.Asset;
 import asset.Player;
 import asset.Share;
+import asset.ShareItem;
 import Exception.NotAddablePlayerException;
 import Exception.ShareException;
 import Exception.WrongNameException;
@@ -10,24 +11,18 @@ import Exception.WrongNameException;
 public class AccountManagerImpl implements AccountManager {
 	private Player[] allplayers;
 	private StockPriceProvider provider;
-
+	private boolean diverstatus = false;
+	
 	public AccountManagerImpl(Share[] shares) {
 		allplayers = new Player[1];
 		provider = new RandomStockPriceProvider(shares);
 	}
 
-
-	
-	
 	@Override
 	public void setPlayerAccount(long accountworth, String playername){
 		Player player = searchInPlayer(playername);
 		player.setAccountWorth(accountworth);
 	}
-	
-	/**
-	 * 
-	 */
 
 	public void addPlayer(String name) throws NotAddablePlayerException {
 		Player newplayer = new Player(name);
@@ -59,9 +54,6 @@ public class AccountManagerImpl implements AccountManager {
 		return longer;
 	}
 
-	/**
-	 * 
-	 */
 	public void buyShare(String playername, String sharename, int amount)
 			throws ShareException {
 		// search for the player called playername
@@ -179,6 +171,44 @@ public class AccountManagerImpl implements AccountManager {
         }
         return s;
     }
+	
+	/**
+	 * diverShareSell(String sharename , String playername)
+	 * Nimmt den Gesamtwert eines Share Items und teilt diesen durch die
+	 * anzahl der im ShareItem liegenden Shares. Dieser Wert wird dann mit
+	 * dem aktuellen wert der Firma verglichen und als long zurück gegeben.
+	 * @param sharename
+	 * @param playername
+	 * @return long
+	 * @throws WrongNameException
+	 */
+	
+	@Override
+	public boolean diverShareSell(String sharename , String playername) throws WrongNameException{
+		ShareItem[] buffershareitem = searchInPlayer(playername).getShareDeposit().getAllShareItems();
+		long pricepershare = 0l;
+		for (int i = 0; i < buffershareitem.length; i++) {
+			if(buffershareitem[i].name.equals(sharename)){
+				pricepershare = buffershareitem[i].getPurchasValue() / buffershareitem[i].getNumberOfShares();
+				break;
+			}
+			if(i == buffershareitem.length - 1){
+				throw new WrongNameException();
+			}
+		}
+		pricepershare -= provider.getShare(sharename).getActualSharePrice();
+		if(pricepershare >= 0){
+			diverstatus = true;
+		}else{
+			diverstatus = false;
+		}
+			
+		return getDiverStatus();
+	}
 
+	@Override
+	public boolean getDiverStatus() {
+		return diverstatus;
+	}
 
 }

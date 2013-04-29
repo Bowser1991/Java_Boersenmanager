@@ -14,12 +14,14 @@ import asset.Player;
 import asset.Share;
 
 
+@SuppressWarnings("serial")
 public class StockPriceViewer extends JFrame {
     private StockPriceInfo sharepriceinfo = null;
     private AccountManager manager = null;
     private static final int TICK_PERIOD = 1000;
     private Timer ticker;
     private JLabel clockLabel;
+    
     
     public StockPriceViewer(StockPriceInfo newinfo, AccountManager manager) {
         sharepriceinfo = newinfo;
@@ -39,7 +41,7 @@ public class StockPriceViewer extends JFrame {
         }      
 
         
-        public String getAvailableShares() {
+        private String getAvailableShares() {
             Share[] bufferShare = sharepriceinfo.getAvailableShare();
             String s = " ";
             for (int j = 0; j < bufferShare.length; j++) {
@@ -47,23 +49,22 @@ public class StockPriceViewer extends JFrame {
             }
             return s;
         }
-        public String getPlayer() {
+        private String getPlayer() {
             Player[] bufferPlayer = manager.getAllPlayer();
             String s = "";
             for (int i = 0; i < bufferPlayer.length; i++){
                 if (bufferPlayer[i] != null){
                     s += "Player name: " + bufferPlayer[i].name + "<br>" + bufferPlayer[i].getCashAccount().toString() + "<br>";
                     s += bufferPlayer[i].getShareDeposit().toString() + "<br>" + "<br>";
-                    
                 }
             }
             return s;
         }
-        
-        
+ 
+       
         private String createText() {
             
-            String output ="<html><body>" + getAvailableShares() + "<br>"+ getPlayer(); 
+            String output ="<html><body>" + getAvailableShares()+"<br>"+"is there a gain if sell: "+manager.getDiverStatus()+"<br>" +"<br>"+ getPlayer(); 
             Calendar cal = Calendar.getInstance();
             Date date = cal.getTime();
             DateFormat dateFormatter = DateFormat.getDateTimeInstance();
