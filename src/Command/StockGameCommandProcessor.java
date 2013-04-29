@@ -23,16 +23,14 @@ public class StockGameCommandProcessor {
 	private PrintWriter shellwriter = new PrintWriter(System.out);
 	private CommandDescriptor descriptor = new CommandDescriptor();
 	private AccountManager accountmanager = null;
-	
+	private StockGameCommandType newenum;
 	
 	public StockGameCommandProcessor(AccountManager manager ){
 		accountmanager = manager;
 	}
 	
-	
 	public  void process() {
-		CommandScanner commandscanner = new CommandScanner(
-				StockGameCommandType.values(), descriptor);
+		CommandScanner commandscanner = new CommandScanner(newenum.values(), descriptor);
 		
 		while (true) { 
 			
@@ -49,10 +47,8 @@ public class StockGameCommandProcessor {
 						shellwriter.flush();
 					}
 			}
-			Object[] parameter = descriptor.getParams();
 			StockGameCommandType commandType = (StockGameCommandType) descriptor.getCommandType();
-			Method[] actuallmethods = accountmanager.getClass().getDeclaredMethods();
-			
+
 			try {
 				switch (commandType) {
 				case EXIT:
@@ -61,13 +57,20 @@ public class StockGameCommandProcessor {
 					System.exit(0);
 					break;
 				case HELP:
-					shellwriter.println(commandType.HELP.getHelpText());
+					for (int i = 0; i < newenum.values().length; i++) {
+						shellwriter.println(newenum.values()[i].getName()+newenum.values()[i].getHelpText());
+					}
 					shellwriter.flush();
 					break;
 				default:
 					try{
+						if(descriptor.getParams()[0].equals("help")){
+							shellwriter.println(commandType.getHelpText());
+							shellwriter.flush();
+						}else{
 						Method executemethod = accountmanager.getClass().getMethod(commandType.getImplMethods(), commandType.getParamTypes());
 						executemethod.invoke(accountmanager, descriptor.getParams());
+						}
 					}catch(NoSuchMethodException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e){
 						e.printStackTrace();
 					}

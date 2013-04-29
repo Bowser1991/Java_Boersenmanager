@@ -16,12 +16,7 @@ public class AccountManagerImpl implements AccountManager {
 		provider = new RandomStockPriceProvider(shares);
 	}
 
-	/**
-	 * 
-	 * 	Die Methode setPlayerAccount setzt einen neuen Kontostand
-	 *  Anhand des übergebenen Namen 
-	 * 
-	 */
+
 	
 	
 	@Override
@@ -29,12 +24,11 @@ public class AccountManagerImpl implements AccountManager {
 		Player player = searchInPlayer(playername);
 		player.setAccountWorth(accountworth);
 	}
-
-	/*
-	 * 
-	 * fügt einen neuen Spieler hinzu
-	 */
 	
+	/**
+	 * 
+	 */
+
 	public void addPlayer(String name) throws NotAddablePlayerException {
 		Player newplayer = new Player(name);
 		// saves the player in an free space
@@ -56,7 +50,7 @@ public class AccountManagerImpl implements AccountManager {
 		}
 	}
 	
-	
+
 	private Player[] longerArray(Player[] playerarray, int howmuchlonger){
 		Player[] longer = new Player[playerarray.length + howmuchlonger];
 		for (int j = 0; j < playerarray.length; j++) {
@@ -64,15 +58,10 @@ public class AccountManagerImpl implements AccountManager {
 		}
 		return longer;
 	}
-	
-	/*
-	 * buyShare(String playername, String sharename, int amount)
-	 * Fügt einen neuen Spielerhinzu und belastet dabei das Konto
-	 * wirft eine ShareException wenn nicht genug Geld vorhanden ist
-	 * 
+
+	/**
 	 * 
 	 */
-
 	public void buyShare(String playername, String sharename, int amount)
 			throws ShareException {
 		// search for the player called playername
@@ -131,7 +120,7 @@ public class AccountManagerImpl implements AccountManager {
 	 * 
 	 * 
 	 */
-	
+
 	public long getAllAssetworth(String playername) {
 		Player player = searchInPlayer(playername);
 		long accumulateworth = player.getCashAccount().getAccountStatus();

@@ -29,7 +29,15 @@ public class CommandScanner {
 		for (int i = 0; i < validcommandos.length; i++) {
 			//if name of the insert command is ok then
 			if(userinsert[0].equals(validcommandos[i].getName())){
-				if(userinsert.length - 1 != validcommandos[i].getParamTypes().length){
+				// what to do when user wants to get some help of commando
+				if(userinsert.length > 1 && userinsert[1].equalsIgnoreCase("help")){
+					descriptor.setCommandTypeInfo(validcommandos[i]);
+					Object[] bufferObject = new Object[1];
+					bufferObject[0] = userinsert[1];
+					descriptor.setParams(bufferObject);
+					return;
+				}
+				else if(userinsert.length - 1 != validcommandos[i].getParamTypes().length){
 					throw new WrongCommandException("invalid number of parameters");
 				}
 				//set to descriptor CommandTypeInfo

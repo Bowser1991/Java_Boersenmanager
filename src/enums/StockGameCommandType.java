@@ -4,8 +4,8 @@ import java.lang.reflect.Method;
 import Command.*;
 
 public enum StockGameCommandType  implements  CommandTypeInfo{
-	HELP("help","* help, exit, crp, bus, ses, acw, setacw", "printhelp"), 
-	EXIT("exit","* exit Programm", "exitsystem"),  
+	HELP("help","* gets all available commands"), 
+	EXIT("exit","* exit Programm"),  
 	CREATEPLAYER("crp","<name> * adds a new Player by name", "addPlayer", String.class), 
 	BUYSHARE("bus","<Playername><Sharename><amount>* buys a Share","buyShare",String.class, String.class, int.class), 
 	SELLSHARE("ses","<Playername><Sharename><amount>* sells a Share","sellShare",String.class, String.class, int.class), 
@@ -29,6 +29,16 @@ public enum StockGameCommandType  implements  CommandTypeInfo{
 		}
 	}
 	
+	private StockGameCommandType(String command,  String helptext, Class<?>... T){
+		commandname = command;
+		this.helptext = helptext;
+		int counter = 0;
+		classparameter = new Class<?>[T.length];
+		for(Class<?> A : T){
+			this.classparameter[counter] = A;
+			counter++;
+		}
+	}
 	
 
 	@Override
