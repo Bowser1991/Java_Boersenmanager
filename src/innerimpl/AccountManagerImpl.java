@@ -203,7 +203,7 @@ public class AccountManagerImpl implements AccountManager {
 			diverstatus = false;
 		}
 			
-		return getDiverStatus();
+		return diverstatus;
 	}
 
 	@Override
