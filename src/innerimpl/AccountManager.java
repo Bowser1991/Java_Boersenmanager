@@ -63,5 +63,7 @@ public interface AccountManager {
  	 */
  	 public boolean diverShareSell(String sharename , String playername) throws WrongNameException;
  	 public boolean getDiverStatus();
+ 	 public void startBot(String playername);
+ 	 public void stopBot();
 }
 

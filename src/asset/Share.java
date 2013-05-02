@@ -14,6 +14,10 @@ public class Share {
         return actualshareprice;
     }
     
+    public long[] getSharePriceHistory(){
+    	return sharepricehistory;
+    }
+    
     public void setActualSharePrice(long newshareprice){            //speichert die Vergangenen Preise
         for(int i = 0; i < sharepricehistory.length;i++){           //geht jeden Wert in sharePricehistory sobald ein leeres Objekt gefunden wird speicher er dort den letzten Preis
             if(sharepricehistory[i] == 0){

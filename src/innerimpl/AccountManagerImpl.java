@@ -1,4 +1,6 @@
 package innerimpl;
+import bots.Bot;
+import bots.StockBuySellBot;
 import priceprovider.*;
 import asset.Asset;
 import asset.Player;
@@ -12,10 +14,12 @@ public class AccountManagerImpl implements AccountManager {
 	private Player[] allplayers;
 	private StockPriceProvider provider;
 	private boolean diverstatus = false;
+	private Bot stockbot;
 	
 	public AccountManagerImpl(Share[] shares) {
 		allplayers = new Player[1];
 		provider = new RandomStockPriceProvider(shares);
+		stockbot = new StockBuySellBot(this, provider);
 	}
 
 	@Override
@@ -193,7 +197,7 @@ public class AccountManagerImpl implements AccountManager {
 				break;
 			}
 			if(i == buffershareitem.length - 1){
-				throw new WrongNameException();
+				throw new WrongNameException("invalid name of share");
 			}
 		}
 		pricepershare -= provider.getShare(sharename).getActualSharePrice();
@@ -203,12 +207,22 @@ public class AccountManagerImpl implements AccountManager {
 			diverstatus = false;
 		}
 			
-		return getDiverStatus();
+		return diverstatus;
 	}
 
 	@Override
 	public boolean getDiverStatus() {
 		return diverstatus;
+	}
+
+	@Override
+	public void startBot(String playername) {
+		this.stockbot.start(playername);
+	}
+
+	@Override
+	public void stopBot() {
+		stockbot.stop();
 	}
 
 }

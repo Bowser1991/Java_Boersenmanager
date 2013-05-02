@@ -3,11 +3,14 @@ package priceprovider;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import bots.Bot;
+
 
 public class TickerTask {
     private final static int UPDATETIME = 500;
     private static TickerTask task = null;
     private StockPriceProvider provider = null;
+    private Bot bot = null;
    
     public static TickerTask getInstance (){
         if(task == null){
@@ -26,8 +29,13 @@ public class TickerTask {
         provider = getprovider;
     }
     
+    public void getBotInstance(Bot getbot){
+       bot = getbot;
+    }
+    
     public void run(){
         provider.startUpdate();
+        bot.doAction();
     }
     
    private void startTiming() {
