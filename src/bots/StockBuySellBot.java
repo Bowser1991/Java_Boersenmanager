@@ -1,17 +1,21 @@
 package bots;
 
+import java.util.TimerTask;
+
+import Exception.BotException;
 import Exception.ShareException;
 import Exception.WrongNameException;
 import innerimpl.AccountManager;
 import priceprovider.StockPriceProvider;
-import priceprovider.TickerTask;
+import priceprovider.GlobalTimer;
 
 public class StockBuySellBot implements Bot {
 	
-	private TickerTask ticker = null;
+	private GlobalTimer ticker = null;
 	private AccountManager accountmanager = null;
 	private String playerbotname = null;
 	private StockPriceProvider provider = null;
+	private MyTask task = null;
 	
 	public StockBuySellBot(AccountManager manager, StockPriceProvider priceinfo){
 		accountmanager = manager;
@@ -19,10 +23,10 @@ public class StockBuySellBot implements Bot {
 	}
 	
 	@Override
-	public void start(String playername) {
+	public void start(String playername) throws BotException {
 		playerbotname = playername;
-		ticker = TickerTask.getInstance();
-		ticker.getBotInstance(this);
+			MyTask task = new MyTask();
+			GlobalTimer.getTimer().addTask(task);
 	}
 	
 	public void doAction(){
@@ -52,9 +56,18 @@ public class StockBuySellBot implements Bot {
 		
 	}
 	@Override
-	public void stop() {
-		ticker.getBotInstance(null);
-		ticker = null;
+	public void stop(String playername) throws BotException {
+		if(!(task.equals(null))){
+			task.cancel();
+		}else{
+			throw new BotException("Bot is not running");
+		}
+		
 	}
-
+	class MyTask extends TimerTask {
+        @Override
+        public void run() {
+            StockBuySellBot.this.doAction();
+        }
+    }
 }

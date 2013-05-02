@@ -6,6 +6,7 @@ import asset.Asset;
 import asset.Player;
 import asset.Share;
 import asset.ShareItem;
+import Exception.BotException;
 import Exception.NotAddablePlayerException;
 import Exception.ShareException;
 import Exception.WrongNameException;
@@ -216,13 +217,13 @@ public class AccountManagerImpl implements AccountManager {
 	}
 
 	@Override
-	public void startBot(String playername) {
-		this.stockbot.start(playername);
+	public void startBot(String playername) throws BotException {
+		stockbot.start(playername);
 	}
 
 	@Override
-	public void stopBot() {
-		stockbot.stop();
+	public void stopBot(String playername) throws BotException {
+		stockbot.stop(playername);
 	}
 
 }

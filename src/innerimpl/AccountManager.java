@@ -2,6 +2,7 @@ package innerimpl;
 
 import asset.Asset;
 import asset.Player;
+import Exception.BotException;
 import Exception.ShareException;
 import Exception.WrongNameException;
 public interface AccountManager {
@@ -62,8 +63,22 @@ public interface AccountManager {
  	 * @throws WrongNameException
  	 */
  	 public boolean diverShareSell(String sharename , String playername) throws WrongNameException;
+ 	 /**
+ 	  * 
+ 	  * @return
+ 	  */
  	 public boolean getDiverStatus();
- 	 public void startBot(String playername);
- 	 public void stopBot();
+ 	 /**
+ 	  * 
+ 	  * @param playername
+ 	  * @throws BotException
+ 	  */
+ 	 public void startBot(String playername) throws BotException;
+ 	 /**
+ 	  * 
+ 	  * @param playername
+ 	  * @throws BotException
+ 	  */
+	 public void stopBot(String playername) throws BotException;
 }
 

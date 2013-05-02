@@ -1,4 +1,6 @@
 package priceprovider;
+import java.util.TimerTask;
+
 import asset.Share;
 import Exception.WrongNameException;
 
@@ -9,8 +11,7 @@ private Share[] availableShare;
     
     public StockPriceProvider (Share [] availableShare){
         this.availableShare = availableShare;
-        TickerTask timer = TickerTask.getInstance();
-        timer.getProviderInstance(this);
+        startUpdate();
     }
 
     public boolean isShareListed(String sharename)
@@ -68,7 +69,15 @@ private Share[] availableShare;
         }
     }
     public void startUpdate(){
-        updateShareRates();
+    	MyTask newtask = new MyTask();
+    	GlobalTimer.getTimer().addTask(newtask);
     }
+    class MyTask extends TimerTask {
+        @Override
+        public void run() {
+            StockPriceProvider.this.updateShareRates();
+        }
+    }
+    
 
 }
