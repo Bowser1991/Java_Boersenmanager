@@ -50,8 +50,7 @@ public class ShareDeposit extends Asset {
         for(int i = 0; i < allshareitems.length;i++){                       
             if (allshareitems[i] != null) {
                 if (newShare.name.equals(allshareitems[i].name)) {
-                    allshareitems[i].buyShare(amount,
-                            newShare.getActualSharePrice() * amount);
+                    allshareitems[i].buyShare(amount,newShare.getActualSharePrice() * amount);
                     return;
                 }
             }

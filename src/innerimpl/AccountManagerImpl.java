@@ -68,13 +68,14 @@ public class AccountManagerImpl implements AccountManager {
 		Share searchshare = provider.getShare(sharename);
 
 		// what happens if price is higher than account status
-		if ((searchshare.getActualSharePrice() * (long) amount) > (searchplayer
-				.getCashAccount().getAccountStatus())) {
+		if (((searchshare.getActualSharePrice() * amount)) > (searchplayer.getCashAccount().getAccountStatus())) {
 			throw new ShareException("price is too high for cash account");
+		}else{
+			// finally buy the Share
+			searchplayer.buyShare(searchshare, amount);
 		}
 
-		// finally buy the Share
-		searchplayer.buyShare(searchshare, amount);
+
 	}
 
 	

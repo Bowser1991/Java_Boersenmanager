@@ -26,7 +26,9 @@ public class CashAccount extends Asset {
     }
     
     public void setAccountStatus(long newaccount){
-        this.accountStatus = newaccount;
+        if(newaccount >= 0){
+    	this.accountStatus = newaccount;
+        }
     }
 
     public long getvalue() {

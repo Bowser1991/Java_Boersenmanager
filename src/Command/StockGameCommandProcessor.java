@@ -7,6 +7,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+
+import Exception.ShareException;
 import Exception.WrongCommandException;
 import Exception.WrongNameException;
 import enums.*;
@@ -65,12 +67,13 @@ public class StockGameCommandProcessor {
 						Method executemethod = accountmanager.getClass().getMethod(commandType.getImplMethods(), commandType.getParamTypes());
 						executemethod.invoke(accountmanager, descriptor.getParams());
 						}
-					}catch(NoSuchMethodException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e){
-						e.printStackTrace();
+					}catch(Exception e){
+						shellwriter.println("Action :"+commandType.getImplMethods()+" could not be done");
+						shellwriter.flush();
 					}
 					break;
 				}
-			} catch (WrongNameException e) {
+			}catch (WrongNameException e) {
 				shellwriter.println("Invalid Playername !");
 				shellwriter.flush();
 			}
