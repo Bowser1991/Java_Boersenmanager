@@ -6,6 +6,7 @@ import asset.Asset;
 import asset.Player;
 import asset.Share;
 import asset.ShareItem;
+import Exception.AccountException;
 import Exception.BotException;
 import Exception.NotAddablePlayerException;
 import Exception.ShareException;
@@ -24,7 +25,7 @@ public class AccountManagerImpl implements AccountManager {
 	}
 
 	@Override
-	public void setPlayerAccount(long accountworth, String playername){
+	public void setPlayerAccount(long accountworth, String playername) throws AccountException{
 		Player player = searchInPlayer(playername);
 		player.setAccountWorth(accountworth);
 	}
@@ -60,7 +61,7 @@ public class AccountManagerImpl implements AccountManager {
 	}
 
 	public void buyShare(String playername, String sharename, int amount)
-			throws ShareException {
+			throws ShareException, AccountException {
 		// search for the player called playername
 		Player searchplayer = searchInPlayer(playername);
 
@@ -88,7 +89,7 @@ public class AccountManagerImpl implements AccountManager {
 	 */
 	
 	public void sellShare(String playername, String sharename, int amount)
-			throws ShareException {
+			throws ShareException, AccountException {
 
 		// search for the player called playername
 		Player searchplayer = searchInPlayer(playername);
@@ -194,11 +195,13 @@ public class AccountManagerImpl implements AccountManager {
 		ShareItem[] buffershareitem = searchInPlayer(playername).getShareDeposit().getAllShareItems();
 		long pricepershare = 0l;
 		for (int i = 0; i < buffershareitem.length; i++) {
-			if(buffershareitem[i].name.equals(sharename)){
+			if(buffershareitem[i] !=null && buffershareitem[i].name.equals(sharename)){
 				pricepershare = buffershareitem[i].getPurchasValue() / buffershareitem[i].getNumberOfShares();
-				break;
+				if(i == buffershareitem.length){
+					break;
+				}
 			}
-			if(i == buffershareitem.length - 1){
+			if(i == buffershareitem.length){
 				throw new WrongNameException("invalid name of share");
 			}
 		}

@@ -2,6 +2,7 @@ package innerimpl;
 
 import asset.Asset;
 import asset.Player;
+import Exception.AccountException;
 import Exception.BotException;
 import Exception.ShareException;
 import Exception.WrongNameException;
@@ -19,16 +20,18 @@ public interface AccountManager {
       * @param sharename
       * @param amount
       * @throws ShareException
+     * @throws AccountException 
       */
-     void buyShare(String playername, String sharename, int amount) throws ShareException;
+     void buyShare(String playername, String sharename, int amount) throws ShareException, AccountException;
      /**
       * 
       * @param playername
       * @param sharename
       * @param amount
       * @throws ShareException
+     * @throws AccountException 
       */
-     void sellShare(String playername, String sharename, int amount) throws ShareException;
+     void sellShare(String playername, String sharename, int amount) throws ShareException, AccountException;
      /**
       * 
       * @param asset
@@ -50,8 +53,9 @@ public interface AccountManager {
       * 
       * @param accountworth
       * @param playername
+     * @throws AccountException 
       */
-     public void setPlayerAccount(long accountworth, String playername);
+     public void setPlayerAccount(long accountworth, String playername) throws AccountException;
      /**
  	 * diverShareSell(String sharename , String playername)
  	 * Nimmt den Gesamtwert eines Share Items und teilt diesen durch die

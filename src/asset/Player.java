@@ -1,4 +1,5 @@
 package asset;
+import Exception.AccountException;
 import Exception.ShareException;
 
 
@@ -24,17 +25,17 @@ public class Player {
         return account;
     }
     
-    public void buyShare(Share share, int amount){
+    public void buyShare(Share share, int amount) throws AccountException{
         deposit.buyShare(share, amount);
         account.setAccountStatus((account.getAccountStatus()-(share.getActualSharePrice()*amount)));
     }
     
-    public void sellShare(Share share, int amount) throws ShareException{
+    public void sellShare(Share share, int amount) throws ShareException, AccountException{
         deposit.sellShare(share, amount);
-        account.setAccountStatus((account.getAccountStatus()-(share.getActualSharePrice()*amount)));
+        account.setAccountStatus((account.getAccountStatus()+(share.getActualSharePrice()*amount)));
     }
     
-    public void setAccountWorth(long newworth){
+    public void setAccountWorth(long newworth) throws AccountException{
     	this.account.setAccountStatus(newworth);
     }
     

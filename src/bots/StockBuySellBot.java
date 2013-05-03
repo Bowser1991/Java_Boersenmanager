@@ -44,20 +44,19 @@ public class StockBuySellBot implements Bot {
 	public void doAction(){
 		for (int i = 0; i < provider.getAvailableShare().length; i++) {
 			try {
-			
 				Share priceminvalue = getMinPrice(provider.getAvailableShare());
 				if(accountmanager.diverShareSell(priceminvalue.name, playerbotname)){
-					accountmanager.buyShare(playerbotname, provider.getAvailableShare()[i].name, 1);
+					accountmanager.buyShare(playerbotname, provider.getAvailableShare()[i].name, 7);
 				}
 			}catch (ShareException e){
 				return;
 			}catch (Exception e) {
-
+				e.printStackTrace();
 			}
 			
 			try{
 				if(accountmanager.diverShareSell(provider.getAvailableShare()[i].name, playerbotname)){
-					accountmanager.sellShare(playerbotname, provider.getAvailableShare()[i].name, 1);
+					accountmanager.sellShare(playerbotname, provider.getAvailableShare()[i].name, 5);
 				}
 				}catch(Exception e){}
 		}
@@ -65,8 +64,9 @@ public class StockBuySellBot implements Bot {
 		
 	}
 	@Override
-	public void stop(String playername) throws BotException {
-			task.cancel();
+	public void stop(String playername){
+			
+		task.cancel();
 		
 	}
 	class MyTask extends TimerTask {

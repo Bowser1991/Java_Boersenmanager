@@ -1,5 +1,7 @@
 package asset;
 
+import Exception.AccountException;
+
 public class CashAccount extends Asset {
     
     private long accountStatus;
@@ -25,9 +27,11 @@ public class CashAccount extends Asset {
         return accountStatus;
     }
     
-    public void setAccountStatus(long newaccount){
+    public void setAccountStatus(long newaccount) throws AccountException{
         if(newaccount >= 0){
     	this.accountStatus = newaccount;
+        }else{
+        	throw new AccountException("invalid account action");
         }
     }
 
