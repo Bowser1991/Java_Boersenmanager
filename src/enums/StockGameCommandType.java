@@ -4,7 +4,7 @@ import Command.*;
 public enum StockGameCommandType  implements  CommandTypeInfo{
 	HELP("help","* gets all available commands"), 
 	EXIT("exit","* exit Programm"),  
-	CREATEPLAYER("crp","<name> * adds a new Player by name", "addPlayer", Object.class), 
+	CREATEPLAYER("crp","<name> * adds a new Player by name", "addPlayer", String.class), 
 	BUYSHARE("bus","<Playername><Sharename><amount>* buys a Share","buyShare",String.class, String.class, int.class), 
 	SELLSHARE("ses","<Playername><Sharename><amount>* sells a Share","sellShare",String.class, String.class, int.class), 
 	ACCOUNTWORTH("acw","<name>* gets the account worth by playername","getAllAssetworth",String.class),

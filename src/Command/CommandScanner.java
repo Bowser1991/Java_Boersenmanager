@@ -85,8 +85,6 @@ public class CommandScanner {
 			case "float":
 				objectbuffer[i] = Float.parseFloat(parameter[i+1]);
 				break;
-			default:
-				objectbuffer[i] = parameter[i+1];
 			}
 		}
 		return objectbuffer;
