@@ -43,6 +43,17 @@ public class ShareItem extends Asset {
     public long getvalue() {
         return purchasevalue;
     }
+    public boolean equals(ShareItem item){
+        boolean b = true;
+        if (numberOfShares != item.getNumberOfShares())
+            b = false;
+        if (purchasevalue != item.getPurchasValue())
+            b = false;
+        return b;
+    }
+    public void setNumberOfShares(int numberofshares){
+        this.numberOfShares = numberofshares;
+    }
     
     
 }

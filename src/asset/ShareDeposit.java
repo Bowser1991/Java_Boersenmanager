@@ -89,4 +89,18 @@ public class ShareDeposit extends Asset {
         }
         return priceamount;
     }
+    public boolean equals(ShareItem[] item){
+        boolean b = true;
+        for (int i = 0; i < allshareitems.length; i++) {
+            if (allshareitems[i] == null){
+                if (item[i] != null)
+                    b = false;
+            }else {
+                if (!allshareitems[i].equals(item[i]))
+                    b = false;
+            }
+                
+        }
+        return b;
+    }
 }
