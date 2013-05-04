@@ -181,20 +181,37 @@ public class AccountManagerImpl implements AccountManager {
 	
 	/**
 	 * diverShareSell(String sharename , String playername)
-	 * Nimmt den Gesamtwert eines Share Items und teilt diesen durch die
-	 * anzahl der im ShareItem liegenden Shares. Dieser Wert wird dann mit
-	 * dem aktuellen wert der Firma verglichen und als long zurück gegeben.
+	 * Vergleicht den Durchscnittseinkaufwert mit dem aktuellen Wert der Aktie und liefert true zurück, wenn der 
+	 * Durchscnittswert >= dem aktuellen Wert ist, false, wenn <. 
 	 * @param sharename
 	 * @param playername
-	 * @return long
+	 * @return boolean
 	 * @throws WrongNameException
 	 */
 	
 	@Override
 	public boolean diverShareSell(String sharename , String playername) throws WrongNameException{
 		ShareItem[] buffershareitem = searchInPlayer(playername).getShareDeposit().getAllShareItems();
-		long pricepershare = 0l;
-		for (int i = 0; i < buffershareitem.length; i++) {
+		long pricepershare = setPricepershare(sharename, buffershareitem);		
+		pricepershare -= provider.getShare(sharename).getActualSharePrice();
+		if(pricepershare >= 0){
+			diverstatus = true;
+		}else{
+			diverstatus = false;
+		}			
+		return diverstatus;
+	}
+	/**
+	 * setPricepershare (String sharename, ShareItem[] buffershareitem)
+	 * Durchsucht ein ShareItem[] mithilfe von sharename nach dem passenden und liefert den Durchschnittlichen Einkaufswert
+	 * zurück.
+	 * @param sharename
+	 * @param buffershareitem
+	 * @return long
+	 */
+	private long setPricepershare (String sharename, ShareItem[] buffershareitem){
+	    long pricepershare = 0;
+	    for (int i = 0; i < buffershareitem.length; i++) {
 			if(buffershareitem[i] !=null && buffershareitem[i].name.equals(sharename)){
 				pricepershare = buffershareitem[i].getPurchasValue() / buffershareitem[i].getNumberOfShares();
 				if(i == buffershareitem.length){
@@ -205,14 +222,7 @@ public class AccountManagerImpl implements AccountManager {
 				throw new WrongNameException("invalid name of share");
 			}
 		}
-		pricepershare -= provider.getShare(sharename).getActualSharePrice();
-		if(pricepershare >= 0){
-			diverstatus = true;
-		}else{
-			diverstatus = false;
-		}
-			
-		return diverstatus;
+	    return pricepershare;
 	}
 
 	@Override
