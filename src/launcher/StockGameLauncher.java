@@ -1,9 +1,12 @@
 package launcher;
 
+import bots.Bot;
+import bots.StockBuySellBot;
 import innerimpl.AccountManager;
 import innerimpl.AccountManagerImpl;
 import priceprovider.RandomStockPriceProvider;
 import priceprovider.StockPriceInfo;
+import priceprovider.StockPriceProvider;
 import priceprovider.StockPriceViewer;
 import asset.Share;
 import Command.StockGameCommandProcessor;
@@ -18,7 +21,10 @@ public class StockGameLauncher {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		AccountManager manager = new AccountManagerImpl(sharearray1);
+		StockPriceProvider provider = new RandomStockPriceProvider(sharearray1);
+		AccountManager manager = new AccountManagerImpl(provider);
+		Bot bot1 = new StockBuySellBot(manager, provider);
+		manager.addPlayer(bot1);
 		StockGameCommandProcessor commandprocessor = new StockGameCommandProcessor(manager);
 		StockPriceInfo priceinfo = new RandomStockPriceProvider(sharearray1);
 		StockPriceViewer priceviewer = new StockPriceViewer(priceinfo, manager);

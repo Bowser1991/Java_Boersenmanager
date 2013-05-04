@@ -3,17 +3,14 @@ package innerimpl;
 import asset.Asset;
 import asset.Player;
 import Exception.AccountException;
-import Exception.BotException;
 import Exception.ShareException;
 import Exception.WrongNameException;
 public interface AccountManager {
-    
 	/**
 	 * 
-	 * @param name
+	 * @param player
 	 */
-     void addPlayer(String name);
-     
+     public void addPlayer(Object player);
      /**
       * 
       * @param playername
@@ -22,7 +19,7 @@ public interface AccountManager {
       * @throws ShareException
      * @throws AccountException 
       */
-     void buyShare(String playername, String sharename, int amount) throws ShareException, AccountException;
+     public void buyShare(String playername, String sharename, int amount) throws ShareException, AccountException;
      /**
       * 
       * @param playername
@@ -75,14 +72,12 @@ public interface AccountManager {
  	 /**
  	  * 
  	  * @param playername
- 	  * @throws BotException
  	  */
- 	 public void startBot(String playername) throws BotException;
+ 	 public void startBot(String playername);
  	 /**
  	  * 
  	  * @param playername
- 	  * @throws BotException
  	  */
-	 public void stopBot(String playername) throws BotException;
+ 	 public void stopBot(String playername);
 }
 

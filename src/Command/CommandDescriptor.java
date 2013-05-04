@@ -1,5 +1,4 @@
 package Command;
-import enums.*;
 
 public class CommandDescriptor {
 
