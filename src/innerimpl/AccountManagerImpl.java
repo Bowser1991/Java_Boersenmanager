@@ -188,14 +188,7 @@ public class AccountManagerImpl implements AccountManager {
 <<<<<<< HEAD
 	 * diverShareSell(String sharename , String playername)
 	 * Vergleicht den Durchscnittseinkaufwert mit dem aktuellen Wert der Aktie und liefert true zurück, wenn der 
-	 * Durchscnittswert >= dem aktuellen Wert ist, false, wenn <. 
-=======
-	 * diverShareSell(String sharename , String playername) Nimmt den Gesamtwert
-	 * eines Share Items und teilt diesen durch die anzahl der im ShareItem
-	 * liegenden Shares. Dieser Wert wird dann mit dem aktuellen wert der Firma
-	 * verglichen und als long zurück gegeben.
-	 * 
->>>>>>> Wie besprochen Bot und account impl bearbeitet
+	 * Durchscnittswert >= dem aktuellen Wert ist, false, wenn . 
 	 * @param sharename
 	 * @param playername
 	 * @return boolean
@@ -203,7 +196,6 @@ public class AccountManagerImpl implements AccountManager {
 	 */
 
 	@Override
-<<<<<<< HEAD
 	public boolean diverShareSell(String sharename , String playername) throws WrongNameException{
 		ShareItem[] buffershareitem = searchInPlayer(playername).getShareDeposit().getAllShareItems();
 		long pricepershare = setPricepershare(sharename, buffershareitem);		
@@ -229,37 +221,15 @@ public class AccountManagerImpl implements AccountManager {
 			if(buffershareitem[i] !=null && buffershareitem[i].name.equals(sharename)){
 				pricepershare = buffershareitem[i].getPurchasValue() / buffershareitem[i].getNumberOfShares();
 				if(i == buffershareitem.length){
-=======
-	public boolean diverShareSell(String sharename, String playername)
-			throws WrongNameException {
-		ShareItem[] buffershareitem = searchInPlayer(playername)
-				.getShareDeposit().getAllShareItems();
-		long pricepershare = 0l;
-		for (int i = 0; i < buffershareitem.length; i++) {
-			if (buffershareitem[i] != null
-					&& buffershareitem[i].name.equals(sharename)) {
-				pricepershare = buffershareitem[i].getPurchasValue()
-						/ buffershareitem[i].getNumberOfShares();
-				if (i == buffershareitem.length) {
->>>>>>> Wie besprochen Bot und account impl bearbeitet
 					break;
 				}
 			}
 			if (i == buffershareitem.length) {
 				throw new WrongNameException("invalid name of share");
 			}
-		}
-<<<<<<< HEAD
+	    }
 	    return pricepershare;
-=======
-		pricepershare -= provider.getShare(sharename).getActualSharePrice();
-		if (pricepershare >= 0) {
-			diverstatus = true;
-		} else {
-			diverstatus = false;
-		}
-		return diverstatus;
->>>>>>> Wie besprochen Bot und account impl bearbeitet
+	    
 	}
 	/**
 	 * 
