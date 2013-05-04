@@ -1,6 +1,8 @@
 package testing;
 
 import static org.junit.Assert.*;
+import static org.easymock.EasyMock.*;
+
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -30,6 +32,7 @@ public class ShareDepositTest {
     @Before
     public void setUp() throws Exception
     {
+        Share share = EasyMock.
     }
 
     @After
