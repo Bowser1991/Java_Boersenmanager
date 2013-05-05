@@ -1,4 +1,7 @@
 package innerimpl;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import bots.Bot;
 import bots.StockBuySellBot;
 import priceprovider.*;
@@ -11,8 +14,9 @@ import Exception.BotException;
 import Exception.NotAddablePlayerException;
 import Exception.ShareException;
 import Exception.WrongNameException;
-
 public class AccountManagerImpl implements AccountManager {
+    
+    private static Logger logger = Logger.getLogger(AccountManagerImpl.class.getName());
 	private Player[] allplayers;
 	private StockPriceProvider provider;
 	private boolean diverstatus = false;
@@ -62,6 +66,7 @@ public class AccountManagerImpl implements AccountManager {
 
 	public void buyShare(String playername, String sharename, int amount)
 			throws ShareException, AccountException {
+	    logger.log(Level.INFO, "Player " + playername + " kauft " + amount + " "+ sharename + " Aktien.");
 		// search for the player called playername
 		Player searchplayer = searchInPlayer(playername);
 
@@ -90,7 +95,8 @@ public class AccountManagerImpl implements AccountManager {
 	
 	public void sellShare(String playername, String sharename, int amount)
 			throws ShareException, AccountException {
-
+	    
+	    logger.log(Level.INFO, "Player " + playername + " verkauft " + amount + " "+ sharename + " Aktien.");
 		// search for the player called playername
 		Player searchplayer = searchInPlayer(playername);
 
