@@ -1,6 +1,9 @@
 package innerimpl;
+import java.io.IOException;
+import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 import bots.StockBuySellBot;
 import priceprovider.*;
@@ -19,15 +22,36 @@ import Exception.WrongNameException;
  *
  */
 public class AccountManagerImpl implements AccountManager {
-    private static final Logger logger = Logger.getLogger(AccountManagerImpl.class.getName());
+    private static final Logger logger = Logger.getLogger("MyLog");
 	private Player[] allplayers;
 	private StockPriceProvider provider;
 	private boolean diverstatus = false;
+	private FileHandler fh;  
 	/**
 	 * 
 	 * @param provider
 	 */
 	public AccountManagerImpl(StockPriceProvider provider) {
+		
+		try {  
+            FileHandler fh = new FileHandler("C://Temp//log2.txt"); 
+            // This block configure the logger with handler and formatter  
+            
+            logger.addHandler(fh);  
+            logger.setLevel(Level.ALL);
+              
+            // the following statement is used to log any messages  
+            logger.info("My first log");  
+            logger.log(Level.WARNING, "Test");
+            logger.log(Level.SEVERE, "Test");
+            logger.log(Level.FINE, "Test");
+            logger.log(Level.FINER, "Test");
+            logger.log(Level.FINEST, "Test");
+        } catch (SecurityException e) {  
+            e.printStackTrace();  
+        } catch (IOException e) {  
+            e.printStackTrace();  
+        }  
 		allplayers = new Player[1];
 		this.provider = provider;
 	}
