@@ -2,7 +2,6 @@ package innerimpl;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import bots.Bot;
 import bots.StockBuySellBot;
 import priceprovider.*;
 import asset.Asset;
@@ -20,7 +19,7 @@ import Exception.WrongNameException;
  *
  */
 public class AccountManagerImpl implements AccountManager {
-    private static Logger logger = Logger.getLogger(AccountManagerImpl.class.getName());
+    private static final Logger logger = Logger.getLogger(AccountManagerImpl.class.getName());
 	private Player[] allplayers;
 	private StockPriceProvider provider;
 	private boolean diverstatus = false;
