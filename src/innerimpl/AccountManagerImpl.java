@@ -34,7 +34,7 @@ public class AccountManagerImpl implements AccountManager {
 	public AccountManagerImpl(StockPriceProvider provider) {
 		
 		try {  
-            FileHandler fh = new FileHandler("C://Temp//log2.txt"); 
+            FileHandler fh = new FileHandler("C:/Temp/log2.txt"); 
             // This block configure the logger with handler and formatter  
             
             logger.addHandler(fh);  
