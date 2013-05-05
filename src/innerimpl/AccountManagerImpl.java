@@ -14,34 +14,47 @@ import Exception.BotException;
 import Exception.NotAddablePlayerException;
 import Exception.ShareException;
 import Exception.WrongNameException;
+/**
+ * 
+ * @author daniel und manuel
+ *
+ */
 public class AccountManagerImpl implements AccountManager {
-    
     private static Logger logger = Logger.getLogger(AccountManagerImpl.class.getName());
 	private Player[] allplayers;
 	private StockPriceProvider provider;
 	private boolean diverstatus = false;
-	private Bot stockbot;
-	
-	public AccountManagerImpl(Share[] shares) {
+	/**
+	 * 
+	 * @param provider
+	 */
+	public AccountManagerImpl(StockPriceProvider provider) {
 		allplayers = new Player[1];
-		provider = new RandomStockPriceProvider(shares);
-		stockbot = new StockBuySellBot(this, provider);
+		this.provider = provider;
 	}
-
+	/**
+	 * 
+	 */
 	@Override
 	public void setPlayerAccount(long accountworth, String playername) throws AccountException{
 		Player player = searchInPlayer(playername);
 		player.setAccountWorth(accountworth);
 	}
-
-	public void addPlayer(String name) throws NotAddablePlayerException {
-		Player newplayer = new Player(name);
-		// saves the player in an free space
+	/**
+	 * 
+	 */
+	public void addPlayer(Object player) throws NotAddablePlayerException {
+		Player newplayer = null;
+		if (player.getClass().getName().equals("java.lang.String")) {
+			newplayer = new Player((String) player);
+		} else {
+			newplayer = (Player) player;
+		}
 		for (int i = 0; i < allplayers.length; i++) {
 			if (allplayers[i] == null) {
-				try{
-				Player searchplayer = searchInPlayer(name);
-				}catch(WrongNameException e){
+				try {
+					Player searchplayer = searchInPlayer(newplayer.name);
+				} catch (WrongNameException e) {
 					allplayers[i] = (newplayer);
 					return;
 				}
@@ -54,8 +67,12 @@ public class AccountManagerImpl implements AccountManager {
 			}
 		}
 	}
-	
-
+	/**
+	 * verlaengert ein zurueckgegebenes Array
+	 * @param playerarray
+	 * @param howmuchlonger
+	 * @return
+	 */
 	private Player[] longerArray(Player[] playerarray, int howmuchlonger){
 		Player[] longer = new Player[playerarray.length + howmuchlonger];
 		for (int j = 0; j < playerarray.length; j++) {
@@ -63,7 +80,9 @@ public class AccountManagerImpl implements AccountManager {
 		}
 		return longer;
 	}
-
+	/**
+	 * 
+	 */
 	public void buyShare(String playername, String sharename, int amount)
 			throws ShareException, AccountException {
 	    logger.log(Level.INFO, "Player " + playername + " kauft " + amount + " "+ sharename + " Aktien.");
@@ -83,16 +102,11 @@ public class AccountManagerImpl implements AccountManager {
 
 
 	}
-
-	
-	/*
+	/**
 	 * sellShare(String playername, String sharename, int amount)
 	 * Verkauft eine bestimmte Anzahl von Aktien
 	 * wirft einen ShareException wenn nicht genug Aktion vorhanden sind
-	 * 
-	 * 
 	 */
-	
 	public void sellShare(String playername, String sharename, int amount)
 			throws ShareException, AccountException {
 	    
@@ -108,24 +122,23 @@ public class AccountManagerImpl implements AccountManager {
 
 	}
 	
-	/*
+	/**
 	 * getAssetworth(Asset asset)
 	 * Gibt den Wert einen gewüschten Assets zurück
-	 * 
+	 * @param asset
 	 */
 	
 	public long getAssetworth(Asset asset) {
 		return asset.getvalue();
 	}
 
-	/*
+	/**
 	 * getAllAssetworth(String playername) 
 	 * Gibt das gesamte Vermögen eines Spielers aus dabei werden die
 	 * vorhanden Aktien und das Geldkonto mit einberechnet
-	 * 
+	 * @param playername
 	 * 
 	 */
-
 	public long getAllAssetworth(String playername) {
 		Player player = searchInPlayer(playername);
 		long accumulateworth = player.getCashAccount().getAccountStatus();
@@ -142,8 +155,12 @@ public class AccountManagerImpl implements AccountManager {
 		}
 		return accumulateworth;
 	}
-	
-	
+	/**
+	 * sucht nach einem beliebigen Spieler anahand des namens
+	 * @param searchstring
+	 * @return Player
+	 * @throws WrongNameException
+	 */
 	private Player searchInPlayer(String searchstring)
 			throws WrongNameException {
 		int i;
@@ -158,19 +175,20 @@ public class AccountManagerImpl implements AccountManager {
 		return allplayers[i];
 	}
 	
-	/*
+	/** gibt alle Player zurück
 	 * getAllAssetworth(String playername) 
 	 * Gibt alle Spieler des Managers zurück
-	 * 
+	 * @return Player[]
 	 */
-	
 	public Player[] getAllPlayer (){
 	    return allplayers;
 	}
 	
-	/*
+	/**
 	 *  String getPlayer() 
 	 *	gibt alle Player eines Managers als String zurück
+	 *	Form: Playername: <name> <cashaccount to String Methode> <sharedeposit to String>
+	 *	@return String
 	 */
 	
 	public String getPlayer() {
@@ -179,22 +197,19 @@ public class AccountManagerImpl implements AccountManager {
             if (allplayers[i] != null){
                 s += "Player name: " + allplayers[i].name +  allplayers[i].getCashAccount().toString() + "\n\r";
                 s += allplayers[i].getShareDeposit().toString() +  "\n\r";
-                
             }
         }
         return s;
     }
-	
 	/**
 	 * diverShareSell(String sharename , String playername)
 	 * Vergleicht den Durchscnittseinkaufwert mit dem aktuellen Wert der Aktie und liefert true zurück, wenn der 
-	 * Durchscnittswert >= dem aktuellen Wert ist, false, wenn <. 
+	 * Durchscnittswert >= dem aktuellen Wert ist. 
 	 * @param sharename
 	 * @param playername
 	 * @return boolean
 	 * @throws WrongNameException
 	 */
-	
 	@Override
 	public boolean diverShareSell(String sharename , String playername) throws WrongNameException{
 		ShareItem[] buffershareitem = searchInPlayer(playername).getShareDeposit().getAllShareItems();
@@ -230,20 +245,25 @@ public class AccountManagerImpl implements AccountManager {
 		}
 	    return pricepershare;
 	}
-
+	/**
+	 * gibt den diverstatus zurück
+	 */
 	@Override
 	public boolean getDiverStatus() {
 		return diverstatus;
 	}
-
+	/**
+	 * startet den Bot
+	 */
 	@Override
 	public void startBot(String playername) throws BotException {
 		stockbot.start(playername);
 	}
-
+	/**
+	 * stopt den Bot
+	 */
 	@Override
 	public void stopBot(String playername) throws BotException {
 		stockbot.stop(playername);
 	}
-
 }
