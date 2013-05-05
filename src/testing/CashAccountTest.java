@@ -1,6 +1,7 @@
 package testing;
 
 import static org.junit.Assert.*;
+import junit.framework.TestCase;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -12,7 +13,7 @@ import Exception.AccountException;
 import asset.CashAccount;
 import asset.Share;
 
-public class CashAccountTest {
+public class CashAccountTest{
     private final long accountstatus1 = 1000000;
     private final long accountstatus2 = -10;
     private final long actualshareprice = 300; 
@@ -47,8 +48,12 @@ public class CashAccountTest {
         assertFalse(account1.getAccountStatus()==0);
     }
     @Test(expected=AccountException.class)
-    public void testSetAccountStatus() throws AccountException{
+    public void testSetAccountStatus() throws AccountException {
         account2.setAccountStatus(accountstatus2);
+        
+    }
+    @Test
+    public void testSetAccountStatus2() throws AccountException{
         account2.setAccountStatus(accountstatus1);
         assertTrue(account2.getAccountStatus()==accountstatus1);
         assertFalse(account2.getAccountStatus()==0);

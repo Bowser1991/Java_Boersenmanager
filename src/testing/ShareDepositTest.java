@@ -2,6 +2,7 @@ package testing;
 
 import static org.junit.Assert.*;
 import static org.easymock.EasyMock.*;
+import junit.framework.TestCase;
 
 
 import org.junit.After;
@@ -15,7 +16,7 @@ import asset.Share;
 import asset.ShareDeposit;
 import asset.ShareItem;
 
-public class ShareDepositTest {
+public class ShareDepositTest{
     private final int amount = 10;
     private final long actualshareprice = 300;
     private final ShareDeposit deposit1 = new ShareDeposit("Manu");

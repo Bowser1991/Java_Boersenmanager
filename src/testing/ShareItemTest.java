@@ -1,6 +1,7 @@
 package testing;
 
 import static org.junit.Assert.*;
+import junit.framework.TestCase;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -11,11 +12,10 @@ import org.junit.Test;
 import Exception.ShareException;
 import asset.ShareItem;
 
-public class ShareItemTest {
+public class ShareItemTest{
     
     private final ShareItem item1 = new ShareItem("BMW");
     private final ShareItem item2 = new ShareItem("Opel");
-    private final ShareItem item3 = new ShareItem("Mercedes");
     private final long price = 100;
     private final int amountofshares = 10;
     private final int sellamount = 12;
