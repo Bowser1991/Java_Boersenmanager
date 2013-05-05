@@ -257,13 +257,22 @@ public class AccountManagerImpl implements AccountManager {
 	 */
 	@Override
 	public void startBot(String playername) throws BotException {
-		stockbot.start(playername);
+		StockBuySellBot startbot = (StockBuySellBot) searchInPlayer("Bot");
+		try {
+			startbot.start(playername);
+		} catch (BotException e) {
+		}
+
 	}
 	/**
 	 * stopt den Bot
 	 */
 	@Override
 	public void stopBot(String playername) throws BotException {
-		stockbot.stop(playername);
+		StockBuySellBot endbot = (StockBuySellBot) searchInPlayer("Bot");
+		try {
+			endbot.stop(playername);
+		} catch (BotException e) {
+		}
 	}
 }
