@@ -24,6 +24,7 @@ public class StockGameLauncher {
 		StockPriceProvider provider = new RandomStockPriceProvider(sharearray1);
 		AccountManager manager = new AccountManagerImpl(provider);
 		Bot bot1 = new StockBuySellBot(	manager, provider);
+		manager.addPlayer(bot1);
 		StockGameCommandProcessor commandprocessor = new StockGameCommandProcessor(manager);
 		StockPriceInfo priceinfo = new RandomStockPriceProvider(sharearray1);
 		StockPriceViewer priceviewer = new StockPriceViewer(priceinfo, manager);
