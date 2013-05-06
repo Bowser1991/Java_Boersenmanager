@@ -1,7 +1,10 @@
 package innerimpl;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Properties;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
+import java.util.logging.LogManager;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
@@ -22,7 +25,7 @@ import Exception.WrongNameException;
  *
  */
 public class AccountManagerImpl implements AccountManager {
-    private static final Logger logger = Logger.getLogger("MyLog");
+    private static final Logger logger = Logger.getLogger("AccountManagerLogger");
 	private Player[] allplayers;
 	private StockPriceProvider provider;
 	private boolean diverstatus = false;
@@ -32,21 +35,11 @@ public class AccountManagerImpl implements AccountManager {
 	 * @param provider
 	 */
 	public AccountManagerImpl(StockPriceProvider provider) {
-		
 		try {  
-            FileHandler fh = new FileHandler("C:/Temp/log2.txt"); 
-            // This block configure the logger with handler and formatter  
-            
-            logger.addHandler(fh);  
-            logger.setLevel(Level.ALL);
-              
-            // the following statement is used to log any messages  
-            logger.info("My first log");  
-            logger.log(Level.WARNING, "Test");
-            logger.log(Level.SEVERE, "Test");
-            logger.log(Level.FINE, "Test");
-            logger.log(Level.FINER, "Test");
-            logger.log(Level.FINEST, "Test");
+			FileInputStream configFile = new FileInputStream("logging.properties");
+            LogManager.getLogManager().readConfiguration(configFile);
+            logger.addHandler(new java.util.logging.FileHandler());
+            logger.addHandler(new java.util.logging.ConsoleHandler());
         } catch (SecurityException e) {  
             e.printStackTrace();  
         } catch (IOException e) {  
@@ -108,7 +101,7 @@ public class AccountManagerImpl implements AccountManager {
 	 */
 	public void buyShare(String playername, String sharename, int amount)
 			throws ShareException, AccountException {
-	    logger.log(Level.INFO, "Player " + playername + " kauft " + amount + " "+ sharename + " Aktien.");
+	    logger.log(Level.INFO, "Player " + playername + " kauft " + amount + " "+ sharename + " Aktien.\r\n");
 		// search for the player called playername
 		Player searchplayer = searchInPlayer(playername);
 
@@ -133,7 +126,7 @@ public class AccountManagerImpl implements AccountManager {
 	public void sellShare(String playername, String sharename, int amount)
 			throws ShareException, AccountException {
 	    
-	    logger.log(Level.INFO, "Player " + playername + " verkauft " + amount + " "+ sharename + " Aktien.");
+	    logger.log(Level.INFO, "Player " + playername + " verkauft " + amount + " "+ sharename + " Aktien.\r\n");
 		// search for the player called playername
 		Player searchplayer = searchInPlayer(playername);
 
