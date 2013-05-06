@@ -1,13 +1,10 @@
 package innerimpl;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Properties;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
-
 import bots.StockBuySellBot;
 import priceprovider.*;
 import asset.Asset;
