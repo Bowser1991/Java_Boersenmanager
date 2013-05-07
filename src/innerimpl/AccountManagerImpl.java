@@ -1,9 +1,6 @@
 package innerimpl;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
-import java.util.logging.LogManager;
 import java.util.logging.Logger;
 import bots.StockBuySellBot;
 import priceprovider.*;
@@ -22,26 +19,14 @@ import Exception.WrongNameException;
  *
  */
 public class AccountManagerImpl implements AccountManager {
-    private static final Logger logger = Logger.getLogger("AccountManagerLogger");
 	private Player[] allplayers;
 	private StockPriceProvider provider;
-	private boolean diverstatus = false;
-	private FileHandler fh;  
+	private boolean diverstatus = false; 
 	/**
 	 * 
 	 * @param provider
 	 */
 	public AccountManagerImpl(StockPriceProvider provider) {
-		try {  
-			FileInputStream configFile = new FileInputStream("logging.properties");
-            LogManager.getLogManager().readConfiguration(configFile);
-            logger.addHandler(new java.util.logging.FileHandler());
-            logger.addHandler(new java.util.logging.ConsoleHandler());
-        } catch (SecurityException e) {  
-            e.printStackTrace();  
-        } catch (IOException e) {  
-            e.printStackTrace();  
-        }  
 		allplayers = new Player[1];
 		this.provider = provider;
 	}

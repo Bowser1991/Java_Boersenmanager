@@ -1,5 +1,7 @@
 package launcher;
 
+import java.lang.reflect.Proxy;
+
 import bots.Bot;
 import bots.StockBuySellBot;
 import innerimpl.AccountManager;
@@ -8,6 +10,7 @@ import priceprovider.RandomStockPriceProvider;
 import priceprovider.StockPriceInfo;
 import priceprovider.StockPriceProvider;
 import priceprovider.StockPriceViewer;
+import proxy.AccountManagerHandler;
 import asset.Share;
 import Command.StockGameCommandProcessor;
 
@@ -23,11 +26,12 @@ public class StockGameLauncher {
 	public static void main(String[] args) {
 		StockPriceProvider provider = new RandomStockPriceProvider(sharearray1);
 		AccountManager manager = new AccountManagerImpl(provider);
+		AccountManager proxy = (AccountManager)Proxy.newProxyInstance(AccountManager.class.getClassLoader(), new Class [] {AccountManager.class}, new AccountManagerHandler(manager));
 		Bot bot1 = new StockBuySellBot(	manager, provider);
 		manager.addPlayer(bot1);
-		StockGameCommandProcessor commandprocessor = new StockGameCommandProcessor(manager);
+		StockGameCommandProcessor commandprocessor = new StockGameCommandProcessor(proxy);
 		StockPriceInfo priceinfo = new RandomStockPriceProvider(sharearray1);
-		StockPriceViewer priceviewer = new StockPriceViewer(priceinfo, manager);
+		StockPriceViewer priceviewer = new StockPriceViewer(priceinfo, proxy);
 		priceviewer.start();
 		commandprocessor.process();
 		
