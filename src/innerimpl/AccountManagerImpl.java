@@ -1,7 +1,4 @@
 package innerimpl;
-import java.util.logging.FileHandler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import bots.StockBuySellBot;
 import priceprovider.*;
 import asset.Asset;
@@ -83,7 +80,6 @@ public class AccountManagerImpl implements AccountManager {
 	 */
 	public void buyShare(String playername, String sharename, int amount)
 			throws ShareException, AccountException {
-	    logger.log(Level.INFO, "Player " + playername + " kauft " + amount + " "+ sharename + " Aktien.\r\n");
 		// search for the player called playername
 		Player searchplayer = searchInPlayer(playername);
 
@@ -107,8 +103,6 @@ public class AccountManagerImpl implements AccountManager {
 	 */
 	public void sellShare(String playername, String sharename, int amount)
 			throws ShareException, AccountException {
-	    
-	    logger.log(Level.INFO, "Player " + playername + " verkauft " + amount + " "+ sharename + " Aktien.\r\n");
 		// search for the player called playername
 		Player searchplayer = searchInPlayer(playername);
 

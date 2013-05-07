@@ -1,9 +1,6 @@
 package testing;
 
 import static org.junit.Assert.*;
-import junit.framework.TestCase;
-
-
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -37,8 +34,6 @@ public class ShareDepositTest{
     @Before
     public void setUp() throws Exception
     {
-//        ShareItem[] item = createMock(ShareItem[].class);
-//        item = 
     }
 
     @After

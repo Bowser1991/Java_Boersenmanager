@@ -10,6 +10,11 @@ public class ShareItem extends Asset {
         numberOfShares = 0;
         purchasevalue = 0;
     }
+    public ShareItem(String name, int numberofshares, long purchasevalue){
+        super(name);
+        this.numberOfShares = numberofshares;
+        this.purchasevalue = purchasevalue;
+    }
     
     public String toString(){
         return "Share name: "+ name +" Number of Shares :"+Integer.toString(numberOfShares)+" Purchase Value : "+Long.toString(purchasevalue);
