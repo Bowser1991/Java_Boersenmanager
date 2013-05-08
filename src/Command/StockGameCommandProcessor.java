@@ -16,14 +16,13 @@ public class StockGameCommandProcessor {
 	private PrintWriter shellwriter = new PrintWriter(System.out);
 	private CommandDescriptor descriptor = new CommandDescriptor();
 	private AccountManager accountmanager = null;
-	private StockGameCommandType newenum;
 	
 	public StockGameCommandProcessor(AccountManager manager ){
 		accountmanager = manager;
 	}
 	
 	public  void process() {
-		CommandScanner commandscanner = new CommandScanner(newenum.values(), descriptor);
+		CommandScanner commandscanner = new CommandScanner(StockGameCommandType.values(), descriptor);
 		
 		while (true) { 
 			
@@ -50,8 +49,8 @@ public class StockGameCommandProcessor {
 					System.exit(0);
 					break;
 				case HELP:
-					for (int i = 0; i < newenum.values().length; i++) {
-						shellwriter.println(newenum.values()[i].getName()+newenum.values()[i].getHelpText());
+					for (int i = 0; i < StockGameCommandType.values().length; i++) {
+						shellwriter.println(StockGameCommandType.values()[i].getName()+StockGameCommandType.values()[i].getHelpText());
 					}
 					shellwriter.flush();
 					break;
