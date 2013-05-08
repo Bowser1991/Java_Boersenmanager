@@ -110,4 +110,13 @@ public class AccountManagerImplTest {
         assertTrue("überprüft ob der Wert im ShareItem richtig berechnet wurde 10*200 - 10*200 = 0", manager.getAllPlayer()[0].getShareDeposit().getAllShareItems()[0].getPurchasValue()==0);
         assertTrue("überprüft ob der Wert im CashAccount richtig berechnet wurde 1000000", manager.getAllPlayer()[0].getCashAccount().getAccountStatus()==accountworth);
     }
+    @Test
+    public void testGetAllAssetWorth(){
+        assertTrue(manager.getAllAssetworth(playername)==accountworth);
+    }
+    @Test
+    public void testDiverShareSell() throws ShareException, AccountException{
+        manager.buyShare(playername, sharename, amount);
+        assertTrue("überprüft ob der Durchscnittswert der gekauften Aktien >= dem aktuellen Aktienwert ist", manager.diverShareSell(sharename, playername));      
+    }
 }
