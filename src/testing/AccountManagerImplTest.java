@@ -6,8 +6,6 @@ package testing;
 import static org.junit.Assert.*;
 import innerimpl.AccountManagerImpl;
 
-import org.easymock.EasyMock;
-import org.easymock.internal.ReplayState;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -40,8 +38,6 @@ public class AccountManagerImplTest {
 
     private final StockPriceProvider provider = new ConstStockPriceProvider(sharearray);
     private final AccountManagerImpl manager = new AccountManagerImpl(provider);
-    private StockPriceProvider providerMock;
-    private AccountManagerImpl manager2;
     
 
     /**
@@ -53,7 +49,6 @@ public class AccountManagerImplTest {
         
         
     }
-
     /**
      * @throws java.lang.Exception
      */
@@ -61,17 +56,14 @@ public class AccountManagerImplTest {
     public static void tearDownAfterClass() throws Exception
     {
     }
-
     /**
      * @throws java.lang.Exception
      */
     @Before
     public void setUp() throws Exception
     {
-
-        
+        manager.addPlayer(player);
     }
-
     /**
      * @throws java.lang.Exception
      */
@@ -79,22 +71,24 @@ public class AccountManagerImplTest {
     public void tearDown() throws Exception
     {
     }
-
+    /**
+     * 
+     * @throws AccountException
+     */
     @Test(expected = NotAddablePlayerException.class)
     public void testAddPLayer() throws AccountException
     {
-        
-        manager.addPlayer(player);
         manager.addPlayer(player);
         assertTrue("überprüft ob der Playername stimmt", manager.getAllPlayer()[0].name.equals(playername));
         assertTrue("überprüft ob der accountworth richtig gesetzt ist", manager.getAllPlayer()[0].getCashAccount().getAccountStatus()==accountworth);
     }
-    
+    /**
+     * 
+     * @throws ShareException
+     * @throws AccountException
+     */
     @Test(expected =  ShareException.class)
     public void testBuyShare() throws ShareException, AccountException{
-
-        
-        manager.addPlayer(player);
         manager.buyShare(playername, sharename, 1000000); //löst Exception aus
         manager.buyShare(playername, sharename, amount);
         assertTrue("überprüft ob der Name des ShareItems richtig ist", manager.getAllPlayer()[0].getShareDeposit().getAllShareItems()[0].name.equals(sharename));
@@ -102,10 +96,13 @@ public class AccountManagerImplTest {
         assertTrue("überprüft ob der Wert im ShareItem richtig berechnet wurde 10*200", manager.getAllPlayer()[0].getShareDeposit().getAllShareItems()[0].getPurchasValue()==amount*200);
         assertTrue("überprüft ob der Wert im CashAccount richtig berechnet wurde 1000000-10*200", manager.getAllPlayer()[0].getCashAccount().getAccountStatus()==accountworth-amount*200);
     }
-    
+    /**
+     * 
+     * @throws ShareException
+     * @throws AccountException
+     */
     @Test(expected = ShareException.class)
     public void testSellShare() throws ShareException, AccountException{
-        manager.addPlayer(player);
         manager.buyShare(playername, sharename, amount);
         manager.sellShare(playername, sharename, amount2); //löst Exception aus
         manager.sellShare(playername, sharename, amount);
@@ -113,5 +110,4 @@ public class AccountManagerImplTest {
         assertTrue("überprüft ob der Wert im ShareItem richtig berechnet wurde 10*200 - 10*200 = 0", manager.getAllPlayer()[0].getShareDeposit().getAllShareItems()[0].getPurchasValue()==0);
         assertTrue("überprüft ob der Wert im CashAccount richtig berechnet wurde 1000000", manager.getAllPlayer()[0].getCashAccount().getAccountStatus()==accountworth);
     }
-
 }
