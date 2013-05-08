@@ -1,0 +1,117 @@
+/**
+ * 
+ */
+package testing;
+
+import static org.junit.Assert.*;
+import innerimpl.AccountManagerImpl;
+
+import org.easymock.EasyMock;
+import org.easymock.internal.ReplayState;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+import asset.Player;
+import asset.Share;
+
+import Exception.AccountException;
+import Exception.NotAddablePlayerException;
+import Exception.ShareException;
+
+import priceprovider.ConstStockPriceProvider;
+import priceprovider.StockPriceProvider;
+
+/**
+ * @author Manu2
+ *
+ */
+public class AccountManagerImplTest {
+    
+    private final Share[] sharearray = {new Share("BMW", 200), new Share("Opel", 250), new Share("Mercedes", 300)};
+    private final String playername = "manu";
+    private final long accountworth = 1000000;   
+    private final String sharename = "BMW";
+    private final int amount = 10;
+    private final int amount2 = 12;
+    private final Player player = new Player(playername, accountworth);
+
+    private final StockPriceProvider provider = new ConstStockPriceProvider(sharearray);
+    private final AccountManagerImpl manager = new AccountManagerImpl(provider);
+    private StockPriceProvider providerMock;
+    private AccountManagerImpl manager2;
+    
+
+    /**
+     * @throws java.lang.Exception
+     */
+    @BeforeClass
+    public static void setUpBeforeClass() throws Exception
+    {
+        
+        
+    }
+
+    /**
+     * @throws java.lang.Exception
+     */
+    @AfterClass
+    public static void tearDownAfterClass() throws Exception
+    {
+    }
+
+    /**
+     * @throws java.lang.Exception
+     */
+    @Before
+    public void setUp() throws Exception
+    {
+
+        
+    }
+
+    /**
+     * @throws java.lang.Exception
+     */
+    @After
+    public void tearDown() throws Exception
+    {
+    }
+
+    @Test(expected = NotAddablePlayerException.class)
+    public void testAddPLayer() throws AccountException
+    {
+        
+        manager.addPlayer(player);
+        manager.addPlayer(player);
+        assertTrue("überprüft ob der Playername stimmt", manager.getAllPlayer()[0].name.equals(playername));
+        assertTrue("überprüft ob der accountworth richtig gesetzt ist", manager.getAllPlayer()[0].getCashAccount().getAccountStatus()==accountworth);
+    }
+    
+    @Test(expected =  ShareException.class)
+    public void testBuyShare() throws ShareException, AccountException{
+
+        
+        manager.addPlayer(player);
+        manager.buyShare(playername, sharename, 1000000); //löst Exception aus
+        manager.buyShare(playername, sharename, amount);
+        assertTrue("überprüft ob der Name des ShareItems richtig ist", manager.getAllPlayer()[0].getShareDeposit().getAllShareItems()[0].name.equals(sharename));
+        assertTrue("überprüft ob die Anzahl der gekauften Aktien korrekt ist amount = 10", manager.getAllPlayer()[0].getShareDeposit().getAllShareItems()[0].getNumberOfShares()==amount);
+        assertTrue("überprüft ob der Wert im ShareItem richtig berechnet wurde 10*200", manager.getAllPlayer()[0].getShareDeposit().getAllShareItems()[0].getPurchasValue()==amount*200);
+        assertTrue("überprüft ob der Wert im CashAccount richtig berechnet wurde 1000000-10*200", manager.getAllPlayer()[0].getCashAccount().getAccountStatus()==accountworth-amount*200);
+    }
+    
+    @Test(expected = ShareException.class)
+    public void testSellShare() throws ShareException, AccountException{
+        manager.addPlayer(player);
+        manager.buyShare(playername, sharename, amount);
+        manager.sellShare(playername, sharename, amount2); //löst Exception aus
+        manager.sellShare(playername, sharename, amount);
+        assertTrue("überprüft ob die Anzahl der gekauften Aktien korrekt ist 10 - 10 = 0", manager.getAllPlayer()[0].getShareDeposit().getAllShareItems()[0].getNumberOfShares()==0);
+        assertTrue("überprüft ob der Wert im ShareItem richtig berechnet wurde 10*200 - 10*200 = 0", manager.getAllPlayer()[0].getShareDeposit().getAllShareItems()[0].getPurchasValue()==0);
+        assertTrue("überprüft ob der Wert im CashAccount richtig berechnet wurde 1000000", manager.getAllPlayer()[0].getCashAccount().getAccountStatus()==accountworth);
+    }
+
+}
