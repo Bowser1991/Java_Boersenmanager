@@ -1,9 +1,12 @@
 package asset;
 
 import Exception.AccountException;
-
+/**
+ * 
+ * @author daniel und manuel
+ *
+ */
 public class CashAccount extends Asset {
-    
     private long accountStatus;
     
     public CashAccount(String name,long firstaccountstatus) {
