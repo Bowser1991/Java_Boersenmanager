@@ -14,7 +14,6 @@ import asset.CashAccount;
 import asset.Player;
 import asset.Share;
 import asset.ShareDeposit;
-import asset.ShareItem;
 
 public class PlayerTest {
     private final String name = "manu";
@@ -49,7 +48,7 @@ public class PlayerTest {
     @Test
     public void testGetCashAccount()
     {
-        assertTrue("überprüft ob cashaccountstatus identisch ist", player.getCashAccount().getAccountStatus()==cashaccountstatus);
+        assertTrue("überprüft ob cashaccountstatus identisch ist", player.getCashAccount().getvalue()==cashaccountstatus);
         assertTrue("überprüft ob der name identisch ist", player.getCashAccount().name.equals(name));
     }
     @Test
@@ -66,7 +65,7 @@ public class PlayerTest {
         player.buyShare(share, amount);
         deposit.buyShare(share, amount);
         assertTrue("überprüft ShareDeposit auf Gleichheit", player.getShareDeposit().equals(deposit));
-        account.setAccountStatus(account.getAccountStatus()-share.getActualSharePrice()*amount);
+        account.setAccountStatus(account.getvalue()-share.getActualSharePrice()*amount);
         assertTrue("überprüft CashAccount auf Gleichheit", player.getCashAccount().equals(account));
     }
     @Test
@@ -75,7 +74,7 @@ public class PlayerTest {
         player.sellShare(share, amount-1);
         deposit.buyShare(share, 1);
         assertTrue("überprüft ShareDeposit auf Gleichheit", player.getShareDeposit().equals(deposit));
-        account.setAccountStatus(account.getAccountStatus()-share.getActualSharePrice()*1);
+        account.setAccountStatus(account.getvalue()-share.getActualSharePrice()*1);
         assertTrue("überprüft CashAccount auf Gleichheit", player.getCashAccount().equals(account));
     }
 

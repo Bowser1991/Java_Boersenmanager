@@ -10,7 +10,8 @@ import org.junit.runner.RunWith;
        CashAccountTest.class,
        ShareDepositTest.class,
        ShareItemTest.class,
-       AccountManagerImplTest.class
+       AccountManagerImplTest.class,
+       PlayerTest.class
    })
 public class AllTests {
 
