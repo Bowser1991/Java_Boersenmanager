@@ -9,7 +9,8 @@ import org.junit.runner.RunWith;
    @SuiteClasses({
        CashAccountTest.class,
        ShareDepositTest.class,
-       ShareItemTest.class       
+       ShareItemTest.class,
+       AccountManagerImplTest.class
    })
 public class AllTests {
 

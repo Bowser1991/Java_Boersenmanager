@@ -42,6 +42,20 @@ public class Player {
     public ShareDeposit getShareDeposit(){
         return deposit;
     }
+    public boolean equals(Player player){
+        boolean b = true;
+        if (!this.name.equals(player.name)){
+            b = false;
+            return b;
+        }
+        if (!this.deposit.equals(player.getShareDeposit())){
+            b = false;
+            return b;
+        }
+        if (!this.account.equals(player.getCashAccount()))
+            b = false;
+        return b;
+    }
     
     
 }

@@ -41,4 +41,14 @@ public class CashAccount extends Asset {
     public long getvalue() {
         return accountStatus;
     }
+    public boolean equals(CashAccount account){
+        boolean b = true;
+        if (!this.name.equals(account.name)){
+            b = false;
+            return b;
+        }      
+        if (this.accountStatus!=account.getAccountStatus())
+            b = false;
+        return b;
+    }
 }
