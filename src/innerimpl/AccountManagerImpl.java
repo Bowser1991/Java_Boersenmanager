@@ -49,11 +49,12 @@ public class AccountManagerImpl implements AccountManager {
 			if (allplayers[i] == null) {
 				try {
 					Player searchplayer = searchInPlayer(newplayer.name);
+					if(searchplayer != null)
+					    throw new NotAddablePlayerException("player still exists");
 				} catch (WrongNameException e) {
 					allplayers[i] = (newplayer);
 					return;
-				}
-				throw new NotAddablePlayerException("player still exists");
+				}				
 			}
 			// longer the array if no space free
 			else if (i == allplayers.length - 1) {
