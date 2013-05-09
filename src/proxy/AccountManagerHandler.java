@@ -26,7 +26,7 @@ public class AccountManagerHandler implements InvocationHandler{
             FileInputStream configFile = new FileInputStream("logging.properties");
             LogManager.getLogManager().readConfiguration(configFile);
             logger.addHandler(new java.util.logging.FileHandler());
-            logger.addHandler(new java.util.logging.ConsoleHandler());
+//            logger.addHandler(new java.util.logging.ConsoleHandler());
         } catch (SecurityException e) {
             e.printStackTrace();
         } catch (IOException e) {

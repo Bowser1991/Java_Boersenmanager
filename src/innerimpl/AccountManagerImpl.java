@@ -206,7 +206,9 @@ public class AccountManagerImpl implements AccountManager {
 	@Override
 	public boolean diverShareSell(String sharename , String playername) throws WrongNameException{
 		ShareItem[] buffershareitem = searchInPlayer(playername).getShareDeposit().getAllShareItems();
-		long pricepershare = setPricepershare(sharename, buffershareitem);		
+		long pricepershare = setPricepershare(sharename, buffershareitem);	
+		if(pricepershare == 0 || pricepershare == -1)
+		    return diverstatus = true;
 		pricepershare -= provider.getShare(sharename).getActualSharePrice();
 		if(pricepershare >= 0){
 			diverstatus = true;
@@ -224,9 +226,9 @@ public class AccountManagerImpl implements AccountManager {
 	 * @return long
 	 */
 	private long setPricepershare (String sharename, ShareItem[] buffershareitem){
-	    long pricepershare = 0;
+	    long pricepershare = -1;
 	    for (int i = 0; i < buffershareitem.length; i++) {
-			if(buffershareitem[i] !=null && buffershareitem[i].name.equals(sharename)){
+			if(buffershareitem[i] !=null && buffershareitem[i].name.equals(sharename) && buffershareitem[i].getNumberOfShares() != 0){
 				pricepershare = buffershareitem[i].getPurchasValue() / buffershareitem[i].getNumberOfShares();
 				if(i == buffershareitem.length){
 					break;

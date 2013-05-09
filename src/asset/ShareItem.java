@@ -30,7 +30,8 @@ public class ShareItem extends Asset {
             throw new ShareException("not enough Shares to sell the wanted amount");
         }
         numberOfShares -= amountofshares;
-        this.purchasevalue -= purchasevalue;
+        setPurchaseValue(-purchasevalue);
+//        this.purchasevalue -= purchasevalue;
     }
     
     public int getNumberOfShares(){
@@ -41,8 +42,14 @@ public class ShareItem extends Asset {
         return purchasevalue;
     }
     
-    public void setPurchaseValue(long price){           //was soll eigetnlich passieren wenn die gekauften Aktien auf einmal ein Minus erreichen geht das überhaupt ?
-        purchasevalue += price;
+    public void setPurchaseValue(long price){  
+        
+        if(purchasevalue + price < 0){
+            purchasevalue = 0;          //was soll eigetnlich passieren wenn die gekauften Aktien auf einmal ein Minus erreichen geht das überhaupt ?
+        }else {
+            purchasevalue += price;
+        }
+        
     }
 
     public long getvalue() {
