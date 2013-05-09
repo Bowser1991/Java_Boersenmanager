@@ -88,7 +88,7 @@ public class AccountManagerImpl implements AccountManager {
 		Share searchshare = provider.getShare(sharename);
 
 		// what happens if price is higher than account status
-		if (((searchshare.getActualSharePrice() * amount)) > (searchplayer.getCashAccount().getAccountStatus())) {
+		if (((searchshare.getActualSharePrice() * amount)) > (searchplayer.getCashAccount().getvalue())) {
 			throw new ShareException("price is too high for cash account");
 		}else{
 			// finally buy the Share
@@ -134,7 +134,7 @@ public class AccountManagerImpl implements AccountManager {
 	 */
 	public long getAllAssetworth(String playername) {
 		Player player = searchInPlayer(playername);
-		long accumulateworth = player.getCashAccount().getAccountStatus();
+		long accumulateworth = player.getCashAccount().getvalue();
 		for (int j = 0; j < player.getShareDeposit().getAllShareItems().length; j++) {
 			try {
 				String nameofshare = player.getShareDeposit().getAllShareItems()[j].name;

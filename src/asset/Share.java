@@ -1,13 +1,18 @@
 package asset;
-
+/**
+ * 
+ * @author daniel und manuel
+ *
+ */
 public class Share {
     public final String name;
 	private long actualshareprice;
     private long[] sharepricehistory = new long[10] ;
-    
-    
-    /*
-     * Konstruktor
+    /**
+     * Share(String name, long actualshareprice).
+     * Konsruktor mit Name und aktuellem Preis
+     * @param name
+     * @param actualshareprice
      */
     public Share(String name, long actualshareprice) {              
         this.name = name;
@@ -15,7 +20,7 @@ public class Share {
     }
     
     /**
-     * 
+     * long getActualSharePrice().
      * @return
      * gibt den Aktuellen SharePrice der Aktie zurück
      */
@@ -24,20 +29,21 @@ public class Share {
     }
     
     /**
-     * 
+     * long[] getSharePriceHistory()
      * @return
      * gibt die Preis Historie zurück
      */
-    public long[] getSharePriceHistory(){
+    public long[] getSharePriceHistory() {
     	return sharepricehistory;
     }
     
     /**
+     * setActualSharePrice(long newshareprice)
      * Setzt einen neuen Preis bei einer Aktie
      * @param newshareprice
      * der neue Preis der Aktie
      */
-    public void setActualSharePrice(long newshareprice){            //speichert die Vergangenen Preise
+    public void setActualSharePrice(long newshareprice) {            //speichert die Vergangenen Preise
         for(int i = 0; i < sharepricehistory.length;i++){           //geht jeden Wert in sharePricehistory sobald ein leeres Objekt gefunden wird speicher er dort den letzten Preis
             if(sharepricehistory[i] == 0){
                 sharepricehistory[i] = actualshareprice;
@@ -51,10 +57,14 @@ public class Share {
     }
 
     /**
-     * 
+     * long[] longerArray(long[] longarray, int howmuchlonger).
+     * verlängert ein Array
      * @param longarray
+     * Zu verlängerndes Array
      * @param howmuchlonger
-     * @return
+     * Wie viel Länger
+     * @return long[]
+     * Gibt das verlängerte Array zurück
      */
     private long[] longerArray(long[] longarray, int howmuchlonger){
         long[] longer = new long[longarray.length + howmuchlonger];

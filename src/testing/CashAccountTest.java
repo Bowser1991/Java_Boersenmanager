@@ -43,8 +43,8 @@ public class CashAccountTest{
     @Test
     public void testGetAccountstatus()
     {
-        assertTrue(account1.getAccountStatus()==accountstatus1);
-        assertFalse(account1.getAccountStatus()==0);
+        assertTrue(account1.getvalue()==accountstatus1);
+        assertFalse(account1.getvalue()==0);
     }
     @Test(expected=AccountException.class)
     public void testSetAccountStatus() throws AccountException {
@@ -54,20 +54,20 @@ public class CashAccountTest{
     @Test
     public void testSetAccountStatus2() throws AccountException{
         account2.setAccountStatus(accountstatus1);
-        assertTrue(account2.getAccountStatus()==accountstatus1);
-        assertFalse(account2.getAccountStatus()==0);
+        assertTrue(account2.getvalue()==accountstatus1);
+        assertFalse(account2.getvalue()==0);
     }
     @Test
     public void testDeposit(){
         account1.deposit(share1);
-        assertTrue(account1.getAccountStatus()==accountstatus1-actualshareprice);
-        assertFalse(account1.getAccountStatus()==accountstatus1);
+        assertTrue(account1.getvalue()==accountstatus1-actualshareprice);
+        assertFalse(account1.getvalue()==accountstatus1);
     }
     @Test
     public void testWithdraw(){
         account1.withdraw(share1);
-        assertTrue(account1.getAccountStatus()==accountstatus1+actualshareprice);
-        assertFalse(account1.getAccountStatus()==accountstatus1);
+        assertTrue(account1.getvalue()==accountstatus1+actualshareprice);
+        assertFalse(account1.getvalue()==accountstatus1);
     }
 
 }

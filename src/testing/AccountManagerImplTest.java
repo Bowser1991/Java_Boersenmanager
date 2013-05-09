@@ -80,7 +80,7 @@ public class AccountManagerImplTest {
     {
         manager.addPlayer(player);
         assertTrue("überprüft ob der Playername stimmt", manager.getAllPlayer()[0].name.equals(playername));
-        assertTrue("überprüft ob der accountworth richtig gesetzt ist", manager.getAllPlayer()[0].getCashAccount().getAccountStatus()==accountworth);
+        assertTrue("überprüft ob der accountworth richtig gesetzt ist", manager.getAllPlayer()[0].getCashAccount().getvalue() ==accountworth);
     }
     /**
      * 
@@ -94,7 +94,7 @@ public class AccountManagerImplTest {
         assertTrue("überprüft ob der Name des ShareItems richtig ist", manager.getAllPlayer()[0].getShareDeposit().getAllShareItems()[0].name.equals(sharename));
         assertTrue("überprüft ob die Anzahl der gekauften Aktien korrekt ist amount = 10", manager.getAllPlayer()[0].getShareDeposit().getAllShareItems()[0].getNumberOfShares()==amount);
         assertTrue("überprüft ob der Wert im ShareItem richtig berechnet wurde 10*200", manager.getAllPlayer()[0].getShareDeposit().getAllShareItems()[0].getPurchasValue()==amount*200);
-        assertTrue("überprüft ob der Wert im CashAccount richtig berechnet wurde 1000000-10*200", manager.getAllPlayer()[0].getCashAccount().getAccountStatus()==accountworth-amount*200);
+        assertTrue("überprüft ob der Wert im CashAccount richtig berechnet wurde 1000000-10*200", manager.getAllPlayer()[0].getCashAccount().getvalue()==accountworth-amount*200);
     }
     /**
      * 
@@ -108,7 +108,7 @@ public class AccountManagerImplTest {
         manager.sellShare(playername, sharename, amount);
         assertTrue("überprüft ob die Anzahl der gekauften Aktien korrekt ist 10 - 10 = 0", manager.getAllPlayer()[0].getShareDeposit().getAllShareItems()[0].getNumberOfShares()==0);
         assertTrue("überprüft ob der Wert im ShareItem richtig berechnet wurde 10*200 - 10*200 = 0", manager.getAllPlayer()[0].getShareDeposit().getAllShareItems()[0].getPurchasValue()==0);
-        assertTrue("überprüft ob der Wert im CashAccount richtig berechnet wurde 1000000", manager.getAllPlayer()[0].getCashAccount().getAccountStatus()==accountworth);
+        assertTrue("überprüft ob der Wert im CashAccount richtig berechnet wurde 1000000", manager.getAllPlayer()[0].getCashAccount().getvalue()==accountworth);
     }
     @Test
     public void testGetAllAssetWorth(){

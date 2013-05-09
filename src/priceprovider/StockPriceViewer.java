@@ -52,19 +52,21 @@ public class StockPriceViewer extends JFrame {
         private String getPlayer() {
             Player[] bufferPlayer = manager.getAllPlayer();
             String s = "";
-            for (int i = 0; i < bufferPlayer.length; i++){
+            int i = 0;
+            if(bufferPlayer[i] != null&&bufferPlayer[0].name.contentEquals("Bot")){
+            	i = 1;
+            }
+            for (; i < bufferPlayer.length; ){
                 if (bufferPlayer[i] != null){
                     s += "Player name: " + bufferPlayer[i].name + "<br>" + bufferPlayer[i].getCashAccount().toString() + "<br>";
-                    s += bufferPlayer[i].getShareDeposit().toString() + "<br>" + "<br>";
+                    s += bufferPlayer[i].getShareDeposit().toString() + "<br>";
+                    i++;
                 }
             }
             return s;
         }
- 
-       
         private String createText() {
-            
-            String output ="<html><body>" + getAvailableShares()+"<br>"+"is there a gain if sell: "+manager.getDiverStatus()+"<br>" +"<br>"+ getPlayer(); 
+            String output = "<html><body>" + getAvailableShares() + "<br>"+"is there a gain if sell: " + manager.getDiverStatus()+"<br>" +"<br>"+ getPlayer(); 
             Calendar cal = Calendar.getInstance();
             Date date = cal.getTime();
             DateFormat dateFormatter = DateFormat.getDateTimeInstance();

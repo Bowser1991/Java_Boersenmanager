@@ -36,7 +36,7 @@ public class ShareDeposit extends Asset {
         for(int i = 0; i < allshareitems.length;i++){
             if(allshareitems[i]==null){}
             else{
-            output += allshareitems[i].toString();
+            output += allshareitems[i].toString()+"<br>";
             }
         }
         //Ausgabe output

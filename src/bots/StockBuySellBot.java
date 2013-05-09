@@ -41,21 +41,6 @@ public class StockBuySellBot extends Player implements Bot {
 	}
 	/**
 	 * 
-	 * @param searcharray
-	 * @return
-	 */
-	private Share getMinPrice(Share[] searcharray){
-		Share priceminvalue = searcharray[0];
-		for (int i = 1; i < searcharray.length; i++) {
-			for (int j = 0; j < searcharray[i].getSharePriceHistory().length; j++) {
-				if(searcharray[i].getSharePriceHistory()[j] <= priceminvalue.getActualSharePrice());
-				priceminvalue = searcharray[i];
-			}
-		}
-		return priceminvalue;
-	}
-	/**
-	 * 
 	 */
 	public void doAction() {
 		for (int i = 0; i < provider.getAvailableShare().length; i++) {
