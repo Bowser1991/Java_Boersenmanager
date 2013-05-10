@@ -2,7 +2,6 @@ package bots;
 
 import java.util.TimerTask;
 import asset.Player;
-import asset.Share;
 import Exception.BotException;
 import Exception.ShareException;
 import innerimpl.AccountManager;

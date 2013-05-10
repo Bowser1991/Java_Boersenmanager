@@ -27,8 +27,8 @@ public class StockGameLauncher {
 		StockPriceProvider provider = new RandomStockPriceProvider(sharearray1);
 		AccountManager manager = new AccountManagerImpl(provider);
 		AccountManager proxy = (AccountManager)Proxy.newProxyInstance(AccountManager.class.getClassLoader(), new Class [] {AccountManager.class}, new AccountManagerHandler(manager));
-		Bot bot1 = new StockBuySellBot(	manager, provider);
-		manager.addPlayer(bot1);
+		Bot bot1 = new StockBuySellBot(	proxy, provider);
+		proxy.addPlayer(bot1);
 		StockGameCommandProcessor commandprocessor = new StockGameCommandProcessor(proxy);
 		StockPriceInfo priceinfo = new RandomStockPriceProvider(sharearray1);
 		StockPriceViewer priceviewer = new StockPriceViewer(priceinfo, proxy);

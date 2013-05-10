@@ -28,9 +28,10 @@ public class AccountManagerHandler implements InvocationHandler{
             logger.addHandler(new java.util.logging.FileHandler());
 //            logger.addHandler(new java.util.logging.ConsoleHandler());
         } catch (SecurityException e) {
-            e.printStackTrace();
+            logger.warning(e.toString());
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.warning(e.toString());
+//            e.printStackTrace();
         }
         this.target = target;
     }
