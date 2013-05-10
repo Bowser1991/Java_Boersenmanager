@@ -14,7 +14,7 @@ import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 /**
- * @author Manu2
+ * @author daniel und manuel
  *
  */
 public class AccountManagerHandler implements InvocationHandler{
@@ -31,7 +31,6 @@ public class AccountManagerHandler implements InvocationHandler{
             logger.warning(e.toString());
         } catch (IOException e) {
             logger.warning(e.toString());
-//            e.printStackTrace();
         }
         this.target = target;
     }
