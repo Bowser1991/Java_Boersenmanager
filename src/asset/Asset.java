@@ -54,7 +54,7 @@ public abstract class Asset {
      * @param howmuchlonger
      * Um wie viel soll verlängert werden
      * @return Share[]
-     * gibt das verlängerte Array zurück 
+     * gibt das verlängerte Array zurück
      */
     public Share[] longerArray(Share[] sharearray, int howmuchlonger) {
         Share[] longer = new Share[sharearray.length + howmuchlonger];
