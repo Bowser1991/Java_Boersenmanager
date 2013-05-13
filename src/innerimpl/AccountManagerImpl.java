@@ -1,4 +1,7 @@
 package innerimpl;
+import java.io.IOException;
+import java.util.logging.Logger;
+
 import bots.StockBuySellBot;
 import priceprovider.*;
 import asset.Asset;
@@ -19,6 +22,7 @@ public class AccountManagerImpl implements AccountManager {
 	private Player[] allplayers;
 	private StockPriceProvider provider;
 	private boolean diverstatus = false; 
+	private final static Logger logger = Logger.getLogger(AccountManagerImpl.class.getName());
 	/**
 	 * 
 	 * @param provider
@@ -26,6 +30,15 @@ public class AccountManagerImpl implements AccountManager {
 	public AccountManagerImpl(StockPriceProvider provider) {
 		allplayers = new Player[1];
 		this.provider = provider;
+		
+		try {
+            logger.addHandler(new java.util.logging.FileHandler());
+//            logger.addHandler(new java.util.logging.ConsoleHandler());
+        } catch (SecurityException e) {
+            logger.warning(e.toString());
+        } catch (IOException e) {
+            logger.warning(e.toString());
+        }
 	}
 	/**
 	 * 
@@ -49,9 +62,13 @@ public class AccountManagerImpl implements AccountManager {
 			if (allplayers[i] == null) {
 				try {
 					Player searchplayer = searchInPlayer(newplayer.name);
-					if(searchplayer != null)
-					    throw new NotAddablePlayerException("player still exists");
+					if(searchplayer != null){
+					   NotAddablePlayerException addable = new NotAddablePlayerException("player still exists");
+					   logger.warning(addable.toString()+"Player still exists so can't be added");
+					   throw addable;
+					}
 				} catch (WrongNameException e) {
+					logger.info(e.toString()+ "player does not exist now he will be added");
 					allplayers[i] = (newplayer);
 					return;
 				}				
@@ -89,7 +106,9 @@ public class AccountManagerImpl implements AccountManager {
 
 		// what happens if price is higher than account status
 		if (((searchshare.getActualSharePrice() * amount)) > (searchplayer.getCashAccount().getvalue())) {
-			throw new ShareException("price is too high for cash account");
+			ShareException shareexecption = new ShareException("price is too high for cash account");
+			logger.warning(sharename.toString()+"can't be sold price to high");
+			throw shareexecption;
 		}else{
 			// finally buy the Share
 			searchplayer.buyShare(searchshare, amount);
@@ -142,6 +161,7 @@ public class AccountManagerImpl implements AccountManager {
 				Share searchshare = provider.getShare(nameofshare);
 				accumulateworth += searchshare.getActualSharePrice() * numberofshares;
 			} catch (Exception e) {
+				logger.warning(e.toString() + "last worth of j:"+j);
 				break;
 			}
 			
@@ -162,7 +182,9 @@ public class AccountManagerImpl implements AccountManager {
 				break;
 			} else if (i == allplayers.length - 1) {
 				// if player cant be found throw exception
-				throw new WrongNameException("playername could not been found");
+				WrongNameException nameexception = new WrongNameException("playername could not been found");
+				logger.warning(nameexception.toString());
+				throw nameexception;
 			}
 		}
 		return allplayers[i];
@@ -235,7 +257,9 @@ public class AccountManagerImpl implements AccountManager {
 				}
 			}
 			if(i == buffershareitem.length){
-				throw new WrongNameException("invalid name of share");
+				WrongNameException nameexception = new WrongNameException("invalid name of share");
+				logger.warning(nameexception.toString());
+				throw nameexception;
 			}
 		}
 	    return pricepershare;
@@ -256,6 +280,7 @@ public class AccountManagerImpl implements AccountManager {
 		try {
 			startbot.start(playername);
 		} catch (BotException e) {
+			logger.warning(e.toString());
 		}
 
 	}
@@ -268,6 +293,7 @@ public class AccountManagerImpl implements AccountManager {
 		try {
 			endbot.stop(playername);
 		} catch (BotException e) {
+			logger.warning(e.toString());
 		}
 	}
 }

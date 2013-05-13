@@ -1,6 +1,9 @@
 package launcher;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.lang.reflect.Proxy;
+import java.util.logging.LogManager;
 
 import bots.Bot;
 import bots.StockBuySellBot;
@@ -24,6 +27,14 @@ public class StockGameLauncher {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		
+        try {
+        	FileInputStream configFile = new FileInputStream("logging.properties");
+			LogManager.getLogManager().readConfiguration(configFile);
+		} catch (SecurityException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		StockPriceProvider provider = new RandomStockPriceProvider(sharearray1);
 		AccountManager manager = new AccountManagerImpl(provider);
 		AccountManager proxy = (AccountManager)Proxy.newProxyInstance(AccountManager.class.getClassLoader(), new Class [] {AccountManager.class}, new AccountManagerHandler(manager));

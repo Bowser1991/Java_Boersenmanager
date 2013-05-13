@@ -4,13 +4,10 @@
 package proxy;
 
 import innerimpl.AccountManager;
-
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 /**
@@ -18,13 +15,11 @@ import java.util.logging.Logger;
  *
  */
 public class AccountManagerHandler implements InvocationHandler{
-    private Logger logger = Logger.getLogger("AccountManagerLogger");
+    private final static Logger logger = Logger.getLogger(AccountManagerHandler.class.getName());
     private AccountManager target;
     
     public AccountManagerHandler(AccountManager target){
         try {
-            FileInputStream configFile = new FileInputStream("logging.properties");
-            LogManager.getLogManager().readConfiguration(configFile);
             logger.addHandler(new java.util.logging.FileHandler());
 //            logger.addHandler(new java.util.logging.ConsoleHandler());
         } catch (SecurityException e) {
@@ -41,15 +36,25 @@ public class AccountManagerHandler implements InvocationHandler{
     {
         
         Object result = null;
-        try  {
-            result = method.invoke(target, args);
-            logger.info(method.getName());
-        } catch(IllegalAccessException ex)  { 
-            logger.warning(ex.toString());
-        } catch(InvocationTargetException ex)  {
-            logger.warning(ex.toString());
-        }
-        return result;
-    }
+		try {
+			result = method.invoke(target, args);
+			logger.info(method.getName());
+		} catch (IllegalAccessException ex) {
+			String output = "";
+			for (int i = 0; i < args.length; i++) {
+				output = args[i].getClass().getName();
+			}
+			logger.warning(ex.toString() + " In Method: " + method.getName()
+					+ " With Parameter: " + output);
+		} catch (InvocationTargetException ex) {
+			String output = "";
+			for (int i = 0; i < args.length; i++) {
+				output = args[i].getClass().getName();
+			}
+			logger.warning(ex.toString() + " In Method: " + method.getName()
+					+ " With Parameter: " + output);
+		}
+		return result;
+	}
 
 }
