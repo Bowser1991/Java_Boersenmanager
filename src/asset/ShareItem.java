@@ -55,7 +55,6 @@ public class ShareItem extends Asset {
         }
         numberOfShares -= amountofshares;
         setPurchaseValue(-purchasevalue);
-//        this.purchasevalue -= purchasevalue;
     }
     
     public int getNumberOfShares(){

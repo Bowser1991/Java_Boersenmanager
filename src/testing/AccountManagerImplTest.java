@@ -91,10 +91,10 @@ public class AccountManagerImplTest {
     public void testBuyShare() throws ShareException, AccountException{
         manager.buyShare(playername, sharename, 1000000); //löst Exception aus
         manager.buyShare(playername, sharename, amount);
-        assertTrue("überprüft ob der Name des ShareItems richtig ist", manager.getAllPlayer()[0].getShareDeposit().getAllShareItems()[0].name.equals(sharename));
-        assertTrue("überprüft ob die Anzahl der gekauften Aktien korrekt ist amount = 10", manager.getAllPlayer()[0].getShareDeposit().getAllShareItems()[0].getNumberOfShares()==amount);
-        assertTrue("überprüft ob der Wert im ShareItem richtig berechnet wurde 10*200", manager.getAllPlayer()[0].getShareDeposit().getAllShareItems()[0].getPurchasValue()==amount*200);
-        assertTrue("überprüft ob der Wert im CashAccount richtig berechnet wurde 1000000-10*200", manager.getAllPlayer()[0].getCashAccount().getvalue()==accountworth-amount*200);
+        assertTrue("Üerprüft ob der Name des ShareItems richtig ist", manager.getAllPlayer()[0].getShareDeposit().getAllShareItems()[0].name.equals(sharename));
+        assertTrue("Üerprüft ob die Anzahl der gekauften Aktien korrekt ist amount = 10", manager.getAllPlayer()[0].getShareDeposit().getAllShareItems()[0].getNumberOfShares()==amount);
+        assertTrue("Üerprüft ob der Wert im ShareItem richtig berechnet wurde 10*200", manager.getAllPlayer()[0].getShareDeposit().getAllShareItems()[0].getPurchasValue()==amount*200);
+
     }
     /**
      * 
@@ -106,8 +106,9 @@ public class AccountManagerImplTest {
         manager.buyShare(playername, sharename, amount);
         manager.sellShare(playername, sharename, amount2); //löst Exception aus
         manager.sellShare(playername, sharename, amount);
-        assertTrue("überprüft ob die Anzahl der gekauften Aktien korrekt ist 10 - 10 = 0", manager.getAllPlayer()[0].getShareDeposit().getAllShareItems()[0].getNumberOfShares()==0);
-        assertTrue("überprüft ob der Wert im ShareItem richtig berechnet wurde 10*200 - 10*200 = 0", manager.getAllPlayer()[0].getShareDeposit().getAllShareItems()[0].getPurchasValue()==0);
+        assertTrue(" ob die Anzahl der gekauften Aktien korrekt ist 10 - 10 = 0", manager.getAllPlayer()[0].getShareDeposit().getAllShareItems()[0].getNumberOfShares()==0);
+        assertTrue(" 10*200 - 10*200 = 0", manager.getAllPlayer()[0].getShareDeposit().getAllShareItems()[0].getPurchasValue()==0);
+
         assertTrue("überprüft ob der Wert im CashAccount richtig berechnet wurde 1000000", manager.getAllPlayer()[0].getCashAccount().getvalue()==accountworth);
     }
     @Test

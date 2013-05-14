@@ -1,124 +1,100 @@
 package asset;
+import java.util.Enumeration;
+import java.util.Hashtable;
+
 import Exception.ShareException;
 
 
 public class ShareDeposit extends Asset {
-    
-    private ShareItem[] allshareitems;
-    
+    /**
+     * Hashtable zur Abspeicherung aller ShareItems
+     */
+    private Hashtable<String, ShareItem> allshareitems = new Hashtable<>(2);
+    /**
+     * ShareDeposit(String name).
+     * Standard Konstruktor
+     * @param name
+     * Name des Deposits
+     */
     public ShareDeposit(String name) {
         super(name);
-        allshareitems = new ShareItem[2];
+        
     }
-    
+    /**
+     * void addShareItem (ShareItem newshareitem).
+     * @param newshareitem
+     * fügt ein neues Share Item hinzu
+     */
     private void addShareItem (ShareItem newshareitem){
-        //geht jeden Wert in allshare durch sobald ein leeres Objekt gefunden wird speicher er dort den letzten Preis
-        for(int i = 0; i < allshareitems.length;i++){                       
-            if(allshareitems[i] == null){
-                allshareitems[i] = newshareitem;
-                break;
-            }
-            //verlängert das Array wenn kein Platz zum speichern ist
-            else if(i == allshareitems.length - 1){ 
-                allshareitems = longerArray(allshareitems, 1);
-                i = 0;
-            }
-        }
+    	if(!allshareitems.containsKey(newshareitem)){
+        	allshareitems.put(newshareitem.name, newshareitem);
+    	}
     }
-    
+    /**
+     * ShareItem[] getAllShareItems().
+     * gibt die Hashtable mit den gespeicherten ShareItems als array zurück
+     * @return
+     * Hashtable
+     */
     public ShareItem[] getAllShareItems(){
-        return allshareitems;
+    	Enumeration<ShareItem> bufferenum = allshareitems.elements();
+    	ShareItem[] returnitem = new ShareItem[allshareitems.size()];
+       	for (int i = 0; i < allshareitems.size(); i++) {
+    		if(bufferenum.hasMoreElements()){
+    		 returnitem[i] = bufferenum.nextElement();
+    		}
+		}
+        return returnitem;
     }
-    
+    /**
+     * 
+     */
+    @Override
     public String toString(){
-        //Speichern all toString der ShareItems int output
-        String output = "";                             
-        for(int i = 0; i < allshareitems.length;i++){
-            if(allshareitems[i]==null){}
-            else{
-            output += allshareitems[i].toString()+"<br>";
-            }
-        }
-        //Ausgabe output
-        return output;
+      return allshareitems.toString();
     }
-
-    
-    
-    
+    /**
+     * void buyShare(Share newShare, int amount)
+     * kauft eine neue Aktie und legt diese im entspeic
+     * @param newShare
+     * Die neue Aktie
+     * @param amount
+     * Anzahl der zu kaufenden Aktien
+     */
     public void buyShare(Share newShare, int amount){
-        for(int i = 0; i < allshareitems.length;i++){                       
-            if (allshareitems[i] != null) {
-                if (newShare.name.equals(allshareitems[i].name)) {
-                    allshareitems[i].buyShare(amount,newShare.getActualSharePrice() * amount);
-                    return;
-                }
-            }
-            if(i==allshareitems.length-1){
-                ShareItem newitem = new ShareItem(newShare.name);
-                addShareItem(newitem);
-                i=-1;
-            }
-        }
+    	 if (!allshareitems.containsKey(newShare.name)) {
+        	 ShareItem newitem = new ShareItem(newShare.name);
+             addShareItem(newitem);
+         }
+         allshareitems.get(newShare.name).buyShare(amount,newShare.getActualSharePrice() * amount);
     }
-         
+    /**     
+     * sellShare(Share newShare, int amount).
+     * @param newShare
+     * Zu verkaufende Aktie
+     * @param amount
+     * Anzahl der zu verkaufenden Aktien
+     * @throws ShareException
+     * Wird geworfen wenn keine Aktie mit diesem Namen gefunden wird
+     */
     public void sellShare(Share newShare, int amount) throws ShareException{
-        for(int i = 0; i < allshareitems.length;i++){                       
-            if(newShare.name.equals(allshareitems[i].name)){                                
-                allshareitems[i].sellShare(amount, newShare.getActualSharePrice()*amount);                  
-                return;
-            }
-        }
-        throw new ShareException("No Share with this name available"+newShare.name);
+    	if (allshareitems.containsKey(newShare.name)) {
+    		allshareitems.get(newShare.name).sellShare(amount, newShare.getActualSharePrice()*amount);
+    	}else{
+    		throw new ShareException("No Share with this name available"+newShare.name);
+    	}
     }
-    
-    private ShareItem[] longerArray(ShareItem[] sharearray, int howmuchlonger){
-        ShareItem[] longer = new ShareItem[sharearray.length + howmuchlonger];
-        for (int j = 0; j < sharearray.length; j++) {
-            longer[j] = sharearray[j];
-        }
-        return longer;
-    }
-
+    /**
+     * 
+     */
     public long getvalue() {
-        long priceamount = 0l;
-        for(int i = 0; i < allshareitems.length;i++){
-            if(allshareitems[i].getPurchasValue()>=0){
-                priceamount += allshareitems[i].getPurchasValue();
-            }
-        }
-        return priceamount;
-    }
-    public boolean equals(ShareDeposit deposit){
-        boolean b = true;
-        if (!this.name.equals(deposit.name)){
-            b = false;
-            return b;
-        }
-        for (int i = 0; i < allshareitems.length; i++) {
-            if (allshareitems[i] == null){
-                if (deposit.getAllShareItems()[i] != null)
-                    b = false;
-            }else {
-                if (!allshareitems[i].equals(deposit.getAllShareItems()[i]))
-                    b = false;
-            }
-                
-        }
-        return b;
-    }
-    public boolean equals(ShareItem[] item){
-        boolean b = true;
-        for (int i = 0; i < allshareitems.length; i++) {
-            if (allshareitems[i] == null){
-                if (item[i] != null)
-                    b = false;
-            }else {
-                if (!allshareitems[i].equals(item[i]))
-                    b = false;
-            }
-                
-        }
-        return b;
+    	Enumeration<ShareItem> bufferenum = allshareitems.elements();
+    	long calcvalue = 0;
+    	for (int i = 0; i < allshareitems.size(); i++) {
+    		if(bufferenum.hasMoreElements()){
+    		calcvalue += bufferenum.nextElement().getPurchasValue();
+    		}
+		}
+    	return calcvalue;
     }
 }
