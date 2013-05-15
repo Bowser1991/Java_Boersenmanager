@@ -52,7 +52,7 @@ public class AccountManagerHandler implements InvocationHandler{
 				output = args[i].getClass().getName();
 			}
 			logger.warning(ex.toString() + " In Method: " + method.getName()
-					+ " With Parameter: " + output);
+					+ " With Parameter: " + output + "target " + target.toString());
 		}
 		return result;
 	}

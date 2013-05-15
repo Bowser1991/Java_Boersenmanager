@@ -60,7 +60,7 @@ public class StockGameCommandProcessor {
 							shellwriter.println(commandType.getHelpText());
 							shellwriter.flush();
 						}else{
-						Method executemethod = accountmanager.getClass().getMethod(commandType.getImplMethods(), commandType.getParamTypes());
+						Method executemethod = accountmanager.getClass().getMethod(commandType.getImplMethods(),commandType.getParamTypes());
 						executemethod.invoke(accountmanager, descriptor.getParams());
 						}
 					}catch(Exception e){
