@@ -73,5 +73,12 @@ public class Share {
         }
         return longer;
     }
+    
+    public boolean equals(String name){
+        return this.name.equals(name);
+    }
+    public String toString(){
+        return "Share name: " + name + ", Actual share price: " + actualshareprice + "\r\n";
+    }
 }
 
