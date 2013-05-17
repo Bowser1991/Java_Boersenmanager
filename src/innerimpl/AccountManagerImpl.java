@@ -1,5 +1,7 @@
 package innerimpl;
 
+import history.BuySellHistory;
+
 import java.io.IOException;
 import java.util.logging.Logger;
 import bots.StockBuySellBot;
@@ -12,6 +14,7 @@ import Exception.AccountException;
 import Exception.BotException;
 import Exception.NotAddablePlayerException;
 import Exception.ShareException;
+import Exception.WrongCommandException;
 import Exception.WrongNameException;
 
 /**
@@ -127,6 +130,7 @@ public class AccountManagerImpl implements AccountManager {
 			// finally buy the Share
 			searchplayer.buyShare(searchshare, amount);
 		}
+		searchplayer.getBuySellHistory().addHistory("buy", sharename, playername, amount);
 
 	}
 
@@ -145,6 +149,8 @@ public class AccountManagerImpl implements AccountManager {
 
 		// finally sell the Share
 		searchplayer.sellShare(searchshare, amount);
+		
+		searchplayer.getBuySellHistory().addHistory("sell", sharename, playername, amount);
 
 	}
 
@@ -322,5 +328,41 @@ public class AccountManagerImpl implements AccountManager {
 		} catch (BotException e) {
 			logger.warning(e.toString());
 		}
+	}
+	/*
+	 * getHistory(String playerName, String param)
+	 * Liefer die History sortiert nach
+	 *     -Aktienname
+	 *     -Methodenname
+	 *     -Aufrufzeit
+	 * zurück.
+	 * 
+	 * @param playerName
+     * @param param
+     * @return String
+     * @throws WrongCommandException
+	 */
+	public String getHistory(String playerName, String param) throws WrongCommandException{
+	    BuySellHistory history = searchInPlayer(playerName).getBuySellHistory();
+	    String s = "";
+	    switch(param){
+	    case("share"):
+	        history.sortByAllShareName();
+	        s = history.toString();
+	        break;
+	    case("time"):
+	        history.sortByTime();
+	        s = history.toString();
+	        break;
+	    case("methode"):
+	        history.sortByMethode();
+	        s = history.toString();
+	        break;
+	    default:
+	        throw new WrongCommandException("Command have not been found");
+	        
+	    }
+	    System.out.println(s);
+	    return s;
 	}
 }

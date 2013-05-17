@@ -5,6 +5,7 @@ import asset.Player;
 import Exception.AccountException;
 import Exception.BotException;
 import Exception.ShareException;
+import Exception.WrongCommandException;
 import Exception.WrongNameException;
 /**
  * 
@@ -120,5 +121,7 @@ public interface AccountManager {
  	  * wenn bisher noch kein Bot läuft
  	  */
 	 public void stopBot(String playername) throws BotException;
+	 
+	 public String getHistory(String playerName, String param) throws WrongCommandException;
 }
 

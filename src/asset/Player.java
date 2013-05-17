@@ -1,4 +1,5 @@
 package asset;
+import history.BuySellHistory;
 import Exception.AccountException;
 import Exception.ShareException;
 /**
@@ -14,6 +15,7 @@ public class Player {
     public final String name;
     private CashAccount account;
     private ShareDeposit deposit;
+    private BuySellHistory history = new BuySellHistory();
     /**
      * Player(String name).
      * Konstruktor erstellt Objekt mit Name
@@ -117,6 +119,9 @@ public class Player {
         if (!this.account.equals(player.getCashAccount()))
             b = false;
         return b;
+    }
+    public BuySellHistory getBuySellHistory(){
+        return history;
     }
     
     

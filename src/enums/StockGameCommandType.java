@@ -11,7 +11,8 @@ public enum StockGameCommandType  implements  CommandTypeInfo{
 	SETACCOUNTWORTH("setacw"," <accountworth><name>* sets the account worth by playername","setPlayerAccount",long.class, String.class),
 	PRICEDIVER("pricediv", "<sharename> <playername>* divers Shares to see if there is some provit if sold","diverShareSell",String.class, String.class),
 	STARTBOT("startbot", "<playername>* starts bot to automatically buy and sell", "startBot", String.class),
-	STOPBOT("stopbot", "<playername>* stops bot to automatically buy and sell", "stopBot", String.class);
+	STOPBOT("stopbot", "<playername>* stops bot to automatically buy and sell", "stopBot", String.class),
+	HISTORY("history", "<playername> <param>* get history", "getHistory", String.class, String.class);
 	
 	
 	private String commandname;
