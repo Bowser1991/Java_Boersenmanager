@@ -3,6 +3,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.TimerTask;
 
@@ -13,10 +14,12 @@ import Exception.WrongNameException;
 public abstract class StockPriceProvider implements StockPriceInfo {
     
 //private Share[] availableShare;
-private List <Share> availableShare;
+private List <Share> availableShare = new LinkedList<Share>();
     
     public StockPriceProvider (Share [] availableShare){
-        this.availableShare = Arrays.asList(availableShare);
+        for (int i = 0; i < availableShare.length; i++) {
+            this.availableShare.add(availableShare[i]);
+        }      
         Comparator <Share> comperator = new ShareComparator();
         Collections.sort(this.availableShare, comperator);
         startUpdate();

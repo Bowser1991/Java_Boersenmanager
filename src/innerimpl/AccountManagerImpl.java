@@ -3,6 +3,11 @@ package innerimpl;
 import history.BuySellHistory;
 
 import java.io.IOException;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.logging.Logger;
 import bots.StockBuySellBot;
 import priceprovider.*;
@@ -23,7 +28,8 @@ import Exception.WrongNameException;
  * 
  */
 public class AccountManagerImpl implements AccountManager {
-	private Player[] allplayers;
+//	private Player[] allplayers;
+	private Map<String, Player> allplayers = new Hashtable<String, Player>();
 	private StockPriceProvider provider;
 	private boolean diverstatus = false;
 	private final static Logger logger = Logger
@@ -34,7 +40,7 @@ public class AccountManagerImpl implements AccountManager {
 	 * @param provider
 	 */
 	public AccountManagerImpl(StockPriceProvider provider) {
-		allplayers = new Player[1];
+//		allplayers = new Player[1];
 		this.provider = provider;
 
 		try {
@@ -61,36 +67,46 @@ public class AccountManagerImpl implements AccountManager {
 	 * 
 	 */
 	public void addPlayer(Object player) throws NotAddablePlayerException {
+	    
 		Player newplayer = null;
 		if (player.getClass().getName().equals("java.lang.String")) {
 			newplayer = new Player((String) player);
 		} else {
 			newplayer = (Player) player;
 		}
-		for (int i = 0; i < allplayers.length; i++) {
-			if (allplayers[i] == null) {
-				try {
-					Player searchplayer = searchInPlayer(newplayer.name);
-					if (searchplayer != null) {
-						NotAddablePlayerException addable = new NotAddablePlayerException(
-								"player still exists");
-						logger.warning(addable.toString()
-								+ "Player still exists so can't be added");
-						throw addable;
-					}
-				} catch (WrongNameException e) {
-					logger.info(e.toString()
-							+ "player does not exist now he will be added");
-					allplayers[i] = (newplayer);
-					return;
-				}
-			}
-			// longer the array if no space free
-			else if (i == allplayers.length - 1) {
-				allplayers = longerArray(allplayers, 1);
-				i = 0;
-			}
+		if(allplayers.containsKey(newplayer.name)){
+		    NotAddablePlayerException addable = new NotAddablePlayerException(
+                    "player still exists");
+            logger.warning(addable.toString()
+                    + "Player still exists so can't be added");
+            throw addable;
+		} else {
+		    allplayers.put(newplayer.name, newplayer);
 		}
+//		for (int i = 0; i < allplayers.length; i++) {
+//			if (allplayers[i] == null) {
+//				try {
+//					Player searchplayer = searchInPlayer(newplayer.name);
+//					if (searchplayer != null) {
+//						NotAddablePlayerException addable = new NotAddablePlayerException(
+//								"player still exists");
+//						logger.warning(addable.toString()
+//								+ "Player still exists so can't be added");
+//						throw addable;
+//					}
+//				} catch (WrongNameException e) {
+//					logger.info(e.toString()
+//							+ "player does not exist now he will be added");
+//					allplayers[i] = (newplayer);
+//					return;
+//				}
+//			}
+//			// longer the array if no space free
+//			else if (i == allplayers.length - 1) {
+//				allplayers = longerArray(allplayers, 1);
+//				i = 0;
+//			}
+//		}
 	}
 
 	/**
@@ -100,13 +116,13 @@ public class AccountManagerImpl implements AccountManager {
 	 * @param howmuchlonger
 	 * @return
 	 */
-	private Player[] longerArray(Player[] playerarray, int howmuchlonger) {
-		Player[] longer = new Player[playerarray.length + howmuchlonger];
-		for (int j = 0; j < playerarray.length; j++) {
-			longer[j] = playerarray[j];
-		}
-		return longer;
-	}
+//	private Player[] longerArray(Player[] playerarray, int howmuchlonger) {
+//		Player[] longer = new Player[playerarray.length + howmuchlonger];
+//		for (int j = 0; j < playerarray.length; j++) {
+//			longer[j] = playerarray[j];
+//		}
+//		return longer;
+//	}
 
 	/**
 	 * 
@@ -195,20 +211,27 @@ public class AccountManagerImpl implements AccountManager {
 	 */
 	private Player searchInPlayer(String searchstring)
 			throws WrongNameException {
-		int i;
-		for (i = 0; i < allplayers.length; i++) {
-			if (allplayers[i] != null
-					&& allplayers[i].name.equalsIgnoreCase(searchstring)) {
-				break;
-			} else if (i == allplayers.length - 1) {
-				// if player cant be found throw exception
-				WrongNameException nameexception = new WrongNameException(
-						"playername could not been found");
-				logger.warning(nameexception.toString());
-				throw nameexception;
-			}
-		}
-		return allplayers[i];
+	    if(allplayers.containsKey(searchstring)){
+	        return allplayers.get(searchstring);
+	    } else {
+	        WrongNameException nameexception = new WrongNameException("playername could not been found");
+	        logger.warning(nameexception.toString());
+	        throw nameexception;
+	    }
+//		int i;
+//		for (i = 0; i < allplayers.length; i++) {
+//			if (allplayers[i] != null
+//					&& allplayers[i].name.equalsIgnoreCase(searchstring)) {
+//				break;
+//			} else if (i == allplayers.length - 1) {
+//				// if player cant be found throw exception
+//				WrongNameException nameexception = new WrongNameException(
+//						"playername could not been found");
+//				logger.warning(nameexception.toString());
+//				throw nameexception;
+//			}
+//		}
+//		return allplayers[i];
 	}
 
 	/**
@@ -218,7 +241,14 @@ public class AccountManagerImpl implements AccountManager {
 	 * @return Player[]
 	 */
 	public Player[] getAllPlayer() {
-		return allplayers;
+	    int amount = allplayers.size();
+	    Player[] p = new Player[amount];
+	    int i = 0;
+	    for(Map.Entry<String, Player> e : allplayers.entrySet()){
+	        p[i] = e.getValue();
+	        i++;
+	    }
+		return p;
 	}
 
 	/**
@@ -231,13 +261,16 @@ public class AccountManagerImpl implements AccountManager {
 
 	public String getPlayer() {
 		String s = "";
-		for (int i = 0; i < allplayers.length; i++) {
-			if (allplayers[i] != null) {
-				s += "Player name: " + allplayers[i].name
-						+ allplayers[i].getCashAccount().toString() + "\n\r";
-				s += allplayers[i].getShareDeposit().toString() + "\n\r";
-			}
+		for(Map.Entry<String, Player> e : allplayers.entrySet()){
+		    s = s + "Player name: " + e.getKey() + e.getValue().getCashAccount().toString() + "\r\n" + e.getValue().getShareDeposit().toString() + "\r\n";
 		}
+//		for (int i = 0; i < allplayers.length; i++) {
+//			if (allplayers[i] != null) {
+//				s += "Player name: " + allplayers[i].name
+//						+ allplayers[i].getCashAccount().toString() + "\n\r";
+//				s += allplayers[i].getShareDeposit().toString() + "\n\r";
+//			}
+//		}
 		return s;
 	}
 

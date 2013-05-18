@@ -123,6 +123,8 @@ public class Player {
     public BuySellHistory getBuySellHistory(){
         return history;
     }
-    
+    public String toString(){
+        return "Player name: " + name + "<br>" +account.toString() + "<br>" + deposit.toString() + "<br>";
+    }
     
 }
