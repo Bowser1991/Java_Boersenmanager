@@ -44,7 +44,6 @@ public class StockBuySellBot extends Player implements Bot {
 	public void doAction() {
 		for (int i = 0; i < provider.getAvailableShare().length; i++) {
 			try {
-//				Share priceminvalue = getMinPrice(provider.getAvailableShare());
 				if (accountmanager.diverShareSell(provider.getAvailableShare()[i].name,
 						playerbotname)) {
 					accountmanager.buyShare(playerbotname,

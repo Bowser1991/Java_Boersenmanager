@@ -97,4 +97,35 @@ public class ShareDeposit extends Asset {
 		}
     	return calcvalue;
     }
+    public boolean equals(ShareDeposit deposit){
+        boolean b = true;
+        if (!this.name.equals(deposit.name)){
+            b = false;
+            return b;
+        }
+        for (int i = 0; i < getAllShareItems().length; i++) {
+            if (getAllShareItems()[i] == null){
+                if (deposit.getAllShareItems()[i] != null)
+                    b = false;
+            }else {
+                if (!getAllShareItems()[i].equals(deposit.getAllShareItems()[i]))
+                    b = false;
+            }
+
+        }
+        return b;
+    }
+    public boolean equals(ShareItem[] item){
+        boolean b = true;
+        for (int i = 0; i < getAllShareItems().length; i++) {
+            if (getAllShareItems()[i] == null){
+                if (item[i] != null)
+                    b = false;
+            }else {
+                if (!getAllShareItems()[i].equals(item[i]))
+                    b = false;
+            }              
+        }
+        return b;
+    }
 }

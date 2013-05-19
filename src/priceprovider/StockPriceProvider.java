@@ -13,60 +13,34 @@ import Exception.WrongNameException;
 
 public abstract class StockPriceProvider implements StockPriceInfo {
     
-//private Share[] availableShare;
-private List <Share> availableShare = new LinkedList<Share>();
+    private List <Share> availableShare = new LinkedList<Share>();
     
-    public StockPriceProvider (Share [] availableShare){
+    public StockPriceProvider(Share[] availableShare) {
         for (int i = 0; i < availableShare.length; i++) {
             this.availableShare.add(availableShare[i]);
-        }      
-        Comparator <Share> comperator = new ShareComparator();
+        }
+        Comparator<Share> comperator = new ShareComparator();
         Collections.sort(this.availableShare, comperator);
         startUpdate();
     }
 
-    public boolean isShareListed(String sharename)
-    {        
+    public boolean isShareListed(String sharename){
         return availableShare.contains(sharename);
-        
-        
-        
-        
-//        for (int i = 0; i < availableShare.length; i++) {
-//            if (sharename.equals(availableShare[i].name)) {
-//                b = true;
-//                return b;
-//            }
-//        }
-//        return b;
     }
 
-    public long getShareprice(String name)
-    {
+    public long getShareprice(String name){
         Share searchshare = getShare(name);
         return searchshare.getActualSharePrice();
     }
-    public Share[] getAvailableShare()
-    {
+    public Share[] getAvailableShare(){
         return (Share[]) availableShare.toArray(new Share[availableShare.size()]);
     }
-    public String getAvailableShares()
-    {
+    public String getAvailableShares(){
         String s = "";
         for (int i = 0; i < availableShare.size(); i++) {
             s += availableShare.get(i);
         }
         return s;
-        
-//        Share[] a = getAvailableShare();
-//        
-//        String s = "";
-//        for (int i = 0; i < a.length; i++) {
-//            if (a[i] != null){
-//                s += a[i].toString();
-//            }
-//        }
-//        return s;
     }
     
     public Share getShare(String searchstring)
@@ -81,17 +55,6 @@ private List <Share> availableShare = new LinkedList<Share>();
             }
         }
         return availableShare.get(i);
-        
-//        int i;
-//        for (i = 0; i < availableShare.length; i++) {
-//            if (availableShare[i].name.equals(searchstring)) {
-//                return availableShare[i];
-//            } else if (i == availableShare.length - 1) {
-//                // if player cant be found throw exception
-//                throw new WrongNameException("playername could not been found");
-//            }
-//        }
-//        return availableShare[i];
     }
     protected abstract void  updateShareRate (Share share);
     
