@@ -125,5 +125,7 @@ public interface AccountManager {
 	 public void stopBot(String playername) throws BotException;
 	 
 	 public String getHistory(String playerName, String param) throws WrongCommandException;
+	 
+	 public String getShareHistory(String playerName, String sharename) throws WrongCommandException;
 }
 

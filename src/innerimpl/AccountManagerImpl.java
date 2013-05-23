@@ -313,7 +313,7 @@ public class AccountManagerImpl implements AccountManager {
 	    BuySellHistory history = searchInPlayer(playerName).getBuySellHistory();
 	    String s = "";
 	    switch(param){
-	    case("share"):
+	    case("allshare"):
 	        history.sortByAllShareName();
 	        s = history.toString();
 	        break;
@@ -324,12 +324,26 @@ public class AccountManagerImpl implements AccountManager {
 	    case("methode"):
 	        history.sortByMethode();
 	        s = history.toString();
-	        break;
+	        break;	    
 	    default:
 	        throw new WrongCommandException("Command have not been found");
 	        
 	    }
 	    System.out.println(s);
 	    return s;
+	}
+	public String getShareHistory(String playerName, String sharename) throws WrongCommandException{
+	    BuySellHistory history = searchInPlayer(playerName).getBuySellHistory();
+        String s = "";      
+        history.sortByAllShareName();
+        String[] buffer = history.toString().split("\n");
+        for (int i = 0; i < buffer.length; i++) {
+            if(buffer[i].contains(sharename)){
+                s = s + buffer[i] + "\n";
+            }
+        }
+        
+        System.out.println(s);
+        return s;
 	}
 }

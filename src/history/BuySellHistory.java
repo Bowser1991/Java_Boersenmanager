@@ -33,7 +33,7 @@ public class BuySellHistory {
 
     /**
      * sortByShareName()
-     * Sortiert die Liste nach einem PLayernamen.
+     * Sortiert die Liste nach einem Aktienname.
      */
     public void sortByShareName()
     {
