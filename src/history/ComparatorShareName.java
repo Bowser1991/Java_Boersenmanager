@@ -8,9 +8,9 @@ import java.util.Comparator;
 public class ComparatorShareName implements Comparator<CommandEntity>{
 
     @Override
-    public int compare(CommandEntity arg0, CommandEntity arg1)
+    public int compare(CommandEntity e1, CommandEntity e2)
     {
-        // TODO Auto-generated method stub
+        
         return 0;
     }
 
