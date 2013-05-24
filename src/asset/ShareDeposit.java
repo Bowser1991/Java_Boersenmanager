@@ -9,7 +9,7 @@ public class ShareDeposit extends Asset {
     /**
      * Hashtable zur Abspeicherung aller ShareItems
      */
-    private Hashtable<String, ShareItem> allshareitems = new Hashtable<>(2);
+    private Hashtable<String, ShareItem> allshareitems = new Hashtable<>();
     /**
      * ShareDeposit(String name).
      * Standard Konstruktor
