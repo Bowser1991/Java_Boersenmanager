@@ -53,11 +53,11 @@ public class StockPriceViewer extends JFrame {
         private String getPlayer() {
             Player[] bufferPlayer = manager.getAllPlayer();
             String s = "";
-            int i = 0;
-            if(bufferPlayer[i] != null&&bufferPlayer[0].name.contentEquals("Bot")){
-            	i = 1;
+            int counter = 0;
+            if(bufferPlayer[bufferPlayer.length -1] != null&&bufferPlayer[bufferPlayer.length -1].name.contentEquals("Bot")){
+            	counter = 1;
             }
-            for (; i < bufferPlayer.length; ){
+            for (int i = 0; i < bufferPlayer.length - counter; ){
                 if (bufferPlayer[i] != null){
                     s += "Player name: " + bufferPlayer[i].name + "<br>" + bufferPlayer[i].getCashAccount().toString() + "<br>";
                     s += bufferPlayer[i].getShareDeposit().toString() + "<br>";
