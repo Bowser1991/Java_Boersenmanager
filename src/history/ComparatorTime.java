@@ -15,7 +15,7 @@ public class ComparatorTime implements Comparator<CommandEntity>{
     public int compare(CommandEntity e1, CommandEntity e2)
     {
         if(e1.getTime() < e2.getTime())
-            return 1;
+            return -1;
         else if(e1.getTime() == e2.getTime())
             return 0;
         else
