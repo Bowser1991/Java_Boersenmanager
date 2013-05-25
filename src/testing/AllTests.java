@@ -11,7 +11,8 @@ import org.junit.runner.RunWith;
        ShareDepositTest.class,
        ShareItemTest.class,
        AccountManagerImplTest.class,
-       PlayerTest.class
+       PlayerTest.class,
+       ComperatorTest.class
    })
 public class AllTests {
 

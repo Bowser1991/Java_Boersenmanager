@@ -1,11 +1,14 @@
 package innerimpl;
 
 import history.BuySellHistory;
+import history.ComparatorAllShareName;
 
 import java.io.IOException;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.logging.Logger;
+
+import enums.HistorySortType;
 import bots.StockBuySellBot;
 import priceprovider.*;
 import asset.Asset;
@@ -101,7 +104,7 @@ public class AccountManagerImpl implements AccountManager {
 			// finally buy the Share
 			searchplayer.buyShare(searchshare, amount);
 		}
-		searchplayer.getBuySellHistory().addHistory("buy", sharename, playername, amount);
+		searchplayer.getBuySellHistory().addHistory("buy", searchshare, searchplayer, amount);
 
 	}
 
@@ -121,7 +124,7 @@ public class AccountManagerImpl implements AccountManager {
 		// finally sell the Share
 		searchplayer.sellShare(searchshare, amount);
 		
-		searchplayer.getBuySellHistory().addHistory("sell", sharename, playername, amount);
+		searchplayer.getBuySellHistory().addHistory("sell", searchshare, searchplayer, amount);
 
 	}
 
@@ -296,9 +299,9 @@ public class AccountManagerImpl implements AccountManager {
 			logger.warning(e.toString());
 		}
 	}
-	/*
+	/**
 	 * getHistory(String playerName, String param)
-	 * Liefer die History sortiert nach
+	 * Liefert die History sortiert nach
 	 *     -Aktienname
 	 *     -Methodenname
 	 *     -Aufrufzeit
@@ -309,33 +312,25 @@ public class AccountManagerImpl implements AccountManager {
      * @return String
      * @throws WrongCommandException
 	 */
-	public String getHistory(String playerName, String param) throws WrongCommandException{
+	public String getSortedHistory(String playerName, String param) throws WrongCommandException{
 	    BuySellHistory history = searchInPlayer(playerName).getBuySellHistory();
-	    String s = "";
-	    switch(param){
-	    case("allshare"):
-	        history.sortByAllShareName();
-	        s = history.toString();
-	        break;
-	    case("time"):
-	        history.sortByTime();
-	        s = history.toString();
-	        break;
-	    case("methode"):
-	        history.sortByMethode();
-	        s = history.toString();
-	        break;	    
-	    default:
-	        throw new WrongCommandException("Command have not been found");
-	        
-	    }
-	    System.out.println(s);
-	    return s;
+	    try {
+			history.sort(HistorySortType.getCompareType(param));
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+	    System.out.println(history.toString());
+	    return history.toString();
 	}
 	public String getShareHistory(String playerName, String sharename) throws WrongCommandException{
 	    BuySellHistory history = searchInPlayer(playerName).getBuySellHistory();
         String s = "";      
-        history.sortByAllShareName();
+        try {
+			history.sort(new ComparatorAllShareName());
+		}  catch (InstantiationException | IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         String[] buffer = history.toString().split("\n");
         for (int i = 0; i < buffer.length; i++) {
             if(buffer[i].contains(sharename)){

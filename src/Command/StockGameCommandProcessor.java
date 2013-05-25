@@ -59,6 +59,14 @@ public class StockGameCommandProcessor {
 						if(descriptor.getParams()[0].equals("help")){
 							shellwriter.println(commandType.getHelpText());
 							shellwriter.flush();
+							if(commandType == commandType.HISTORY){
+								String s = "<possible parameter for history>";
+								for (int i = 0; i < HistorySortType.values().length; i++) {
+									s +=" "+ HistorySortType.values()[i].getMethodName()+",";
+								}
+								shellwriter.println(s);
+								shellwriter.flush();
+							}
 						}else{
 						Method executemethod = accountmanager.getClass().getMethod(commandType.getImplMethods(),commandType.getParamTypes());
 						executemethod.invoke(accountmanager, descriptor.getParams());

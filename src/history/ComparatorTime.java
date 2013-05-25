@@ -1,8 +1,7 @@
 package history;
 
 import java.util.Comparator;
-
-/*
+/**
  * Sortiert die Methodenaufrufe nach der Zeit.
  */
 public class ComparatorTime implements Comparator<CommandEntity>{
@@ -14,9 +13,9 @@ public class ComparatorTime implements Comparator<CommandEntity>{
     @Override
     public int compare(CommandEntity e1, CommandEntity e2)
     {
-        if(e1.getTime() < e2.getTime())
+        if(e1.getCalendar().getTime().getTime() < e2.getCalendar().getTime().getTime())
             return -1;
-        else if(e1.getTime() == e2.getTime())
+        else if(e1.getCalendar().getTime() == e2.getCalendar().getTime())
             return 0;
         else
             return 1;

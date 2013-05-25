@@ -10,7 +10,7 @@ public class ComparatorAllShareName implements Comparator<CommandEntity>{
     @Override
     public int compare(CommandEntity e1, CommandEntity e2)
     {
-        return e1.getShareName().compareTo(e2.getShareName());
+        return e1.getShare().name.compareTo(e2.getShare().name);
     }
 
 }

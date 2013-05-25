@@ -1,12 +1,16 @@
 package history;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+
+
+import asset.Player;
+import asset.Share;
 
 public class BuySellHistory {
-    private List<CommandEntity> history = new LinkedList<CommandEntity>();
+    private ArrayList<CommandEntity> history = new ArrayList<CommandEntity>();
 
     /**
      * addHistory(String methodName, String shareName, String playerName, int amount)
@@ -16,48 +20,16 @@ public class BuySellHistory {
      * @param playerName
      * @param amount
      */
-    public void addHistory(String methodName, String shareName,
-            String playerName, int amount)
+    public void addHistory(String methodName, Share share,
+            Player player, int amount)
     {
-        history.add(new CommandEntity(methodName, playerName, shareName, amount));
+        history.add(new CommandEntity(methodName, player, share, amount));
     }
 
-    /**
-     * sortByTime()
-     * Sortiert die Liste nach dem Zeitindex der einzelnen Elemente.
-     */
-    public void sortByTime()
-    {
-        Collections.sort(history, new ComparatorTime());
+    @SuppressWarnings("unchecked")
+	public void sort(Comparator<?> comparator) throws InstantiationException, IllegalAccessException{
+    	Collections.sort(history, comparator.getClass().newInstance());
     }
-
-    /**
-     * sortByShareName()
-     * Sortiert die Liste nach einem Aktienname.
-     */
-    public void sortByShareName()
-    {
-        Collections.sort(history, new ComparatorShareName());
-    }
-
-    /**
-     * sortByAllShareName()
-     * Sortiert die Liste nach dem Playernamen.
-     */
-    public void sortByAllShareName()
-    {
-        Collections.sort(history, new ComparatorAllShareName());
-    }
-
-    /**
-     * sortByMethode()
-     * Sortiert die Liste nach den Methodennamen.
-     */
-    public void sortByMethode()
-    {
-        Collections.sort(history, new ComparatorMethodName());
-    }
-
     @Override
     public String toString()
     {
@@ -66,5 +38,11 @@ public class BuySellHistory {
             s = s + i.next().toString() + "\n";
         }
         return s;
+    }
+    public CommandEntity[] getFirstLast(){
+    	CommandEntity[] returnentity = new CommandEntity[2];
+    	returnentity[0] = history.get(0);
+    	returnentity[1] = history.get(history.size()-1);
+    	return returnentity;
     }
 }

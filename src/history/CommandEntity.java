@@ -2,44 +2,44 @@ package history;
 
 import java.util.Calendar;
 
+import asset.Player;
+import asset.Share;
+
 public class CommandEntity {
     private String methodName;
-    private String playerName;
-    private String shareName;
+    private Player player;
+    private Share  share;
     private int amount;
     private Calendar calendar;
-    private long time;
     
-    public CommandEntity(String methodName, String playerName, String shareName, int amount){
+    public CommandEntity(String methodName, Player player, Share share, int amount){
         this.methodName = methodName;
-        this.playerName = playerName;
-        this.shareName = shareName;
+        this.player = player;
+        this.share = share;
         this.amount = amount;
-        time = System.currentTimeMillis();
         calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(time);
     }
 
     public String getMethodName()
     {
         return methodName;
     }
-    public String getPlayerName()
+    public Player getPlayer()
     {
-        return playerName;
+        return player;
     }
-    public String getShareName()
+    public Share getShare()
     {
-        return shareName;
+        return share;
     }
     public int getAmount()
     {
         return amount;
     }
-    public long getTime(){
-        return time;
+    public Calendar getCalendar(){
+    	return calendar;
     }
     public String toString(){
-        return calendar.getTime().toString() + " Methodname: " + methodName + ", Sharename: " + shareName + ", Playername: " + playerName + ", Amount: " + amount;
+        return calendar.getTime().toString() + " Methodname: " + methodName + ", Sharename: " + share.name + ", Playername: " + player.name + ", Amount: " + amount;
     }
 }
