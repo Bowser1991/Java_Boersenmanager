@@ -121,9 +121,21 @@ public interface AccountManager {
  	  * wenn bisher noch kein Bot läuft
  	  */
 	 public void stopBot(String playername) throws BotException;
-	 
+	 /**
+	  * 
+	  * @param playerName
+	  * @param param
+	  * @return
+	  * @throws WrongCommandException
+	  */
 	 public String getSortedHistory(String playerName, String param) throws WrongCommandException;
-	 
+	 /**
+	  * 
+	  * @param playerName
+	  * @param sharename
+	  * @return
+	  * @throws WrongCommandException
+	  */
 	 public String getShareHistory(String playerName, String sharename) throws WrongCommandException;
 }
 

@@ -11,6 +11,8 @@ import java.util.logging.Logger;
 import enums.HistorySortType;
 import bots.StockBuySellBot;
 import priceprovider.*;
+import Writer.DataWriter;
+import Writer.DataWriterHTML;
 import asset.Asset;
 import asset.Player;
 import asset.Share;
@@ -306,11 +308,6 @@ public class AccountManagerImpl implements AccountManager {
 	 *     -Methodenname
 	 *     -Aufrufzeit
 	 * zurück.
-	 * 
-	 * @param playerName
-     * @param param
-     * @return String
-     * @throws WrongCommandException
 	 */
 	public String getSortedHistory(String playerName, String param) throws WrongCommandException{
 	    BuySellHistory history = searchInPlayer(playerName).getBuySellHistory();
@@ -319,9 +316,18 @@ public class AccountManagerImpl implements AccountManager {
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
+	    DataWriter writer = new DataWriterHTML("history");
+	    try {
+			writer.printStringtoData(history);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	    System.out.println(history.toString());
 	    return history.toString();
 	}
+	/**
+	 * 
+	 */
 	public String getShareHistory(String playerName, String sharename) throws WrongCommandException{
 	    BuySellHistory history = searchInPlayer(playerName).getBuySellHistory();
         String s = "";      
@@ -337,8 +343,10 @@ public class AccountManagerImpl implements AccountManager {
                 s = s + buffer[i] + "\n";
             }
         }
-        
         System.out.println(s);
         return s;
+	}
+	public BuySellHistory getShareHistory(String playerName) throws WrongCommandException{
+		return searchInPlayer(playerName).getBuySellHistory();
 	}
 }

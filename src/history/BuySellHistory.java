@@ -25,11 +25,18 @@ public class BuySellHistory {
     {
         history.add(new CommandEntity(methodName, player, share, amount));
     }
-
-    @SuppressWarnings("unchecked")
+    /**
+     * 
+     * @param comparator
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     */
 	public void sort(Comparator<?> comparator) throws InstantiationException, IllegalAccessException{
     	Collections.sort(history, comparator.getClass().newInstance());
     }
+	/**
+	 * 
+	 */
     @Override
     public String toString()
     {
@@ -39,10 +46,21 @@ public class BuySellHistory {
         }
         return s;
     }
+    /**
+     * 
+     * @return
+     */
     public CommandEntity[] getFirstLast(){
     	CommandEntity[] returnentity = new CommandEntity[2];
     	returnentity[0] = history.get(0);
     	returnentity[1] = history.get(history.size()-1);
     	return returnentity;
+    }
+    /**
+     * 
+     * @return
+     */
+    public Object[] getAll(){
+    	return history.toArray();
     }
 }

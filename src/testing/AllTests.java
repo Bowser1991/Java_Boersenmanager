@@ -15,9 +15,4 @@ import org.junit.runner.RunWith;
        ComperatorTest.class
    })
 public class AllTests {
-
-   
-   
-   
-
 }
