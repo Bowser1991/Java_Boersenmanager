@@ -12,7 +12,7 @@ public enum StockGameCommandType  implements  CommandTypeInfo{
 	PRICEDIVER("pricediv", "<sharename> <playername>* divers Shares to see if there is some provit if sold","diverShareSell",String.class, String.class),
 	STARTBOT("startbot", "<playername>* starts bot to automatically buy and sell", "startBot", String.class),
 	STOPBOT("stopbot", "<playername>* stops bot to automatically buy and sell", "stopBot", String.class),
-	HISTORY("history", "<playername> <param>* get history", "getSortedHistory", String.class, String.class),
+	HISTORY("history", "<playername> <param> <mime type>* get history *mimetype: html or plain", "getSortedHistory", String.class, String.class, String.class),
 	HISTORYSHARE("historyshare", "<playername> <sharename>* get share history", "getShareHistory", String.class, String.class);
 	
 	

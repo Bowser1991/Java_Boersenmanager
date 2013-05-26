@@ -52,6 +52,11 @@ public class CommandScanner {
 				return;
 			} else if (userinsert.size() - 1 != validcommandos.get(userinsert.firstElement()).getParamTypes().length) {
 				throw new WrongCommandException("invalid number of parameters");
+			}else if(userinsert.contains("plain")||userinsert.contains("html")){
+				descriptor.setCommandTypeInfo(validcommandos.get(userinsert.firstElement()));
+				userinsert.remove(userinsert.firstElement());
+				descriptor.setParams(userinsert.toArray());
+				return;
 			}
 			// set to descriptor CommandTypeInfo
 			descriptor.setCommandTypeInfo(validcommandos.get(userinsert.firstElement()));

@@ -19,9 +19,9 @@ import asset.Share;
 import asset.ShareItem;
 import Exception.AccountException;
 import Exception.BotException;
+import Exception.HistoryException;
 import Exception.NotAddablePlayerException;
 import Exception.ShareException;
-import Exception.WrongCommandException;
 import Exception.WrongNameException;
 
 /**
@@ -308,34 +308,38 @@ public class AccountManagerImpl implements AccountManager {
 	 *     -Methodenname
 	 *     -Aufrufzeit
 	 * zurück.
+	 * @throws HistoryException 
 	 */
-	public String getSortedHistory(String playerName, String param) throws WrongCommandException{
+	public String getSortedHistory(String playerName, String param, String mimetype) throws HistoryException{
 	    BuySellHistory history = searchInPlayer(playerName).getBuySellHistory();
 	    try {
 			history.sort(HistorySortType.getCompareType(param));
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
-	    DataWriter writer = new DataWriterHTML("history");
-	    try {
-			writer.printStringtoData(history);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	    System.out.println(history.toString());
+	    if(mimetype.equalsIgnoreCase("html")){
+		    DataWriter writer = new DataWriterHTML("history");
+		    try {
+				writer.printStringtoData(history);
+			} catch (IOException e) {
+				throw new HistoryException("failure in modul sorting history");
+			}
+	    }else if(mimetype.equalsIgnoreCase("plain")){
+		    System.out.println(history.toString());
+	    }
 	    return history.toString();
 	}
 	/**
+	 * @throws HistoryException 
 	 * 
 	 */
-	public String getShareHistory(String playerName, String sharename) throws WrongCommandException{
+	public String getShareHistory(String playerName, String sharename) throws HistoryException{
 	    BuySellHistory history = searchInPlayer(playerName).getBuySellHistory();
         String s = "";      
         try {
 			history.sort(new ComparatorAllShareName());
 		}  catch (InstantiationException | IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new HistoryException("failure in modul sorting history");
 		}
         String[] buffer = history.toString().split("\n");
         for (int i = 0; i < buffer.length; i++) {
@@ -345,8 +349,5 @@ public class AccountManagerImpl implements AccountManager {
         }
         System.out.println(s);
         return s;
-	}
-	public BuySellHistory getShareHistory(String playerName) throws WrongCommandException{
-		return searchInPlayer(playerName).getBuySellHistory();
 	}
 }

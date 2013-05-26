@@ -4,6 +4,7 @@ import asset.Asset;
 import asset.Player;
 import Exception.AccountException;
 import Exception.BotException;
+import Exception.HistoryException;
 import Exception.ShareException;
 import Exception.WrongCommandException;
 import Exception.WrongNameException;
@@ -128,7 +129,7 @@ public interface AccountManager {
 	  * @return
 	  * @throws WrongCommandException
 	  */
-	 public String getSortedHistory(String playerName, String param) throws WrongCommandException;
+	 public String getSortedHistory(String playerName, String sharename, String mimetype) throws HistoryException;
 	 /**
 	  * 
 	  * @param playerName
@@ -136,6 +137,6 @@ public interface AccountManager {
 	  * @return
 	  * @throws WrongCommandException
 	  */
-	 public String getShareHistory(String playerName, String sharename) throws WrongCommandException;
+	 public String getShareHistory(String playerName, String sharename) throws HistoryException;
 }
 
