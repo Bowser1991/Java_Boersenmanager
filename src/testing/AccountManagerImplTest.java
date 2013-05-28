@@ -36,7 +36,7 @@ public class AccountManagerImplTest {
     private final int amount2 = 12;
     private final Player player = new Player(playername, accountworth);
 
-    private final StockPriceProvider provider = new ConstStockPriceProvider(sharearray);
+    private final StockPriceProvider provider = new ConstStockPriceProvider();
     private final AccountManagerImpl manager = new AccountManagerImpl(provider);
     
 

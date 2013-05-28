@@ -1,4 +1,5 @@
 package priceprovider;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -7,21 +8,34 @@ import java.util.TimerTask;
 
 import asset.Share;
 import Exception.WrongNameException;
+import Network.StockApi;
 
 
 public abstract class StockPriceProvider implements StockPriceInfo {
     
     private List <Share> availableShare = new LinkedList<Share>();
     
-    public StockPriceProvider(Share[] availableShare) {
-        for (int i = 0; i < availableShare.length; i++) {
-            this.availableShare.add(availableShare[i]);
-        }
+    public StockPriceProvider() {
+    	Share[] buffershare = createShares();
+    	for (int i = 0; i < buffershare.length; i++) {
+			availableShare.add(buffershare[i]);
+		}
         Comparator<Share> comperator = new ShareComparator();
         Collections.sort(this.availableShare, comperator);
         startUpdate();
     }
-
+    
+    private Share[] createShares(){
+    	String[] sharenames = {"GOOG","AAPL","MSFT","BMW.DE","INTC","USE.DE"};
+    	StockApi newstock = new StockApi();
+    	try {
+			return newstock.startRateUpdate(sharenames);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+    }
+    
     public boolean isShareListed(String sharename){
         return availableShare.contains(sharename);
     }

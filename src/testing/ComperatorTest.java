@@ -22,11 +22,7 @@ import asset.Player;
 import asset.Share;
 
 public class ComperatorTest {
-	static final Share share1 = new Share("Merzedes", 14000l);
-	static final Share share2 = new Share("BMW", 19436l);
-	static final Share share3 = new Share("Opel", 28900l);
-	static final Share[] sharearray1 = { share1, share2, share3 };
-	static final StockPriceProvider provider = new RandomStockPriceProvider(sharearray1);
+	static final StockPriceProvider provider = new RandomStockPriceProvider();
 	static final AccountManager account = new AccountManagerImpl(provider);
   
 	@BeforeClass
