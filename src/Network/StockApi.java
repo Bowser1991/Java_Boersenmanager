@@ -1,11 +1,13 @@
 package Network;
 
+import java.beans.Encoder;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import asset.Share;
@@ -22,6 +24,7 @@ public class StockApi {
 		for (int i = 0; i < sharenames.length; i++) {
 			namebuffer += sharenames[i]+",";
 		}
+		namebuffer = URLEncoder.encode(namebuffer);
 		financeurl = new URL("http://download.finance.yahoo.com/d/quotes.csv?s="+namebuffer+"&f=nl1c4&e=.csv");
 		iputstream = financeurl.openStream();
 		freader = new InputStreamReader(iputstream);
@@ -39,10 +42,7 @@ public class StockApi {
 			sbuffer =  bfreader.readLine();
 			counter++;
 		}
+		iputstream.close();
 		return returnshare;
-	}
-
-	public static void close() throws IOException {
-		
 	}
 }

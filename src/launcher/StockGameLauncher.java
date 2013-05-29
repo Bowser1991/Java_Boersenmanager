@@ -15,6 +15,7 @@ import priceprovider.RandomStockPriceProvider;
 import priceprovider.StockPriceInfo;
 import priceprovider.StockPriceProvider;
 import priceprovider.StockPriceViewer;
+import priceprovider.YahooFinancePriceProvider;
 import proxy.AccountManagerHandler;
 import Command.StockGameCommandProcessor;
 
@@ -38,7 +39,7 @@ public class StockGameLauncher {
 			e.printStackTrace();
 		}
         
-		StockPriceProvider provider = new RandomStockPriceProvider();
+		StockPriceProvider provider = new YahooFinancePriceProvider();
 		AccountManager manager = new AccountManagerImpl(provider);
 		AccountManager proxy = (AccountManager)Proxy.newProxyInstance(AccountManager.class.getClassLoader(), new Class [] {AccountManager.class}, new AccountManagerHandler(manager));
 		Bot bot1 = new StockBuySellBot(	proxy, provider);

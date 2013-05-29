@@ -87,6 +87,4 @@ public abstract class StockPriceProvider implements StockPriceInfo {
             StockPriceProvider.this.updateShareRates();
         }
     }
-    
-
 }
