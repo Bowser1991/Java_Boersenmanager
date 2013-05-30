@@ -30,7 +30,8 @@ public class StockPriceViewer extends JFrame {
         clockLabel = new JLabel("coming soon ...");
         add("Center", clockLabel);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(500, 500);
+        setSize(500, 700);
+        setLocationRelativeTo(getParent());
         setVisible(true);
     }
     
@@ -44,9 +45,9 @@ public class StockPriceViewer extends JFrame {
         
         private String getAvailableShares() {
             Share[] bufferShare = sharepriceinfo.getAvailableShare();
-            String s = " ";
+            String s = "";
             for (int j = 0; j < bufferShare.length; j++) {
-                s = s+" " + bufferShare[j].name +" "+ bufferShare[j].getActualSharePrice() + "<br>";
+                s += bufferShare[j].name +"<pre>"+ bufferShare[j].getActualSharePrice()+"</pre>" + "<br>";
             }
             return s;
         }

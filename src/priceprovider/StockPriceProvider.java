@@ -84,7 +84,7 @@ public abstract class StockPriceProvider implements StockPriceInfo {
     class MyTask extends TimerTask {
         @Override
         public void run() {
-            StockPriceProvider.this.updateShareRates();
+				StockPriceProvider.this.updateShareRates();
         }
     }
 }

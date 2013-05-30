@@ -38,8 +38,13 @@ public class StockGameLauncher {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        
-		StockPriceProvider provider = new YahooFinancePriceProvider();
+        StockPriceProvider provider;
+        try {
+			provider = new YahooFinancePriceProvider();
+		} catch (Exception e) {
+			provider = new RandomStockPriceProvider();
+		}
+		
 		AccountManager manager = new AccountManagerImpl(provider);
 		AccountManager proxy = (AccountManager)Proxy.newProxyInstance(AccountManager.class.getClassLoader(), new Class [] {AccountManager.class}, new AccountManagerHandler(manager));
 		Bot bot1 = new StockBuySellBot(	proxy, provider);

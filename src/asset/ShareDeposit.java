@@ -51,7 +51,14 @@ public class ShareDeposit extends Asset {
      */
     @Override
     public String toString(){
-      return allshareitems.toString();
+    	Enumeration<ShareItem> bufferenum = allshareitems.elements();
+    	String returnitem = "";
+       	for (int i = 0; i < allshareitems.size(); i++) {
+    		if(bufferenum.hasMoreElements()){
+    		 returnitem = bufferenum.nextElement().toString()+"\r\n";
+    		}
+       	}	
+    	return returnitem;
     }
     /**
      * void buyShare(Share newShare, int amount)

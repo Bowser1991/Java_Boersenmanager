@@ -6,6 +6,7 @@ package asset;
  */
 public class Share {
     public final String name;
+    private String financename;
 	private long actualshareprice;
     private long[] sharepricehistory = new long[10] ;
     /**
@@ -80,5 +81,13 @@ public class Share {
     public String toString(){
         return "Share name: " + name + ", Actual share price: " + actualshareprice + "\r\n";
     }
+
+	public String getFinanceName() {
+		return financename;
+	}
+
+	public void setFinanceName(String financename) {
+		this.financename = financename;
+	}
 }
 
