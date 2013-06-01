@@ -1,4 +1,6 @@
-package history;
+package commperator;
+
+import history.CommandEntity;
 
 import java.util.Comparator;
 /**

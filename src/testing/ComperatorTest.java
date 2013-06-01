@@ -5,15 +5,16 @@ import innerimpl.AccountManager;
 import innerimpl.AccountManagerImpl;
 import history.BuySellHistory;
 import history.CommandEntity;
-import history.ComparatorAllShareName;
-import history.ComparatorMethodName;
-import history.ComparatorTime;
 
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import commperator.ComparatorAllShareName;
+import commperator.ComparatorMethodName;
+import commperator.ComparatorTime;
 
 import priceprovider.RandomStockPriceProvider;
 import priceprovider.StockPriceProvider;

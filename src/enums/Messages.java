@@ -5,7 +5,7 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 public class Messages {
-    private static final String BUNDLE_NAME = "enums.Boundle_de"; //$NON-NLS-1$
+    private static final String BUNDLE_NAME = "properties.Boundle_de"; //$NON-NLS-1$
 
     private static ResourceBundle resourceBoundle = ResourceBundle
             .getBundle(BUNDLE_NAME);
@@ -15,9 +15,9 @@ public class Messages {
     
     public static void setresourceBoundle(String boundleName){
         if(boundleName.equals("en")){
-            resourceBoundle = ResourceBundle.getBundle("enums.Boundle", Locale.ENGLISH);
+            resourceBoundle = ResourceBundle.getBundle("properties.Boundle", Locale.ENGLISH);
         } else {
-            resourceBoundle = ResourceBundle.getBundle("enums.Boundle", Locale.GERMAN);
+            resourceBoundle = ResourceBundle.getBundle("properties.Boundle", Locale.GERMAN);
         }
     }
 

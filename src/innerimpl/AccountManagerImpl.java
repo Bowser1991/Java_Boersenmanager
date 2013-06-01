@@ -1,12 +1,13 @@
 package innerimpl;
 
 import history.BuySellHistory;
-import history.ComparatorAllShareName;
 
 import java.io.IOException;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.logging.Logger;
+
+import commperator.ComparatorAllShareName;
 
 import enums.HistorySortType;
 import bots.StockBuySellBot;

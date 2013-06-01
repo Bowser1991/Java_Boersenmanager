@@ -2,9 +2,10 @@ package enums;
 
 import java.util.Comparator;
 
-import history.ComparatorAllShareName;
-import history.ComparatorMethodName;
-import history.ComparatorTime;
+import commperator.ComparatorAllShareName;
+import commperator.ComparatorMethodName;
+import commperator.ComparatorTime;
+
 
 public enum HistorySortType{
 	TIME("time", new ComparatorTime()),

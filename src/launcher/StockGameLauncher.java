@@ -32,7 +32,7 @@ public class StockGameLauncher {
 		    Messages.setresourceBoundle("");
 		}
         try {
-        	FileInputStream configFile = new FileInputStream("logging.properties");
+        	FileInputStream configFile = new FileInputStream(System.getProperty("user.dir") + System.getProperty("file.separator") + "bin\\properties\\logging_properties");
 			LogManager.getLogManager().readConfiguration(configFile);
 		} catch (SecurityException | IOException e) {
 			// TODO Auto-generated catch block
@@ -44,7 +44,6 @@ public class StockGameLauncher {
 		} catch (Exception e) {
 			provider = new RandomStockPriceProvider();
 		}
-		
 		AccountManager manager = new AccountManagerImpl(provider);
 		AccountManager proxy = (AccountManager)Proxy.newProxyInstance(AccountManager.class.getClassLoader(), new Class [] {AccountManager.class}, new AccountManagerHandler(manager));
 		Bot bot1 = new StockBuySellBot(	proxy, provider);
@@ -54,11 +53,6 @@ public class StockGameLauncher {
 		StockPriceViewer priceviewer = new StockPriceViewer(priceinfo, proxy);
 		priceviewer.start();
 		commandprocessor.process();
-		
-		
-		
-		
-		
 	}
 
 }
