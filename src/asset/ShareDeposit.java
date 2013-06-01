@@ -55,7 +55,7 @@ public class ShareDeposit extends Asset {
     	String returnitem = "";
        	for (int i = 0; i < allshareitems.size(); i++) {
     		if(bufferenum.hasMoreElements()){
-    		 returnitem = bufferenum.nextElement().toString()+"\r\n";
+    		 returnitem += bufferenum.nextElement().toString()+"<br>";
     		}
        	}	
     	return returnitem;

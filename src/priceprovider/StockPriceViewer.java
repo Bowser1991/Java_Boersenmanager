@@ -47,7 +47,11 @@ public class StockPriceViewer extends JFrame {
             Share[] bufferShare = sharepriceinfo.getAvailableShare();
             String s = "";
             for (int j = 0; j < bufferShare.length; j++) {
-                s += bufferShare[j].name +"<pre>"+ bufferShare[j].getActualSharePrice()+"</pre>" + "<br>";
+            	if(bufferShare[j].getExchange()!=null){
+                s += bufferShare[j].name +"<pre>"+ (float)bufferShare[j].getActualSharePrice()/100+" "+bufferShare[j].getExchange()+"</pre>" + "<br>";
+            	}else{
+            		s += bufferShare[j].name +"<pre>"+ (float)bufferShare[j].getActualSharePrice()/100+"</pre>" + "<br>";
+            	}
             }
             return s;
         }
@@ -58,11 +62,11 @@ public class StockPriceViewer extends JFrame {
             if(bufferPlayer[bufferPlayer.length -1] != null&&bufferPlayer[bufferPlayer.length -1].name.contentEquals("Bot")){
             	counter = 1;
             }
-            for (int i = 0; i < bufferPlayer.length - counter; ){
+            for (int i = 0; i < bufferPlayer.length - counter;i++){
                 if (bufferPlayer[i] != null){
                     s += "Player name: " + bufferPlayer[i].name + "<br>" + bufferPlayer[i].getCashAccount().toString() + "<br>";
                     s += bufferPlayer[i].getShareDeposit().toString() + "<br>";
-                    i++;
+
                 }
             }
             return s;

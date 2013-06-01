@@ -7,6 +7,7 @@ package asset;
 public class Share {
     public final String name;
     private String financename;
+    private String exchange;
 	private long actualshareprice;
     private long[] sharepricehistory = new long[10] ;
     /**
@@ -88,6 +89,13 @@ public class Share {
 
 	public void setFinanceName(String financename) {
 		this.financename = financename;
+	}
+	public String getExchange() {
+		return exchange;
+	}
+
+	public void setExchange(String exchange) {
+		this.exchange = exchange;
 	}
 }
 
