@@ -4,8 +4,6 @@ import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-import javax.tools.JavaFileManager.Location;
-
 public class Messages {
     private static final String BUNDLE_NAME = "enums.Boundle_de"; //$NON-NLS-1$
 

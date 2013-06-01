@@ -21,6 +21,7 @@ public class StockGameCommandProcessor {
 		accountmanager = manager;
 	}
 	
+	@SuppressWarnings("static-access")
 	public  void process() {
 		CommandScanner commandscanner = new CommandScanner(StockGameCommandType.values(), descriptor);
 		

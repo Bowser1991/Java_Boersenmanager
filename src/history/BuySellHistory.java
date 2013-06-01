@@ -31,6 +31,7 @@ public class BuySellHistory {
      * @throws InstantiationException
      * @throws IllegalAccessException
      */
+	@SuppressWarnings("unchecked")
 	public void sort(Comparator<?> comparator) throws InstantiationException, IllegalAccessException{
     	Collections.sort(history, comparator.getClass().newInstance());
     }

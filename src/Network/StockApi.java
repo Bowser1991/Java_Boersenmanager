@@ -7,7 +7,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.net.UnknownHostException;
@@ -24,18 +23,8 @@ public class StockApi {
 	private BufferedReader bfreader;
 	private ArrayList<String> sharelist = new ArrayList<String>();
 	private Logger outputlogger = Logger.getLogger(StockApi.class.getName());
-	
-	public Share[] startHistory(String[] sharenames) throws IOException{
-		String namebuffer = "";
-		Share[] returnshare = new Share[sharenames.length];
-		int counter = 0;
-		for (int i = 0; i < sharenames.length; i++) {
-			namebuffer += sharenames[i]+",";
-		}
-		namebuffer = URLEncoder.encode(namebuffer);
-		financeurl = new URL("http://download.finance.yahoo.com/d/quotes.csv?s="+namebuffer+"&f=nl1c4&e=.csv");
-	}
-	
+
+	@SuppressWarnings("deprecation")
 	public Share[] startRateUpdate(String[] sharenames) throws IOException{
 		String namebuffer = "";
 		Share[] returnshare = new Share[sharenames.length];
@@ -48,7 +37,6 @@ public class StockApi {
 		try {
 			iputstream = financeurl.openStream();
 		} catch (UnknownHostException e) {
-
 			return alternativProvider(sharenames, namebuffer);
 		}
 		freader = new InputStreamReader(iputstream);
