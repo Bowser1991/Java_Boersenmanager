@@ -120,9 +120,23 @@ public class Player {
             b = false;
         return b;
     }
+    /**
+     * BuySellHistory getBuySellHistory().
+     * @return BuySellHistory
+     * gibt die BuySell History zurück
+     * 
+     */
     public BuySellHistory getBuySellHistory(){
         return history;
     }
+    /**
+     * String toString()
+     * Ueberschreibt die toSring() Methode von Asset
+     * @return String
+     * To String im Format 
+     * "Player name: " + name + "<br>" +account.toString() + "<br>" + deposit.toString() + "<br>"
+     */
+    @Override
     public String toString(){
         return "Player name: " + name + "<br>" +account.toString() + "<br>" + deposit.toString() + "<br>";
     }

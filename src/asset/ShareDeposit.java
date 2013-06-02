@@ -47,7 +47,10 @@ public class ShareDeposit extends Asset {
         return returnitem;
     }
     /**
-     * 
+     * String toString()
+     * ueberschreibt die toString() von Asset
+     * @return String
+     * im Format: bufferenum.nextElement().toString()+"<br>"
      */
     @Override
     public String toString(){
@@ -92,7 +95,9 @@ public class ShareDeposit extends Asset {
     	}
     }
     /**
-     * 
+     * long getvalue().
+     * @return long
+     * Gibt den gesamten Einkaufswert aller ShareItems aus
      */
     public long getvalue() {
     	Enumeration<ShareItem> bufferenum = allshareitems.elements();
@@ -104,6 +109,13 @@ public class ShareDeposit extends Asset {
 		}
     	return calcvalue;
     }
+    /**
+     * boolean equals(ShareDeposit deposit).
+     * @param deposit
+     * Das zu vergleichende Deposit
+     * @return boolean
+     * gibt an ob die beiden Deposit gleich sind
+     */
     public boolean equals(ShareDeposit deposit){
         boolean b = true;
         if (!this.name.equals(deposit.name)){
@@ -118,10 +130,16 @@ public class ShareDeposit extends Asset {
                 if (!getAllShareItems()[i].equals(deposit.getAllShareItems()[i]))
                     b = false;
             }
-
         }
         return b;
     }
+    /**
+     *  boolean equals(ShareItem[] item).
+     * @param item
+     * das zu vergleichede ShareItem Array
+     * @return	boolean
+     * gibt an ob die beide ShareItem Array gleich sind
+     */
     public boolean equals(ShareItem[] item){
         boolean b = true;
         for (int i = 0; i < getAllShareItems().length; i++) {

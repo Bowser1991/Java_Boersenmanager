@@ -57,7 +57,6 @@ public class Share {
         }
         actualshareprice = newshareprice;
     }
-
     /**
      * long[] longerArray(long[] longarray, int howmuchlonger).
      * verlängert ein Array
@@ -75,25 +74,55 @@ public class Share {
         }
         return longer;
     }
-    
+    /**
+     * boolean equals(String name).
+     * @param name
+     * Name als String
+     * @return boolean
+     * gibt an ob die beiden Strings gleich sind
+     */
     public boolean equals(String name){
         return this.name.equals(name);
     }
+    /**
+     * String toString().
+     * Uberschreibt die toString() von Object
+     * @return String
+     * Im Format: Share name: " + name + ", Actual share price: " + actualshareprice + "\r\n
+     */
+    @Override
     public String toString(){
         return "Share name: " + name + ", Actual share price: " + actualshareprice + "\r\n";
     }
-
+    /**
+     * String getFinanceName().
+     * @return String
+     * gibt den den Financ Name zurück also für Google inc GOOG
+     */
 	public String getFinanceName() {
 		return financename;
 	}
-
+	/**
+	 * void setFinanceName(String financename)
+	 * @param financename
+	 * Name der auf der Online Seite gebraucht wird Google Inc = GOOG
+	 */
 	public void setFinanceName(String financename) {
 		this.financename = financename;
 	}
+	/**
+	 * String getExchange().
+	 * @return String
+	 * gibt die Waerung an in welcher der Preis abgelegt ist
+	 */
 	public String getExchange() {
 		return exchange;
 	}
-
+	/**
+	 * void setExchange(String exchange).
+	 * @param exchange
+	 * Waerung in welcher der SharePrice abgelegt wird
+	 */
 	public void setExchange(String exchange) {
 		this.exchange = exchange;
 	}
