@@ -1,11 +1,15 @@
 package Command;
 
 import innerimpl.AccountManager;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.lang.reflect.Method;
+
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import Exception.WrongCommandException;
 import Exception.WrongNameException;
 import enums.*;
@@ -22,7 +26,7 @@ public class StockGameCommandProcessor {
 	}
 	
 	@SuppressWarnings("static-access")
-	public  void process() {
+	public  void process(Label outlabel, TextField infield ) {
 		CommandScanner commandscanner = new CommandScanner(StockGameCommandType.values(), descriptor);
 		
 		while (true) { 
@@ -33,7 +37,8 @@ public class StockGameCommandProcessor {
 					commandscanner.checkCommandSyntax(shellreader);
 					flag = false;
 					}catch(WrongCommandException e){
-						shellwriter.println("Invalid Command !");
+						outlabel.setText("Invalid Command");
+						shellwriter.println("Invalid Command");
 						shellwriter.flush();
 					}catch (IOException e) {
 						shellwriter.println("IO Exception failure !");

@@ -6,55 +6,45 @@ import java.lang.reflect.Proxy;
 import java.util.Locale;
 import java.util.logging.LogManager;
 
+import javafx.application.Application;
+import javafx.stage.Stage;
+
 import enums.Messages;
+import gui.LaunchGUI;
 
-import bots.Bot;
-import bots.StockBuySellBot;
-import innerimpl.AccountManager;
-import innerimpl.AccountManagerImpl;
-import priceprovider.RandomStockPriceProvider;
-import priceprovider.StockPriceInfo;
-import priceprovider.StockPriceProvider;
-import priceprovider.StockPriceViewer;
-import priceprovider.YahooFinancePriceProvider;
-import proxy.AccountManagerHandler;
-import Command.StockGameCommandProcessor;
-
-public class StockGameLauncher {
+public class StockGameLauncher extends Application {
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-	   
-	    //unter Run -> Run Configurations -> unter Arguments: en für Englische Sprache eingeben oder nichts für Deutsch
-		if(args.length != 0){
-		    Messages.setresourceBoundle(args[0]);
+		// unter Run -> Run Configurations -> unter Arguments: en für Englische
+		// Sprache eingeben oder nichts für Deutsch
+		if (args.length != 0) {
+			Messages.setresourceBoundle(args[0]);
 		} else {
-		    Messages.setresourceBoundle("");
+			Messages.setresourceBoundle("");
 		}
-		 System.out.println("Default: " + Locale.getDefault());
-        try {
-        	FileInputStream configFile = new FileInputStream(System.getProperty("user.dir") + System.getProperty("file.separator") + "bin\\properties\\logging_properties");
+		System.out.println("Default: " + Locale.getDefault());
+		try {
+			FileInputStream configFile = new FileInputStream(
+					System.getProperty("user.dir")
+							+ System.getProperty("file.separator")
+							+ "bin\\properties\\logging_properties");
 			LogManager.getLogManager().readConfiguration(configFile);
 		} catch (SecurityException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        StockPriceProvider provider;
-        try {
-			provider = new YahooFinancePriceProvider();
-		} catch (Exception e) {
-			provider = new RandomStockPriceProvider();
-		}
-		AccountManager manager = new AccountManagerImpl(provider);
-		AccountManager proxy = (AccountManager)Proxy.newProxyInstance(AccountManager.class.getClassLoader(), new Class [] {AccountManager.class}, new AccountManagerHandler(manager));
-		Bot bot1 = new StockBuySellBot(	proxy, provider);
-		proxy.addPlayer(bot1);
-		StockGameCommandProcessor commandprocessor = new StockGameCommandProcessor(proxy);
-		StockPriceInfo priceinfo = new RandomStockPriceProvider();
-		StockPriceViewer priceviewer = new StockPriceViewer(priceinfo, proxy);
-		priceviewer.start();
-		commandprocessor.process();
+		Application.launch(args);
+		
 	}
+
+	@Override
+	public void start(Stage stage) throws Exception {
+		LaunchGUI gui = new LaunchGUI();
+		gui.start(stage);
+	}
+	
+	
 
 }
