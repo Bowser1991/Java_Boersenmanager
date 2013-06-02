@@ -4,14 +4,13 @@
 /Writer
 /asset
 /bots
+/commperator
 /enums
 /history
 /innerimpl
 /launcher
+/lib
 /priceprovider
+/properties
 /proxy
 /testing
-/Boundle_de.properties
-/RecourceBoundle_de.properties
-/ResourceBoundle_de.properties
-/ResourceBoundle.properties

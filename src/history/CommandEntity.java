@@ -1,6 +1,9 @@
 package history;
 
+import java.text.DateFormat;
 import java.util.Calendar;
+
+import enums.Messages;
 
 import asset.Player;
 import asset.Share;
@@ -11,6 +14,7 @@ public class CommandEntity {
     private Share  share;
     private int amount;
     private Calendar calendar;
+    private DateFormat simple = null;
     
     public CommandEntity(String methodName, Player player, Share share, int amount){
         this.methodName = methodName;
@@ -18,6 +22,7 @@ public class CommandEntity {
         this.share = share;
         this.amount = amount;
         calendar = Calendar.getInstance();
+        simple = DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.MEDIUM);
     }
 
     public String getMethodName()
@@ -40,6 +45,6 @@ public class CommandEntity {
     	return calendar;
     }
     public String toString(){
-        return calendar.getTime().toString() + " Methodname: " + methodName + ", Sharename: " + share.name + ", Playername: " + player.name + ", Amount: " + amount;
+        return simple.format(calendar.getTime()) + " " + Messages.getString("Methodename") + methodName + ", " + Messages.getString("Sharename") + share.name + ", " +Messages.getString("Playername") + player.name + ", " + Messages.getString("Amount") + amount;
     }
 }

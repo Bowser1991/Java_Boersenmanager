@@ -16,8 +16,10 @@ public class Messages {
     public static void setresourceBoundle(String boundleName){
         if(boundleName.equals("en")){
             resourceBoundle = ResourceBundle.getBundle("properties.Boundle", Locale.ENGLISH);
+            Locale.setDefault(Locale.ENGLISH);
         } else {
-            resourceBoundle = ResourceBundle.getBundle("properties.Boundle", Locale.GERMAN);
+            resourceBoundle = ResourceBundle.getBundle("properties.Boundle", Locale.GERMANY);
+            Locale.setDefault(Locale.GERMANY);
         }
     }
 
