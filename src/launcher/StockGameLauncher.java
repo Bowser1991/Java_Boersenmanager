@@ -1,18 +1,35 @@
 package launcher;
 
+import innerimpl.AccountManager;
+import innerimpl.AccountManagerImpl;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.reflect.Proxy;
 import java.util.Locale;
 import java.util.logging.LogManager;
 
+import priceprovider.RandomStockPriceProvider;
+import priceprovider.StockPriceInfo;
+import priceprovider.StockPriceProvider;
+import priceprovider.StockPriceViewer;
+import priceprovider.YahooFinancePriceProvider;
+import proxy.AccountManagerHandler;
+import Command.StockGameCommandProcessor;
+import bots.Bot;
+import bots.StockBuySellBot;
+
 import javafx.application.Application;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import enums.Messages;
 import gui.LaunchGUI;
 
 public class StockGameLauncher extends Application {
+	private static Label label = new Label(Messages.getString("welcomeText"));
+	private static TextField field = new TextField();
 	/**
 	 * @param args
 	 */
@@ -35,16 +52,32 @@ public class StockGameLauncher extends Application {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		StockPriceProvider provider;
+		try {
+			provider = new YahooFinancePriceProvider();
+		} catch (Exception e) {
+			provider = new RandomStockPriceProvider();
+		}
+		AccountManager manager = new AccountManagerImpl(provider);
+		AccountManager proxy = (AccountManager) Proxy.newProxyInstance(
+				AccountManager.class.getClassLoader(),
+				new Class[] { AccountManager.class },
+				new AccountManagerHandler(manager));
+		Bot bot1 = new StockBuySellBot(proxy, provider);
+		proxy.addPlayer(bot1);
+		StockGameCommandProcessor commandprocessor = new StockGameCommandProcessor(proxy);
+		StockPriceInfo priceinfo = new RandomStockPriceProvider();
+		StockPriceViewer priceviewer = new StockPriceViewer(priceinfo, proxy);
+		priceviewer.start();
+		commandprocessor.process(label, field);
 		Application.launch(args);
 		
 	}
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		LaunchGUI gui = new LaunchGUI();
+		LaunchGUI gui = new LaunchGUI(label, field);
 		gui.start(stage);
 	}
 	
-	
-
 }

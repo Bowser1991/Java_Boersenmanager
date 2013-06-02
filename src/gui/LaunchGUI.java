@@ -29,10 +29,15 @@ import javafx.stage.Stage;
 
 public class LaunchGUI extends Application {
 	private GridPane gridPane = new GridPane();
-    private Label label = new Label(Messages.getString("welcomeText"));
-    private TextField field = new TextField();
 	private Stage primarystage;
-    
+    private Label label;
+	private TextField field;
+	
+	public LaunchGUI (Label label, TextField field){
+		this.label = label;
+		this.field = field;
+	}
+	
 	@Override
 	public void start(Stage primarystage) throws Exception {
 		this.primarystage = primarystage;
@@ -40,28 +45,8 @@ public class LaunchGUI extends Application {
 		gridPane.setAlignment(Pos.CENTER);
         gridPane.setHgap(200);
         gridPane.setVgap(200);
-		this.start();
-		StockPriceProvider provider;
-		try {
-			provider = new YahooFinancePriceProvider();
-		} catch (Exception e) {
-			provider = new RandomStockPriceProvider();
-		}
-		AccountManager manager = new AccountManagerImpl(provider);
-		AccountManager proxy = (AccountManager) Proxy.newProxyInstance(
-				AccountManager.class.getClassLoader(),
-				new Class[] { AccountManager.class },
-				new AccountManagerHandler(manager));
-		Bot bot1 = new StockBuySellBot(proxy, provider);
-		proxy.addPlayer(bot1);
-		StockGameCommandProcessor commandprocessor = new StockGameCommandProcessor(
-				proxy);
-		StockPriceInfo priceinfo = new RandomStockPriceProvider();
-		StockPriceViewer priceviewer = new StockPriceViewer(priceinfo, proxy);
-		priceviewer.start();
-		
-		
-		commandprocessor.process(label, field);
+		updateGUI();
+
 	}
 	
 	private void updateGUI(){
@@ -71,15 +56,4 @@ public class LaunchGUI extends Application {
 		primarystage.setScene(scene);
 		primarystage.show();
 	}
-	
-    public void start() {
-        Timer ticker = new Timer(true); //as daemon
-        ticker.scheduleAtFixedRate(new TickerTask(), 500, 1000);
-    }
-
-	private class TickerTask extends TimerTask {
-		public void run() {
-			updateGUI();
-		}
-	}
-}
+}	
