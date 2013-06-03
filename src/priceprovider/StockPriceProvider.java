@@ -13,10 +13,16 @@ import Network.StockApi;
 
 public abstract class StockPriceProvider implements StockPriceInfo {
     
-    private List <Share> availableShare = new LinkedList<Share>();
+    protected List <Share> availableShare = new LinkedList<Share>();
     
     public StockPriceProvider() {
-    	Share[] buffershare = createShares();
+        Share[] buffershare = new Share[0];
+        if(this instanceof YahooFinancePriceProvider){
+            buffershare = createShares();
+        }else if(this instanceof HistoricalStockPriceProvider){
+            buffershare = createDefaulShares();
+        }
+    	
     	for (int i = 0; i < buffershare.length; i++) {
 			availableShare.add(buffershare[i]);
 		}
@@ -25,8 +31,17 @@ public abstract class StockPriceProvider implements StockPriceInfo {
         startUpdate();
     }
     
+    private Share[] createDefaulShares(){
+        String[] sharenames = {"GOOG","AAPL","MSFT","BMW.DE","INTC","RWE.DE"};
+        Share[] sharebuffer = new Share[sharenames.length];
+        for(int i = 0; i < sharebuffer.length; i++){
+            sharebuffer[i] = new Share(sharenames[i], 0);
+        }
+        return sharebuffer;
+    }
+    
     private Share[] createShares(){
-    	String[] sharenames = {"GOOG","AAPL","MSFT","BMW.DE","INTC","USE.DE"};
+    	String[] sharenames = {"GOOG","AAPL","MSFT","BMW.DE","INTC","RWE.DE"};
     	StockApi newstock = new StockApi();
     	try {
 			return newstock.startRateUpdate(sharenames);

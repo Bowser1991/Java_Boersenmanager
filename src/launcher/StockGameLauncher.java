@@ -9,6 +9,7 @@ import java.lang.reflect.Proxy;
 import java.util.Locale;
 import java.util.logging.LogManager;
 
+import priceprovider.HistoricalStockPriceProvider;
 import priceprovider.RandomStockPriceProvider;
 import priceprovider.StockPriceInfo;
 import priceprovider.StockPriceProvider;
@@ -54,7 +55,8 @@ public class StockGameLauncher extends Application {
 		}
 		StockPriceProvider provider;
 		try {
-			provider = new YahooFinancePriceProvider();
+//			provider = new YahooFinancePriceProvider();
+		    provider = new HistoricalStockPriceProvider();
 		} catch (Exception e) {
 			provider = new RandomStockPriceProvider();
 		}
@@ -67,10 +69,10 @@ public class StockGameLauncher extends Application {
 		proxy.addPlayer(bot1);
 		StockGameCommandProcessor commandprocessor = new StockGameCommandProcessor(proxy);
 		StockPriceInfo priceinfo = new RandomStockPriceProvider();
-		StockPriceViewer priceviewer = new StockPriceViewer(priceinfo, proxy);
+		StockPriceViewer priceviewer = new StockPriceViewer(provider, proxy);
 		priceviewer.start();
 		commandprocessor.process(label, field);
-		Application.launch(args);
+//		Application.launch(args);
 		
 	}
 
