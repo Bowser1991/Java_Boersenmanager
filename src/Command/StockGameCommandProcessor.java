@@ -26,24 +26,10 @@ public class StockGameCommandProcessor {
 	}
 	
 	@SuppressWarnings("static-access")
-	public  void process(Label outlabel, TextField infield ) {
-		CommandScanner commandscanner = new CommandScanner(StockGameCommandType.values(), descriptor);
-		
+	public  void process() {
 		while (true) { 
-			
-			boolean flag = true;
-			while(flag){
-				try{
-					commandscanner.checkCommandSyntax(shellreader);
-					flag = false;
-					}catch(WrongCommandException e){
-						outlabel.setText("Invalid Command");
-						shellwriter.println("Invalid Command");
-						shellwriter.flush();
-					}catch (IOException e) {
-						shellwriter.println("IO Exception failure !");
-						shellwriter.flush();
-					}
+			if(checkCommand() == false){
+				this.process();
 			}
 			StockGameCommandType commandType = (StockGameCommandType) descriptor.getCommandType();
 
@@ -88,5 +74,20 @@ public class StockGameCommandProcessor {
 				shellwriter.flush();
 			}
 		}
+	}
+	private boolean checkCommand(){
+		try{
+			CommandScanner commandscanner = new CommandScanner(StockGameCommandType.values(), descriptor);
+			commandscanner.checkCommandSyntax(shellreader);
+			return true;
+			}catch(WrongCommandException e){
+				shellwriter.println("Invalid Command");
+				shellwriter.flush();
+				return false;
+			}catch (IOException e) {
+				shellwriter.println("IO Exception failure !");
+				shellwriter.flush();
+				return false;
+			}
 	}
 }

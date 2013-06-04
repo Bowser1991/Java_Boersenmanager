@@ -3,7 +3,9 @@ package priceprovider;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class GlobalTimer {
+import javafx.application.Application;
+
+public class GlobalTimer{
     public final static GlobalTimer timer = new GlobalTimer();
     private Timer timerimpl = new Timer();
 

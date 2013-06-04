@@ -17,6 +17,7 @@ import priceprovider.StockPriceViewer;
 import priceprovider.YahooFinancePriceProvider;
 import proxy.AccountManagerHandler;
 import Command.StockGameCommandProcessor;
+import Command.StockGameGUIProcessor;
 import bots.Bot;
 import bots.StockBuySellBot;
 
@@ -31,6 +32,7 @@ import gui.LaunchGUI;
 public class StockGameLauncher extends Application {
 	private static Label label = new Label(Messages.getString("welcomeText"));
 	private static TextField field = new TextField();
+	private static StockGameGUIProcessor commandprocessor;
 	/**
 	 * @param args
 	 */
@@ -60,25 +62,16 @@ public class StockGameLauncher extends Application {
 		} catch (Exception e) {
 			provider = new RandomStockPriceProvider();
 		}
-		AccountManager manager = new AccountManagerImpl(provider);
-		AccountManager proxy = (AccountManager) Proxy.newProxyInstance(
-				AccountManager.class.getClassLoader(),
-				new Class[] { AccountManager.class },
-				new AccountManagerHandler(manager));
-		Bot bot1 = new StockBuySellBot(proxy, provider);
-		proxy.addPlayer(bot1);
-		StockGameCommandProcessor commandprocessor = new StockGameCommandProcessor(proxy);
-		StockPriceInfo priceinfo = new RandomStockPriceProvider();
-		StockPriceViewer priceviewer = new StockPriceViewer(provider, proxy);
-		priceviewer.start();
-		commandprocessor.process(label, field);
-//		Application.launch(args);
 		
+		//StockPriceViewer priceviewer = new StockPriceViewer(provider, proxy);
+		//priceviewer.start();
+		Application.launch(args);
 	}
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		LaunchGUI gui = new LaunchGUI(label, field);
+		LaunchGUI gui = new LaunchGUI() {
+		};
 		gui.start(stage);
 	}
 	
