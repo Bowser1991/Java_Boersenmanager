@@ -16,14 +16,17 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public abstract class LaunchGUI extends Application {
 	private BorderPane pane = new BorderPane();
-    private Label stockinfolabel = new Label();
+    private GridPane stockinfolabel = new GridPane();
     private Label outputlabel = new Label();
 	private TextField field = new TextField();
 	private Scene scene;
+	Text text = new Text();
 
 	public LaunchGUI(){
 		field.setMinHeight(20);
@@ -32,8 +35,9 @@ public abstract class LaunchGUI extends Application {
 	@Override
 	public void start(Stage primarystage) throws Exception {
 		pane.setPadding(new Insets(25,25,25,25));
-		stockinfolabel.setText(Messages.getString("welcomeText"));
+//		stockinfolabel.setText(Messages.getString("welcomeText"));
 		outputlabel.setText("");
+		stockinfolabel.add(text, 0, 0);
 		pane.setLeft(stockinfolabel);
 		pane.setTop(field);
 		pane.setCenter(outputlabel);
@@ -58,16 +62,16 @@ public abstract class LaunchGUI extends Application {
 	 * 
 	 * @return
 	 */
-	public Label getStockInfoLabel() {
+	public GridPane getStockInfoLabel() {
 		return stockinfolabel;
 	}
 	/**
 	 * 
 	 * @param label
 	 */
-	public void setStockInfoLabel(String label) {
-		this.stockinfolabel.setText(label);
-	}
+//	public void setStockInfoLabel(String label) {
+//		this.stockinfolabel.setText(label);
+//	}
 	/**
 	 * 
 	 * @return
@@ -147,4 +151,5 @@ public abstract class LaunchGUI extends Application {
         }
         return s;
     } 
+    
 }	

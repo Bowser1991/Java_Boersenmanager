@@ -6,7 +6,9 @@ import java.util.Locale;
 import java.util.logging.LogManager;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import enums.Messages;
 import gui.Handler;
@@ -49,7 +51,9 @@ public class StockGameLauncher extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception {
+	    
 		Handler handler = new Handler();
+		stage.setOnShowing(handler.window);
 		handler.start(stage);
 	}
 	

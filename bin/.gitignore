@@ -1,17 +1,2 @@
-/Command
-/Exception
-/Network
-/Writer
-/asset
-/bots
-/commperator
-/enums
 /gui
-/history
-/innerimpl
 /launcher
-/lib
-/priceprovider
-/properties
-/proxy
-/testing
