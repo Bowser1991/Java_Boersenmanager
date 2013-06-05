@@ -7,9 +7,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import javafx.event.ActionEvent;
+import javafx.event.Event;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-
 
 import asset.Player;
 import asset.Share;
@@ -23,9 +26,8 @@ public class StockPriceViewer extends JFrame {
     private Timer ticker;
     private JLabel clockLabel;
     
-    
     public StockPriceViewer(StockPriceInfo newinfo, AccountManager manager) {
-        sharepriceinfo = newinfo;
+    	sharepriceinfo = newinfo;
         this.manager = manager;
         clockLabel = new JLabel("coming soon ...");
         add("Center", clockLabel);
@@ -77,6 +79,8 @@ public class StockPriceViewer extends JFrame {
             Date date = cal.getTime();
             DateFormat dateFormatter = DateFormat.getDateTimeInstance();
             output += dateFormatter.format(date) + "</body></html>";
+            Event event = new Event(ActionEvent.ACTION);
+            Event.fireEvent(ActionEvent.NULL_SOURCE_TARGET, event);
             return output;
         }
     }

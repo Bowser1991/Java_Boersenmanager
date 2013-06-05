@@ -3,8 +3,6 @@ package priceprovider;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javafx.application.Application;
-
 public class GlobalTimer{
     public final static GlobalTimer timer = new GlobalTimer();
     private Timer timerimpl = new Timer();
@@ -30,7 +28,7 @@ public class GlobalTimer{
 * addTast(TimerTask task)
 */
     public void addTask(TimerTask task) {
-        timerimpl.scheduleAtFixedRate(task, 2000, 4000);
+        timerimpl.scheduleAtFixedRate(task, 2000, 400);
     }
     
     public void addTask(TimerTask task, int updateRate) {

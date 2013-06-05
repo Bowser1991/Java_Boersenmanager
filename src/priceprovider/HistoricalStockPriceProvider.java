@@ -1,9 +1,6 @@
 package priceprovider;
 
-import Exception.WrongNameException;
-
 import asset.Share;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;

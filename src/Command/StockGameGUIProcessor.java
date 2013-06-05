@@ -24,10 +24,10 @@ public class StockGameGUIProcessor {
 	}
 
 	@SuppressWarnings("static-access")
-	public void process(String commandstring) {
+	public String process(String commandstring) {
 		this.commandstring = commandstring;
 		if (checkCommand() == false) {
-			this.process(commandstring);
+			return "Invalid command";
 		}
 		StockGameCommandType commandType = (StockGameCommandType) descriptor
 				.getCommandType();
@@ -40,11 +40,14 @@ public class StockGameGUIProcessor {
 				System.exit(0);
 				// break;
 			case HELP:
+				String sout = "";
 				for (int i = 0; i < StockGameCommandType.values().length; i++) {
+					sout += StockGameCommandType.values()[i].getName()+StockGameCommandType.values()[i].getHelpText()+"\r\n"; 
 					// shellwriter.println(StockGameCommandType.values()[i].getName()+StockGameCommandType.values()[i].getHelpText());
 				}
+				return sout;
 				// shellwriter.flush();
-				break;
+				
 			default:
 				try {
 					if (descriptor.getParams()[0].equals("help")) {
@@ -59,6 +62,7 @@ public class StockGameGUIProcessor {
 							}
 							// shellwriter.println(s);
 							// shellwriter.flush();
+							return s;
 						}
 					} else {
 						Method executemethod = accountmanager.getClass()
@@ -70,13 +74,16 @@ public class StockGameGUIProcessor {
 				} catch (Exception e) {
 					// shellwriter.println("Action :"+commandType.getImplMethods()+" could not be done");
 					// shellwriter.flush();
+					return "Action :"+commandType.getImplMethods()+" could not be done";
 				}
 				break;
 			}
 		} catch (WrongNameException e) {
 			// shellwriter.println("Invalid Playername !");
 			// shellwriter.flush();
+			return "Invalid Playername!";
 		}
+		return "";
 
 	}
 
