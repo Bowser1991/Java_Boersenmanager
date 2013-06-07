@@ -17,15 +17,12 @@ import javafx.concurrent.Task;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 
 public class Handler extends Application {
 	private EventHandler<KeyEvent> handler;
-	private EventHandler<MouseEvent> actionhandler;
 	private LaunchGUI gui = new LaunchGUI() {
     };
 	private StockPriceProvider provider;
@@ -38,13 +35,9 @@ public class Handler extends Application {
 	 */
 	@Override
 	public void start(Stage primarystage) throws Exception {
-//		gui = new LaunchGUI() {};
-//		primarystage.setOnCloseRequest(closeWindow);
 		setKeyHandler();
-//		setMousHandler();
 		nscene = gui.getScene();
 		nscene.addEventHandler(KeyEvent.KEY_PRESSED, handler);
-//		nscene.addEventHandler(MouseEvent.MOUSE_MOVED, actionhandler);
 		gui.setScene(nscene);
 		try {
 		    provider = new HistoricalStockPriceProvider();
@@ -66,20 +59,6 @@ public class Handler extends Application {
 	/**
 	 * 
 	 */
-//	private void setMousHandler(){
-//		actionhandler = new EventHandler<MouseEvent>() {
-//				@Override
-//				public void handle(MouseEvent action) {
-//					
-//						gui.setStockInfoLabel(gui.createText(manager, provider));
-//					
-//				}
-//		};		
-//			
-//	}
-	/**
-	 * 
-	 */
 	private void setKeyHandler(){
 		handler = new EventHandler<KeyEvent>() {
 				@Override
@@ -88,7 +67,6 @@ public class Handler extends Application {
 						gui.getField().getText();
 						gui.setOutputlabel(commandprocessor.process(gui.getField().getText()));
 						gui.setField("");
-//						gui.setStockInfoLabel(gui.createText(manager, provider));
 					}
 				}
 		};		

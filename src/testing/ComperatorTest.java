@@ -20,7 +20,6 @@ import priceprovider.RandomStockPriceProvider;
 import priceprovider.StockPriceProvider;
 
 import asset.Player;
-import asset.Share;
 
 public class ComperatorTest {
 	static final StockPriceProvider provider = new RandomStockPriceProvider();

@@ -6,7 +6,7 @@ import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import enums.Messages;
+
 import priceprovider.StockPriceProvider;
 import asset.Player;
 import asset.Share;
@@ -35,7 +35,6 @@ public abstract class LaunchGUI extends Application {
 	@Override
 	public void start(Stage primarystage) throws Exception {
 		pane.setPadding(new Insets(25,25,25,25));
-//		stockinfolabel.setText(Messages.getString("welcomeText"));
 		outputlabel.setText("");
 		stockinfolabel.add(text, 0, 0);
 		pane.setLeft(stockinfolabel);
@@ -65,13 +64,6 @@ public abstract class LaunchGUI extends Application {
 	public GridPane getStockInfoLabel() {
 		return stockinfolabel;
 	}
-	/**
-	 * 
-	 * @param label
-	 */
-//	public void setStockInfoLabel(String label) {
-//		this.stockinfolabel.setText(label);
-//	}
 	/**
 	 * 
 	 * @return

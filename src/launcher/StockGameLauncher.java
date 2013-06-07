@@ -6,9 +6,7 @@ import java.util.Locale;
 import java.util.logging.LogManager;
 
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 import enums.Messages;
 import gui.Handler;
