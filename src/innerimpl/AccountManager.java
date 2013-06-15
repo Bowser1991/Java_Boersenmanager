@@ -1,5 +1,6 @@
 package innerimpl;
 
+import priceprovider.StockPriceProvider;
 import asset.Asset;
 import asset.Player;
 import Exception.AccountException;
@@ -138,5 +139,6 @@ public interface AccountManager {
 	  * @throws WrongCommandException
 	  */
 	 public String getShareHistory(String playerName, String sharename) throws HistoryException;
+	 public StockPriceProvider getPriceProvider();
 }
 

@@ -351,4 +351,9 @@ public class AccountManagerImpl implements AccountManager {
         System.out.println(s);
         return s;
 	}
+
+	@Override
+	public StockPriceProvider getPriceProvider() {
+		return provider;
+	}
 }

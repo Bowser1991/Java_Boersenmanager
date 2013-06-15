@@ -51,7 +51,6 @@ public class StockGameLauncher extends Application {
 	public void start(Stage stage) throws Exception {
 	    
 		Handler handler = new Handler();
-		stage.setOnShowing(handler.window);
 		handler.start(stage);
 	}
 	

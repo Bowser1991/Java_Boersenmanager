@@ -12,7 +12,7 @@ import java.util.TreeMap;
 public class HistoricalStockPriceProvider extends StockPriceProvider {
     
     private Map <String, List<Long>> historyData = new TreeMap <String, List<Long>>();
-    private int flag = 1;
+    private int flag = 0;
     
     public HistoricalStockPriceProvider(){
         super();
@@ -25,7 +25,7 @@ public class HistoricalStockPriceProvider extends StockPriceProvider {
     {
         
         List<Long> history = historyData.get(share.name);
-        if(flag < history.size()){
+        if(history != null && flag < history.size()){
             share.setActualSharePrice(history.get(flag));
         }else{
             flag = 1;

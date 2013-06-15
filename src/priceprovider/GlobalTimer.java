@@ -28,7 +28,7 @@ public class GlobalTimer{
 * addTast(TimerTask task)
 */
     public void addTask(TimerTask task) {
-        timerimpl.scheduleAtFixedRate(task, 2000, 400);
+        timerimpl.scheduleAtFixedRate(task, 2000, 4000);
     }
     
     public void addTask(TimerTask task, int updateRate) {

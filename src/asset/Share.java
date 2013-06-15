@@ -1,4 +1,10 @@
 package asset;
+
+import javafx.beans.property.LongProperty;
+import javafx.beans.property.SimpleLongProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 /**
  * 
  * @author daniel und manuel
@@ -6,9 +12,10 @@ package asset;
  */
 public class Share {
     public final String name;
-    private String financename;
-    private String exchange;
-	private long actualshareprice;
+    private final StringProperty nameprop = new SimpleStringProperty();
+    private StringProperty financename = new SimpleStringProperty();
+    private StringProperty exchange = new SimpleStringProperty();
+	private LongProperty actualshareprice = new SimpleLongProperty();
     private long[] sharepricehistory = new long[10] ;
     /**
      * Share(String name, long actualshareprice).
@@ -18,7 +25,8 @@ public class Share {
      */
     public Share(String name, long actualshareprice) {              
         this.name = name;
-        this.actualshareprice = actualshareprice;
+        this.nameprop.set(name);
+        this.actualshareprice.set(actualshareprice);
     }
     
     /**
@@ -27,7 +35,7 @@ public class Share {
      * gibt den Aktuellen SharePrice der Aktie zurück
      */
     public long getActualSharePrice(){
-        return actualshareprice;
+        return actualshareprice.get();
     }
     
     /**
@@ -48,14 +56,14 @@ public class Share {
     public void setActualSharePrice(long newshareprice) {            //speichert die Vergangenen Preise
         for(int i = 0; i < sharepricehistory.length;i++){           //geht jeden Wert in sharePricehistory sobald ein leeres Objekt gefunden wird speicher er dort den letzten Preis
             if(sharepricehistory[i] == 0){
-                sharepricehistory[i] = actualshareprice;
+                sharepricehistory[i] = actualshareprice.get();
                 break;
             }
             else if(i == sharepricehistory.length - 1){             //verlängert das Array wenn kein Platz zum speichern ist
                sharepricehistory = longerArray(sharepricehistory, 1);
             }
         }
-        actualshareprice = newshareprice;
+        actualshareprice.set(newshareprice);
     }
     /**
      * long[] longerArray(long[] longarray, int howmuchlonger).
@@ -100,7 +108,7 @@ public class Share {
      * gibt den den Financ Name zurück also für Google inc GOOG
      */
 	public String getFinanceName() {
-		return financename;
+		return financename.get();
 	}
 	/**
 	 * void setFinanceName(String financename)
@@ -108,7 +116,7 @@ public class Share {
 	 * Name der auf der Online Seite gebraucht wird Google Inc = GOOG
 	 */
 	public void setFinanceName(String financename) {
-		this.financename = financename;
+		this.financename.set(financename);
 	}
 	/**
 	 * String getExchange().
@@ -116,7 +124,7 @@ public class Share {
 	 * gibt die Waerung an in welcher der Preis abgelegt ist
 	 */
 	public String getExchange() {
-		return exchange;
+		return exchange.get();
 	}
 	/**
 	 * void setExchange(String exchange).
@@ -124,7 +132,17 @@ public class Share {
 	 * Waerung in welcher der SharePrice abgelegt wird
 	 */
 	public void setExchange(String exchange) {
-		this.exchange = exchange;
+		this.exchange.set(exchange);
 	}
+	public StringProperty nameProperty(){
+		return nameprop;
+	}
+	public LongProperty actualsharepriceProperty(){
+		return actualshareprice;
+	}
+	public StringProperty exchangeProperty(){
+		return exchange;
+	}
+	
 }
 

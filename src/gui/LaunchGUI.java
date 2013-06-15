@@ -14,9 +14,12 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -40,8 +43,20 @@ public abstract class LaunchGUI extends Application {
 		pane.setLeft(stockinfolabel);
 		pane.setTop(field);
 		pane.setCenter(outputlabel);
+		VBox menubox = new VBox();
+		menubox.getChildren().add(setMenuBar());
+		//pane.setTop(menubox);
 		primarystage.setScene(scene);
 		primarystage.show();
+	}
+	public MenuBar setMenuBar(){
+		MenuBar newmenu = new MenuBar();
+		Menu menu = new Menu("Player");
+		
+		newmenu.getMenus().add(menu);
+		
+		
+		return newmenu;
 	}
 	/**
 	 * 
@@ -49,13 +64,6 @@ public abstract class LaunchGUI extends Application {
 	 */
 	public Scene getScene() {
 		return scene;
-	}
-	/**
-	 * 
-	 * @param scene
-	 */
-	public void setScene(Scene scene) {
-		this.scene = scene;
 	}
 	/**
 	 * 
@@ -73,24 +81,10 @@ public abstract class LaunchGUI extends Application {
 	}
 	/**
 	 * 
-	 * @param field
-	 */
-	public void setField(String field) {
-		this.field.setText(field);
-	}
-	/**
-	 * 
 	 * @return
 	 */
 	public Label getOutputlabel() {
 		return outputlabel;
-	}
-	/**
-	 * 
-	 * @param outputlabel
-	 */
-	public void setOutputlabel(String outputlabel) {
-		this.outputlabel.setText(outputlabel);
 	}
 	/**
 	 * 
